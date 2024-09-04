@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2024 at 09:43 AM
+-- Generation Time: Sep 04, 2024 at 10:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,7 +60,10 @@ INSERT INTO `application_forms` (`id`, `case_number`, `full_name`, `age`, `sex`,
 (3, NULL, 'Andrei ', 23, 'Male', '1970-01-01', '', 'Cavite', 'College', 'Single', 'Student', 'Born Again ', 'CSWD', 10000.00, 'Employed', '09267033282', 'eubert@gmail.com', 'Y', 'N', '2024-08-30 04:50:15'),
 (4, NULL, 'Hello ', 123, 'Male', '1970-01-01', '', 'lasjkdflsdjk', 'lasdjflajk', 'Married', 'alsdkjflkj', 'lasdjflj', 'jalsdkjfl', 12341.00, 'Employed', '123413', 'asdfn@gmail.com', 'N', 'N', '2024-08-30 05:02:04'),
 (5, NULL, 'Eubert ', 22, 'Male', '2001-10-07', 'Quezon ', 'Cavite ', 'College', 'Single', 'IT ', 'Born Again ', 'CSWD', 100000.00, 'Employed', '09324123413', 'eubert@gmail.com', 'N', 'N', '2024-08-30 05:22:22'),
-(6, '1234', 'Eubert ', 21, 'Male', '2001-09-09', 'Quezon ', 'Cavite ', 'College', 'Single', 'Student', 'Born Again ', 'CSWD', 99999999.99, 'Employed', '1234', 'eubert@gmail.com', 'Y', 'Y', '2024-08-30 08:26:54');
+(6, '1234', 'Eubert ', 21, 'Male', '2001-09-09', 'Quezon ', 'Cavite ', 'College', 'Single', 'Student', 'Born Again ', 'CSWD', 99999999.99, 'Employed', '1234', 'eubert@gmail.com', 'Y', 'Y', '2024-08-30 08:26:54'),
+(7, '1234', 'Andrea ', 19, 'Female', '2002-02-02', 'Quezon City ', 'Cavite ', 'College ', 'Single', 'None ', 'Catholic ', 'eac ', 20000.00, 'Employed', '09521341234', 'andrea@gmail.com', 'Y', 'N', '2024-09-04 07:42:08'),
+(8, '1234', 'Eubert ', 22, 'Male', '2014-02-01', 'Quezon City ', 'Cavite ', 'College', 'Single', 'Student', 'asdf', 'asdfadfs', 21341.00, 'Employed', '09267033282', 'eubert@gmail.com', 'Y', 'Y', '2024-09-04 08:04:54'),
+(9, '1234', 'eric ', 22, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'student ', 'sldfjk', 'lskjflsdkj', 1234.00, 'Employed', '092134', 'eric@gmail.com', 'Y', 'N', '2024-09-04 08:09:57');
 
 -- --------------------------------------------------------
 
@@ -111,7 +114,10 @@ CREATE TABLE `family_members` (
 --
 
 INSERT INTO `family_members` (`id`, `application_form_id`, `name`, `relationship`, `age`, `date_of_birth`, `civil_status`, `educational_attainment`, `occupation`, `monthly_income`) VALUES
-(1, 6, 'andrea ', 'sis', 23, '1999-09-09', 'Single', 'senior ', 'laksjdflskj', 1234234.00);
+(1, 6, 'andrea ', 'sis', 23, '1999-09-09', 'Single', 'senior ', 'laksjdflskj', 1234234.00),
+(2, 7, 'Eubert ', 'bro ', 22, '2001-10-07', 'Single', 'College ', 'IT ', 2000000.00),
+(3, 8, 'andrea ', 'sis', 33, '2001-01-01', 'Single', 'fasd', 'laksjdflskj', 23432.00),
+(4, 9, 'ladjkflaskj', 'laksjdf', 234, '2001-01-01', 'Single', 'asldfj', 'lskdfjls', 233.00);
 
 -- --------------------------------------------------------
 
@@ -212,7 +218,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `image`, `status`, `last_login`) VALUES
-(1, 'Harry Denn', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.png', 1, '2024-08-30 03:21:42'),
+(1, 'Harry Denn', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.png', 1, '2024-09-04 03:13:34'),
 (2, 'John Walker', 'special', 'ba36b97a41e7faf742ab09bf88405ac04f99599a', 2, 'no_image.png', 1, '2021-04-04 19:53:26'),
 (3, 'Christopher', 'user', 'd033e22ae348aeb5660fc2140aec35850c4da997', 3, 'no_image.png', 1, '2024-08-30 03:17:35'),
 (4, 'Natie Williams', 'natie', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 3, 'no_image.png', 1, NULL),
@@ -263,7 +269,7 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `family_members`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `application_form_id` (`application_form_id`);
+  ADD KEY `fk_application_form` (`application_form_id`);
 
 --
 -- Indexes for table `media`
@@ -310,7 +316,7 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT for table `application_forms`
 --
 ALTER TABLE `application_forms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -322,7 +328,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `family_members`
 --
 ALTER TABLE `family_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `media`
@@ -362,7 +368,8 @@ ALTER TABLE `user_groups`
 -- Constraints for table `family_members`
 --
 ALTER TABLE `family_members`
-  ADD CONSTRAINT `family_members_ibfk_1` FOREIGN KEY (`application_form_id`) REFERENCES `application_forms` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `family_members_ibfk_1` FOREIGN KEY (`application_form_id`) REFERENCES `application_forms` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_application_form` FOREIGN KEY (`application_form_id`) REFERENCES `application_forms` (`id`);
 
 --
 -- Constraints for table `products`
