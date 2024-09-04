@@ -459,8 +459,7 @@ if (isset($_POST['add_product'])) {
     requiredFields.forEach(function (field) {
       if (!field.value) {
         allFilled = false;
-        field.classList.add('is        git config --global user.name
-        git config--global user.email - invalid');
+        field.classList.add('is-invalid');
       } else {
         field.classList.remove('is-invalid');
       }
@@ -472,5 +471,5 @@ if (isset($_POST['add_product'])) {
     }
   });
 
-  // No need to add even
+  // No need to add event listener to the initial remove button since it's hidden
 </script>
