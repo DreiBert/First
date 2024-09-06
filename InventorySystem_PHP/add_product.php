@@ -39,25 +39,6 @@ if (isset($_POST['add_product'])) {
     $query .= " ON DUPLICATE KEY UPDATE full_name='{$full_name}'";
 
     if ($db->query($query)) {
-      $application_form_id = $db->insert_id(); // Get the ID of the newly inserted application form
-
-      // Insert family members
-      foreach ($_POST['family-member-name'] as $index => $name) {
-        $family_name = remove_junk($db->escape($name));
-        $relationship = remove_junk($db->escape($_POST['family-member-relationship'][$index]));
-        $family_age = remove_junk($db->escape($_POST['family-member-age'][$index]));
-        $family_date_of_birth = remove_junk($db->escape($_POST['family-member-birthday'][$index]));
-        $family_civil_status = remove_junk($db->escape($_POST['family-member-civil-status'][$index]));
-        $family_education = remove_junk($db->escape($_POST['family-member-education'][$index]));
-        $family_occupation = remove_junk($db->escape($_POST['family-member-occupation'][$index]));
-        $family_monthly_income = remove_junk($db->escape($_POST['family-member-monthly-income'][$index]));
-
-        // Insert the family member with the application_form_id
-        $family_query = "INSERT INTO family_members (application_form_id, name, relationship, age, date_of_birth, civil_status, educational_attainment, occupation, monthly_income) VALUES (";
-        $family_query .= "'{$application_form_id}', '{$family_name}', '{$relationship}', '{$family_age}', '{$family_date_of_birth}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
-        $db->query($family_query);
-      }
-
       $session->msg('s', "Data added ");
       redirect('add_product.php', false);
     } else {
@@ -252,8 +233,6 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
 
-
-
             <!-- Contact No. and Email Address  -->
             <div class="row">
               <div class="col-md-4">
@@ -298,160 +277,21 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
 
-            <!-- Pantawid Beneficiary, and  LGBTQ+ selection field -->
-            <div class="row">
-
-            </div>
-        </div>
-
-        <!-- Family Composition Section -->
-        <div class="row">
-          <div class="col-md-12">
-            <strong>
-              <i>
-                <p class="mb-0">II. FAMILY COMPOSITION</p>
-              </i>
-            </strong>
-          </div>
-        </div>
-        <div id="family-composition-section">
-          <div class="family-member">
-            <!-- Family: Name, Relationship, and Age -->
-            <div class="row">
-              <div class="col-md-5">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input type="text" class="form-control" name="family-member-name[]"
-                      placeholder="Input Name (First, Middle, Last)">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
-                    <input type="text" class="form-control" name="family-member-relationship[]"
-                      placeholder="Relationship">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-hourglass"></i></span>
-                    <input type="number" class="form-control" name="family-member-age[]" placeholder="Age">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    <input type="date" class="form-control" name="family-member-birthday[]" id="family-member-birthday"
-                      placeholder="Birthday (mm/dd/yy)">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Family: BDAY, Civil Status, Educational Attainment, Occupation, Income -->
-            <div class="row">
-              <div class="col-md-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
-                    <select class="form-control" name="family-member-civil-status[]">
-                      <option value="">Civil Status</option>
-                      <option value="Single">Single</option>
-                      <option value="Married">Married</option>
-                      <option value="Divorced">Divorced</option>
-                      <option value="Widowed">Widowed</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-                    <input type="text" class="form-control" name="family-member-education[]"
-                      placeholder="Education Attainment">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
-                    <input type="text" class="form-control" name="family-member-occupation[]" placeholder="Occupation">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                    <input type="number" class="form-control" name="family-member-monthly-income[]"
-                      placeholder="Monthly Income">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Remove button, initially hidden -->
+            <!-- Submit button -->
             <div class="row">
               <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-danger remove-family-member" style="display: none;">Remove</button>
+                <button type="submit" name="add_product" class="btn btn-danger">Submit</button>
               </div>
             </div>
-            <br>
-          </div>
+          </form>
         </div>
-        <div class="row">
-          <div class="col-md-12 text-right">
-            <button type="button" id="add-family-member" class="btn btn-primary">Add Family Member</button>
-          </div>
-        </div>
-        <br>
-        <!-- Submit button -->
-        <div class="row">
-          <div class="col-md-12 text-right">
-            <button type="submit" name="add_product" class="btn btn-danger">Submit</button>
-          </div>
-        </div>
-        </form>
       </div>
     </div>
   </div>
 </div>
-</div>
 <?php include_once('layouts/footer.php'); ?>
 
 <script>
-  document.getElementById('add-family-member').addEventListener('click', function () {
-    var familyMemberSection = document.querySelector('.family-member');
-    var newFamilyMember = familyMemberSection.cloneNode(true);
-
-    // Clear the values of the cloned inputs
-    var inputs = newFamilyMember.querySelectorAll('input, select');
-    inputs.forEach(function (input) {
-      input.value = '';
-    });
-
-    // Show the remove button in the new family member section
-    newFamilyMember.querySelector('.remove-family-member').style.display = 'inline-block';
-
-    // Append the new family member section
-    var hr = document.createElement('hr');
-    document.getElementById('family-composition-section').appendChild(hr);
-    document.getElementById('family-composition-section').appendChild(newFamilyMember);
-
-    // Add event listener to the new remove button
-    newFamilyMember.querySelector('.remove-family-member').addEventListener('click', function () {
-      newFamilyMember.previousElementSibling.remove(); // Remove the preceding <hr> element
-      newFamilyMember.remove();
-    });
-  });
-
   document.querySelector('form').addEventListener('submit', function (event) {
     var requiredFields = document.querySelectorAll('input[required], select[required]');
     var allFilled = true;
@@ -470,6 +310,4 @@ if (isset($_POST['add_product'])) {
       event.preventDefault();
     }
   });
-
-  // No need to add event listener to the initial remove button since it's hidden
 </script>
