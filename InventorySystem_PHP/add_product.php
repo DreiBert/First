@@ -1,15 +1,28 @@
 <?php
+// Set the page title
 $page_title = 'Add Product';
+
+// Include necessary files
 require_once('includes/load.php');
-// Checkin What level user has permission to view this page
+
+// Check what level user has permission to view this page
 page_require_level(2);
+
+// Fetch all categories and photos
 $all_categories = find_all('categories');
 $all_photo = find_all('media');
 
+// Check if the form is submitted
 if (isset($_POST['add_product'])) {
+  // Required fields for validation
   $req_fields = array('case-number', 'full-name', 'age', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq');
+
+  // Validate the required fields
   validate_fields($req_fields);
+
+  // If no errors, proceed to process the form data
   if (empty($errors)) {
+    // Sanitize and escape form inputs
     $case_number = remove_junk($db->escape($_POST['case-number']));
     $full_name = remove_junk($db->escape($_POST['full-name']));
     $age = remove_junk($db->escape($_POST['age']));
@@ -29,8 +42,10 @@ if (isset($_POST['add_product'])) {
     $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
     $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
 
+    // Get the current date
     $date = make_date();
 
+    // Construct the SQL query to insert data into the database
     $query = "INSERT INTO application_forms (";
     $query .= "case_number, full_name, age, sex, date_of_birth, place_of_birth, address, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, date";
     $query .= ") VALUES (";
@@ -38,25 +53,34 @@ if (isset($_POST['add_product'])) {
     $query .= ")";
     $query .= " ON DUPLICATE KEY UPDATE full_name='{$full_name}'";
 
+    // Execute the query and check if it was successful
     if ($db->query($query)) {
+      // Success message and redirect
       $session->msg('s', "Data added ");
       redirect('add_product.php', false);
     } else {
+      // Failure message and redirect
       $session->msg('d', ' Sorry failed to add!');
       redirect('add_product.php', false);
     }
   } else {
+    // Display validation errors and redirect
     $session->msg("d", $errors);
     redirect('add_product.php', false);
   }
 }
 ?>
+
 <?php include_once('layouts/header.php'); ?>
+
+<!-- Display messages -->
 <div class="row">
   <div class="col-md-8">
     <?php echo display_msg($msg); ?>
   </div>
 </div>
+
+<!-- Form container -->
 <div class="row">
   <div class="col-md-8">
     <div class="panel panel-default">
@@ -71,7 +95,7 @@ if (isset($_POST['add_product'])) {
           <!-- Form to add a new product -->
           <form method="post" action="add_product.php" class="clearfix">
 
-            <!-- HEADLINE Identificaiton Name -->
+            <!-- Headline Identification Name -->
             <div class="row d-flex align-items-center">
               <div class="col-md-10">
                 <strong>
@@ -80,7 +104,6 @@ if (isset($_POST['add_product'])) {
                   </i>
                 </strong>
               </div>
-
             </div>
 
             <!-- Full Name, Age, and Sex input fields in one row -->
@@ -90,7 +113,6 @@ if (isset($_POST['add_product'])) {
                   <div class="input-group">
                     <input type="text" class="form-control" name="case-number" placeholder="Case Number" required>
                   </div>
-
                 </div>
               </div>
 
@@ -106,7 +128,6 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-2">
                 <div class="form-group">
                   <div class="input-group">
-
                     <input type="number" class="form-control" name="age" placeholder="Age" required>
                   </div>
                 </div>
@@ -122,7 +143,6 @@ if (isset($_POST['add_product'])) {
                   </select>
                 </div>
               </div>
-
             </div>
 
             <!-- Date of Birth & Place of Birth -->
@@ -146,7 +166,7 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
 
-            <!--Address input fields in one row  -->
+            <!-- Address input fields in one row -->
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -157,7 +177,8 @@ if (isset($_POST['add_product'])) {
                 </div>
               </div>
             </div>
-            <!--Educational Attainment and Civil Status input  -->
+
+            <!-- Educational Attainment and Civil Status input -->
             <div class="row">
               <div class="col-md-10">
                 <div class="form-group">
@@ -194,14 +215,13 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-2">
                 <div class="form-group">
                   <div class="input-group">
-
                     <input type="text" class="form-control" name="religion" placeholder="Religion">
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Company/Agency and monthly-income -->
+            <!-- Company/Agency and Monthly Income -->
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">
@@ -233,13 +253,13 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
 
-            <!-- Contact No. and Email Address  -->
+            <!-- Contact No. and Email Address -->
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                    <input type="text" class="form-control " name="contact-number" placeholder="Contact Number">
+                    <input type="text" class="form-control" name="contact-number" placeholder="Contact Number">
                   </div>
                 </div>
               </div>
@@ -260,7 +280,6 @@ if (isset($_POST['add_product'])) {
                       <option value="N">No</option>
                     </select>
                   </div>
-
                 </div>
               </div>
               <div class="col-md-2">
@@ -272,7 +291,6 @@ if (isset($_POST['add_product'])) {
                       <option value="N">No</option>
                     </select>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -289,8 +307,10 @@ if (isset($_POST['add_product'])) {
     </div>
   </div>
 </div>
+
 <?php include_once('layouts/footer.php'); ?>
 
+<!-- Client-side form validation script -->
 <script>
   document.querySelector('form').addEventListener('submit', function (event) {
     var requiredFields = document.querySelectorAll('input[required], select[required]');
