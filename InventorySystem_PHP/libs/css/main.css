@@ -320,30 +320,3 @@ input[type=file]{
   height: 125px;
 }
 
-/*Add*/
-
-/* Styles for the form input fields */
-.form-control {
-  width: 200px; /* Default width for all input fields */
-}
-
-.form-control.age {
-  width: 10px; /* Specific width for age input field */
-}
-
-.form-control.sex,
-.form-control.civil-status,
-.form-control.employment-status,
-.form-control.pantawid-beneficiary,
-.form-control.lgbtq {
-  width: 150px; /* Specific width for dropdown fields */
-}
-
-.form-control.address {
-  width: 400px; /* Specific width for address input field */
-}
-
-.form-control.monthly-income,
-.form-control.contact-number {
-  width: 200px; /* Specific width for monthly income and contact number input fields */
-}

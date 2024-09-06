@@ -15,6 +15,7 @@
          <li><a href="add_sale.php">Add a Form</a> </li>
      </ul>
   </li>
+  <!-- ADDITIONAL FEATURES 
   <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-signal"></i>
@@ -26,4 +27,5 @@
         <li><a href="daily_sales.php">Daily sales</a> </li>
       </ul>
   </li>
+-->
 </ul>
