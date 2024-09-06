@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2024 at 10:15 AM
+-- Generation Time: Sep 06, 2024 at 09:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,7 +63,22 @@ INSERT INTO `application_forms` (`id`, `case_number`, `full_name`, `age`, `sex`,
 (6, '1234', 'Eubert ', 21, 'Male', '2001-09-09', 'Quezon ', 'Cavite ', 'College', 'Single', 'Student', 'Born Again ', 'CSWD', 99999999.99, 'Employed', '1234', 'eubert@gmail.com', 'Y', 'Y', '2024-08-30 08:26:54'),
 (7, '1234', 'Andrea ', 19, 'Female', '2002-02-02', 'Quezon City ', 'Cavite ', 'College ', 'Single', 'None ', 'Catholic ', 'eac ', 20000.00, 'Employed', '09521341234', 'andrea@gmail.com', 'Y', 'N', '2024-09-04 07:42:08'),
 (8, '1234', 'Eubert ', 22, 'Male', '2014-02-01', 'Quezon City ', 'Cavite ', 'College', 'Single', 'Student', 'asdf', 'asdfadfs', 21341.00, 'Employed', '09267033282', 'eubert@gmail.com', 'Y', 'Y', '2024-09-04 08:04:54'),
-(9, '1234', 'eric ', 22, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'student ', 'sldfjk', 'lskjflsdkj', 1234.00, 'Employed', '092134', 'eric@gmail.com', 'Y', 'N', '2024-09-04 08:09:57');
+(9, '1234', 'eric ', 22, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'student ', 'sldfjk', 'lskjflsdkj', 1234.00, 'Employed', '092134', 'eric@gmail.com', 'Y', 'N', '2024-09-04 08:09:57'),
+(10, '1234', 'Eubert ', 21, 'Male', '2001-10-10', 'quezon ', 'cavite ', 'college ', 'Single', 'student ', 'catholic ', 'it ', 200.00, 'Employed', '032142134', 'eubert@gmail.com', 'Y', 'N', '2024-09-05 02:44:31'),
+(11, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:53:07'),
+(12, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:54:59'),
+(13, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:55:01'),
+(14, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:55:03'),
+(15, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:55:09'),
+(16, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:55:34'),
+(17, '1234', 'asdf', 12, 'Male', '2001-01-01', 'quezon ', 'aldksfj', 'alsdkfj', 'Single', 'sldkfj', 'lskdfj', 'lskdfj', 134234.00, 'Employed', '1234', '234@gmail.com', 'Y', 'Y', '2024-09-05 03:24:46'),
+(18, '1234', 'asdf', 12, 'Male', '2001-01-01', 'sadf', 'sdfsdf', 'sfasdf', 'Single', 'asdf', 'asdf', 'sdafas', 1234.00, 'Self-employed', 'asdf', 'asdfa@gmadfl.com', 'Y', 'Y', '2024-09-05 03:26:28'),
+(19, '134', 'Bertee', 23, 'Male', '2001-01-01', 'asdf', 'asdfasd', 'asdfs', 'Single', 'as,dmfn', 'asdfn', 'sadnf,n', 1234.00, 'Self-employed', '123412', 'eubert@gmail.com', 'N', 'N', '2024-09-05 03:30:20'),
+(20, '1234', 'fasdf', 2134, 'Male', '2001-01-01', 'ewalkrj', 'lksafjl', 'ladjsflak', 'Single', 'asdfdas', 'asdf', 'asdf', 1234.00, 'Employed', '2134', 'eubert@gmail.com', 'Y', 'Y', '2024-09-05 03:47:03'),
+(21, '1234', 'Eubert ', 21, 'Male', '2001-12-07', 'Quezon ', 'Cavite ', 'colelge ', 'Single', 'IT ', 'Catholic ', 'IT ', 2000.00, 'Employed', '01923413', 'eubert@gmail.com', 'Y', 'Y', '2024-09-06 08:21:38'),
+(22, '1234', 'Eubert', 30, 'Male', '2001-01-01', 'quezon', 'Cavite ', 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'Cavite@gmail.com', 'Y', 'N', '2024-09-06 09:00:52'),
+(23, '1234', 'Eubert', 30, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-06 09:02:21'),
+(24, '1234', 'Eubert', 30, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-06 09:41:57');
 
 -- --------------------------------------------------------
 
@@ -98,13 +113,13 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 
 CREATE TABLE `family_members` (
   `id` int(11) NOT NULL,
-  `application_form_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `relationship` varchar(50) NOT NULL,
+  `relation` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
-  `date_of_birth` date NOT NULL,
+  `birthday` date NOT NULL,
   `civil_status` varchar(50) NOT NULL,
-  `educational_attainment` varchar(255) NOT NULL,
+  `education` varchar(255) NOT NULL,
   `occupation` varchar(255) NOT NULL,
   `monthly_income` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -113,11 +128,9 @@ CREATE TABLE `family_members` (
 -- Dumping data for table `family_members`
 --
 
-INSERT INTO `family_members` (`id`, `application_form_id`, `name`, `relationship`, `age`, `date_of_birth`, `civil_status`, `educational_attainment`, `occupation`, `monthly_income`) VALUES
-(1, 6, 'andrea ', 'sis', 23, '1999-09-09', 'Single', 'senior ', 'laksjdflskj', 1234234.00),
-(2, 7, 'Eubert ', 'bro ', 22, '2001-10-07', 'Single', 'College ', 'IT ', 2000000.00),
-(3, 8, 'andrea ', 'sis', 33, '2001-01-01', 'Single', 'fasd', 'laksjdflskj', 23432.00),
-(4, 9, 'ladjkflaskj', 'laksjdf', 234, '2001-01-01', 'Single', 'asldfj', 'lskdfjls', 233.00);
+INSERT INTO `family_members` (`id`, `application_id`, `name`, `relation`, `age`, `birthday`, `civil_status`, `education`, `occupation`, `monthly_income`) VALUES
+(1, 24, 'andrea ', 'sis', 19, '2001-09-09', 'Single', 'asdf', 'IT', 1234.00),
+(2, 24, 'emman', 'bro', 23, '2001-01-01', 'Single', 'asdf', 'asdf', 1234.00);
 
 -- --------------------------------------------------------
 
@@ -218,7 +231,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `image`, `status`, `last_login`) VALUES
-(1, 'Harry Denn', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.png', 1, '2024-09-04 03:13:34'),
+(1, 'Harry Denn', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.png', 1, '2024-09-06 08:09:55'),
 (2, 'John Walker', 'special', 'ba36b97a41e7faf742ab09bf88405ac04f99599a', 2, 'no_image.png', 1, '2021-04-04 19:53:26'),
 (3, 'Christopher', 'user', 'd033e22ae348aeb5660fc2140aec35850c4da997', 3, 'no_image.png', 1, '2024-08-30 03:17:35'),
 (4, 'Natie Williams', 'natie', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 3, 'no_image.png', 1, NULL),
@@ -269,7 +282,7 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `family_members`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_application_form` (`application_form_id`);
+  ADD KEY `application_id` (`application_id`);
 
 --
 -- Indexes for table `media`
@@ -316,7 +329,7 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT for table `application_forms`
 --
 ALTER TABLE `application_forms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -328,7 +341,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `family_members`
 --
 ALTER TABLE `family_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `media`
@@ -368,8 +381,7 @@ ALTER TABLE `user_groups`
 -- Constraints for table `family_members`
 --
 ALTER TABLE `family_members`
-  ADD CONSTRAINT `family_members_ibfk_1` FOREIGN KEY (`application_form_id`) REFERENCES `application_forms` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_application_form` FOREIGN KEY (`application_form_id`) REFERENCES `application_forms` (`id`);
+  ADD CONSTRAINT `family_members_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `application_forms` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
