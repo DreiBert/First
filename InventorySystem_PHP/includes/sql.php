@@ -197,7 +197,7 @@ function page_require_level($require_level)
     $session->msg('d', 'Please login...');
     redirect('index.php', false);
     //if Group status Deactive
-  elseif ($login_level['group_status'] == '0'):
+  elseif (is_array($login_level) && $login_level['group_status'] == '0'):
     $session->msg('d', 'This level user has been band!');
     redirect('home.php', false);
     //cheackin log in User level and Require level is Less than or equal to
@@ -367,4 +367,3 @@ function monthlySales($year)
   return find_by_sql($sql);
 }
 
-?>

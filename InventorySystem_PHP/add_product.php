@@ -55,6 +55,21 @@ if (isset($_POST['add_product'])) {
 
     // Execute the query and check if it was successful
     if ($db->query($query)) {
+      // Get the last inserted ID
+      $application_id = $db->insert_id();
+
+      // Process family members
+      if (isset($_POST['family'])) {
+        foreach ($_POST['family'] as $family_member) {
+          $family_name = remove_junk($db->escape($family_member['name']));
+          $family_age = remove_junk($db->escape($family_member['age']));
+          $family_relation = remove_junk($db->escape($family_member['relation']));
+
+          $family_query = "INSERT INTO family_members (application_id, name, age, relation) VALUES ('{$application_id}', '{$family_name}', '{$family_age}', '{$family_relation}')";
+          $db->query($family_query);
+        }
+      }
+
       // Success message and redirect
       $session->msg('s', "Data added ");
       redirect('add_product.php', false);
@@ -135,6 +150,7 @@ if (isset($_POST['add_product'])) {
 
               <div class="col-md-2">
                 <div class="form-group">
+
                   <select class="form-control sex" name="sex" required>
                     <option value="">Select Sex</option>
                     <option value="Male">Male</option>
@@ -295,12 +311,52 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
 
+            <!-- Family Members Section -->
+            <div class="row">
+              <div class="col-md-12">
+                <strong>
+                  <i>
+                    <p class="mb-0">II. FAMILY MEMBERS</p>
+                  </i>
+                </strong>
+                <div id="family-members-container">
+                  <!-- Family member template -->
+                  <div class="family-member">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="family[0][name]"
+                            placeholder="Family Member Name" required>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="number" class="form-control" name="family[0][age]" placeholder="Age" required>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="family[0][relation]" placeholder="Relation"
+                            required>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-danger remove-family-member">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" id="add-family-member" class="btn btn-primary">Add Family Member</button>
+              </div>
+            </div>
+
             <!-- Submit button -->
             <div class="row">
               <div class="col-md-12 text-right">
                 <button type="submit" name="add_product" class="btn btn-danger">Submit</button>
               </div>
             </div>
+
           </form>
         </div>
       </div>
@@ -328,6 +384,43 @@ if (isset($_POST['add_product'])) {
     if (!allFilled) {
       alert('Please fill in all required fields.');
       event.preventDefault();
+    }
+  });
+
+  // JavaScript to add/remove family members
+  document.getElementById('add-family-member').addEventListener('click', function () {
+    var container = document.getElementById('family-members-container');
+    var index = container.children.length;
+    var template = `
+      <div class="family-member">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <input type="text" class="form-control" name="family[${index}][name]" placeholder="Family Member Name" required>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <input type="number" class="form-control" name="family[${index}][age]" placeholder="Age" required>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <input type="text" class="form-control" name="family[${index}][relation]" placeholder="Relation" required>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-danger remove-family-member">Remove</button>
+          </div>
+        </div>
+      </div>
+    `;
+    container.insertAdjacentHTML('beforeend', template);
+  });
+
+  document.getElementById('family-members-container').addEventListener('click', function (event) {
+    if (event.target.classList.contains('remove-family-member')) {
+      event.target.closest('.family-member').remove();
     }
   });
 </script>
