@@ -329,12 +329,21 @@ if (isset($_POST['add_product'])) {
                   <!-- Family member template -->
                   <div class="family-member">
                     <div class="row">
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
-                          <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name"
-                            required>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name"
+                              required>
+                          </div>
+
+
+
                         </div>
                       </div>
+
+
+
                       <div class="col-md-2">
                         <div class="form-group">
                           <input type="text" class="form-control" name="family[0][relation]" placeholder="Relationship"
@@ -352,6 +361,8 @@ if (isset($_POST['add_product'])) {
                             required>
                         </div>
                       </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
                           <select class="form-control" name="family[0][civil_status]" required>
@@ -384,6 +395,7 @@ if (isset($_POST['add_product'])) {
                       <div class="col-md-1">
                         <button type="button" class="btn btn-danger remove-family-member">Remove</button>
                       </div>
+
                     </div>
                   </div>
                 </div>
