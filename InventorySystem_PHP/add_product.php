@@ -62,10 +62,15 @@ if (isset($_POST['add_product'])) {
       if (isset($_POST['family'])) {
         foreach ($_POST['family'] as $family_member) {
           $family_name = remove_junk($db->escape($family_member['name']));
-          $family_age = remove_junk($db->escape($family_member['age']));
           $family_relation = remove_junk($db->escape($family_member['relation']));
+          $family_age = remove_junk($db->escape($family_member['age']));
+          $family_birthday = remove_junk($db->escape($family_member['birthday']));
+          $family_civil_status = remove_junk($db->escape($family_member['civil_status']));
+          $family_education = remove_junk($db->escape($family_member['education']));
+          $family_occupation = remove_junk($db->escape($family_member['occupation']));
+          $family_monthly_income = remove_junk($db->escape($family_member['monthly_income']));
 
-          $family_query = "INSERT INTO family_members (application_id, name, age, relation) VALUES ('{$application_id}', '{$family_name}', '{$family_age}', '{$family_relation}')";
+          $family_query = "INSERT INTO family_members (application_id, name, relation, age, birthday, civil_status, education, occupation, monthly_income) VALUES ('{$application_id}', '{$family_name}', '{$family_relation}', '{$family_age}', '{$family_birthday}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
           $db->query($family_query);
         }
       }
@@ -312,6 +317,7 @@ if (isset($_POST['add_product'])) {
             </div>
 
             <!-- Family Members Section -->
+            <!-- Family Members Section -->
             <div class="row">
               <div class="col-md-12">
                 <strong>
@@ -323,24 +329,59 @@ if (isset($_POST['add_product'])) {
                   <!-- Family member template -->
                   <div class="family-member">
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <div class="form-group">
-                          <input type="text" class="form-control" name="family[0][name]"
-                            placeholder="Family Member Name" required>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <input type="number" class="form-control" name="family[0][age]" placeholder="Age" required>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <input type="text" class="form-control" name="family[0][relation]" placeholder="Relation"
+                          <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name"
                             required>
                         </div>
                       </div>
                       <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="family[0][relation]" placeholder="Relationship"
+                            required>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="form-group">
+                          <input type="number" class="form-control" name="family[0][age]" placeholder="Age" required>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="date" class="form-control" name="family[0][birthday]" placeholder="Birthday"
+                            required>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <select class="form-control" name="family[0][civil_status]" required>
+                            <option value="">Civil Status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="family[0][education]"
+                            placeholder="Educational Attainment" required>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="family[0][occupation]" placeholder="Occupation"
+                            required>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="number" class="form-control" name="family[0][monthly_income]"
+                            placeholder="Monthly Income" required>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
                         <button type="button" class="btn btn-danger remove-family-member">Remove</button>
                       </div>
                     </div>
@@ -349,6 +390,7 @@ if (isset($_POST['add_product'])) {
                 <button type="button" id="add-family-member" class="btn btn-primary">Add Family Member</button>
               </div>
             </div>
+
 
             <!-- Submit button -->
             <div class="row">
@@ -368,48 +410,59 @@ if (isset($_POST['add_product'])) {
 
 <!-- Client-side form validation script -->
 <script>
-  document.querySelector('form').addEventListener('submit', function (event) {
-    var requiredFields = document.querySelectorAll('input[required], select[required]');
-    var allFilled = true;
-
-    requiredFields.forEach(function (field) {
-      if (!field.value) {
-        allFilled = false;
-        field.classList.add('is-invalid');
-      } else {
-        field.classList.remove('is-invalid');
-      }
-    });
-
-    if (!allFilled) {
-      alert('Please fill in all required fields.');
-      event.preventDefault();
-    }
-  });
-
-  // JavaScript to add/remove family members
   document.getElementById('add-family-member').addEventListener('click', function () {
     var container = document.getElementById('family-members-container');
     var index = container.children.length;
     var template = `
       <div class="family-member">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="form-group">
-              <input type="text" class="form-control" name="family[${index}][name]" placeholder="Family Member Name" required>
+              <input type="text" class="form-control" name="family[${index}][name]" placeholder="Full Name" required>
             </div>
           </div>
           <div class="col-md-2">
+            <div class="form-group">
+              <input type="text" class="form-control" name="family[${index}][relation]" placeholder="Relationship" required>
+            </div>
+          </div>
+          <div class="col-md-1">
             <div class="form-group">
               <input type="number" class="form-control" name="family[${index}][age]" placeholder="Age" required>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-2">
             <div class="form-group">
-              <input type="text" class="form-control" name="family[${index}][relation]" placeholder="Relation" required>
+              <input type="date" class="form-control" name="family[${index}][birthday]" placeholder="Birthday" required>
             </div>
           </div>
           <div class="col-md-2">
+            <div class="form-group">
+              <select class="form-control" name="family[${index}][civil_status]" required>
+                <option value="">Civil Status</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <input type="text" class="form-control" name="family[${index}][education]" placeholder="Educational Attainment" required>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <input type="text" class="form-control" name="family[${index}][occupation]" placeholder="Occupation" required>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <input type="number" class="form-control" name="family[${index}][monthly_income]" placeholder="Monthly Income" required>
+            </div>
+          </div>
+          <div class="col-md-1">
             <button type="button" class="btn btn-danger remove-family-member">Remove</button>
           </div>
         </div>
