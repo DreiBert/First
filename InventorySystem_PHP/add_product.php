@@ -318,7 +318,6 @@ if (isset($_POST['add_product'])) {
             </div>
 
             <!-- Family Members Section -->
-            <!-- Family Members Section -->
             <div class="row">
               <div class="col-md-12">
                 <strong>
@@ -330,7 +329,7 @@ if (isset($_POST['add_product'])) {
                   <!-- Family member template -->
                   <div class="family-member">
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-5">
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -345,7 +344,7 @@ if (isset($_POST['add_product'])) {
 
 
 
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <input type="text" class="form-control" name="family[0][relation]" placeholder="Relationship"
                             required>
@@ -363,6 +362,7 @@ if (isset($_POST['add_product'])) {
                         </div>
                       </div>
                     </div>
+                    <!-- ------------------------ROW 2 ----------------------- -->
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
@@ -427,14 +427,20 @@ if (isset($_POST['add_product'])) {
     var container = document.getElementById('family-members-container');
     var index = container.children.length;
     var template = `
+    <br>
       <div class="family-member">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-5">
             <div class="form-group">
-              <input type="text" class="form-control" name="family[${index}][name]" placeholder="Full Name" required>
+              <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name"
+                              required>
+                          </div>
+
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-4">
             <div class="form-group">
               <input type="text" class="form-control" name="family[${index}][relation]" placeholder="Relationship" required>
             </div>
@@ -449,7 +455,11 @@ if (isset($_POST['add_product'])) {
               <input type="date" class="form-control" name="family[${index}][birthday]" placeholder="Birthday" required>
             </div>
           </div>
-          <div class="col-md-2">
+          
+        </div>
+        <!-- -----------------------ROW 2 ------------------ -->
+        <div class="row">
+        <div class="col-md-2">
             <div class="form-group">
               <select class="form-control" name="family[${index}][civil_status]" required>
                 <option value="">Civil Status</option>
@@ -480,6 +490,7 @@ if (isset($_POST['add_product'])) {
           </div>
         </div>
       </div>
+      
     `;
     container.insertAdjacentHTML('beforeend', template);
   });
