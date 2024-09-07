@@ -43,6 +43,7 @@ if (isset($_POST['add_product'])) {
     $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
 
     // Get the current date
+    //test
     $date = make_date();
 
     // Construct the SQL query to insert data into the database
