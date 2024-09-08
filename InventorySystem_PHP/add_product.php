@@ -98,6 +98,15 @@ if (isset($_POST['add_product'])) {
         }
       }
 
+      // Process emergency contact
+      $emergency_name = remove_junk($db->escape($_POST['emergency']['name']));
+      $emergency_relation = remove_junk($db->escape($_POST['emergency']['relation']));
+      $emergency_address = remove_junk($db->escape($_POST['emergency']['address']));
+      $emergency_contact = remove_junk($db->escape($_POST['emergency']['contact']));
+
+      $emergency_query = "INSERT INTO emergency_contacts (application_id, name, relation, address, contact_number) VALUES ('{$application_id}', '{$emergency_name}', '{$emergency_relation}', '{$emergency_address}', '{$emergency_contact}')";
+      $db->query($emergency_query);
+
       // Success message and redirect
       $session->msg('s', "Data added ");
       redirect('add_product.php', false);
