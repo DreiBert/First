@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2024 at 07:25 PM
+-- Generation Time: Sep 09, 2024 at 01:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -86,7 +86,14 @@ INSERT INTO `application_forms` (`id`, `case_number`, `full_name`, `age`, `sex`,
 (27, '1234', 'Esguerra', 22, 'Male', '2001-10-07', 'Quezon', 'Cavite ', 'College', 'Single', 'asdf', 'asfd', 'asdfadsf', 134.00, 'Employed', '0132412', 'me@mydomain.com', 'Y', 'Y', '2024-09-08 08:34:57', NULL, NULL),
 (28, '1234', 'eubert', 23, 'Male', '2001-01-01', 'Quezon', 'adsfadsf', 'asdfasdf', 'Single', 'adsfasdf', 'asdfsaf', 'asdfasdf', 1234.00, 'Employed', '12342', 'asdf@gmail.com', 'Y', 'Y', '2024-09-08 08:39:35', NULL, NULL),
 (29, '1234', 'company name', 23, 'Male', '2001-01-01', 'adfas', 'country nameasdfadf', 'asdfasd', 'Single', 'asdfasdf', 'afsdasdf', 'asdfasd', 3214.00, 'Employed', '12342', 'FASDF@GMAIL.COM', 'Y', 'Y', '2024-09-08 18:52:36', 'asdfasdf asdf asdf asdf asdf asd fasdf asdf asdfasdf asdf asdf asdf asdf asd fasdf asdf asdfasdf asdf asdf asdf asdf asd fasdf asdf ', 'asfdasdfasdf asdf asdf asdf asdf asd fasdf asdf asdfasdf asdf asdf asdf asdf asd fasdf asdf asdfasdf asdf asdf asdf asdf asd fasdf asdf '),
-(30, '1234', 'Eubert', 17, 'Male', '2007-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:18:44', 'asdfasdf', 'adfasdfas');
+(30, '1234', 'Eubert', 17, 'Male', '2007-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:18:44', 'asdfasdf', 'adfasdfas'),
+(31, '1234', 'Eubert', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:33:03', '', ''),
+(32, '1234', 'Eubert', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:35:08', '', ''),
+(33, '1234', 'Eubert ey', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:37:43', '', ''),
+(34, '1234', 'Eubert', 26, 'Male', '1998-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'N', '2024-09-08 19:40:56', 'asdfasdf', 'asdasdfasd'),
+(35, '1234', 'Eubert', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:43:25', '', ''),
+(36, '1234', 'Eubertfdf', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:45:16', '', ''),
+(37, '1234', 'Esguerra, Eubert Andrei', 24, 'Male', '2000-01-01', 'Quezon', 'Cavite', 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 20:06:56', '', '');
 
 -- --------------------------------------------------------
 
@@ -133,7 +140,9 @@ CREATE TABLE `emergency_contacts` (
 --
 
 INSERT INTO `emergency_contacts` (`id`, `application_id`, `name`, `relation`, `address`, `contact_number`) VALUES
-(1, 30, 'Bhea ', 'Mom', 'Cavite', '1341234');
+(1, 30, 'Bhea ', 'Mom', 'Cavite', '1341234'),
+(2, 32, '', '', '', ''),
+(3, 34, 'asdfasdf', 'asdfasdf', 'adfasdf', '12341234');
 
 -- --------------------------------------------------------
 
@@ -170,7 +179,13 @@ INSERT INTO `family_members` (`id`, `application_id`, `name`, `relation`, `age`,
 (9, 28, 'emman2', 'asdfasdf', 4, '2020-01-01', 'Single', 'asdf', 'asdfas', 1234.00),
 (10, 29, 'company namea', 'adfasd', 23, '2001-01-01', 'Single', 'asdfads', 'sadfafsd', 234.00),
 (11, 30, 'Andrea', 'sis', 22, '2002-02-02', 'Single', 'asdfads', 'asdfasd', 112341.00),
-(12, 30, 'Emman', 'bro', 21, '2002-12-01', 'Single', 'fasdf', 'fasdf', 12341.00);
+(12, 30, 'Emman', 'bro', 21, '2002-12-01', 'Single', 'fasdf', 'fasdf', 12341.00),
+(13, 34, 'brobro', 'asdf', 22, '2002-02-20', 'Single', 'adfasd', 'adsf', 1234.00),
+(14, 34, 'brobrobro', 'adfaf', 24, '1999-10-10', 'Single', 'asdf', 'asdf', 124.00),
+(15, 35, 'bro1', 'asdfa', 23, '2001-01-01', 'Single', 'asdfa', 'asdfdas', 123412.00),
+(16, 35, 'bro2', 'asdfas', 23, '2001-01-01', 'Single', 'asdfasd', 'asdfasd', 1234123.00),
+(17, 35, 'bro3', 'asdfasdf', 23, '2001-01-01', 'Single', 'asdfas', 'asdfadsf', 31241.00),
+(18, 36, 'asdfa', 'asdfasdf', 23, '2001-01-01', 'Single', 'adfasd', 'asdfas', 12312.00);
 
 -- --------------------------------------------------------
 
@@ -376,7 +391,7 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT for table `application_forms`
 --
 ALTER TABLE `application_forms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -388,13 +403,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `emergency_contacts`
 --
 ALTER TABLE `emergency_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `family_members`
 --
 ALTER TABLE `family_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `media`
