@@ -75,37 +75,41 @@ if (isset($_POST['add_product'])) {
       // Process family members
       if (isset($_POST['family'])) {
         foreach ($_POST['family'] as $family_member) {
-          $family_name = remove_junk($db->escape($family_member['name']));
-          $family_relation = remove_junk($db->escape($family_member['relation']));
-          $family_birthday = remove_junk($db->escape($family_member['birthday']));
-          $family_civil_status = remove_junk($db->escape($family_member['civil_status']));
-          $family_education = remove_junk($db->escape($family_member['education']));
-          $family_occupation = remove_junk($db->escape($family_member['occupation']));
-          $family_monthly_income = remove_junk($db->escape($family_member['monthly_income']));
+          if (!empty($family_member['name']) && !empty($family_member['relation']) && !empty($family_member['birthday']) && !empty($family_member['civil_status']) && !empty($family_member['education']) && !empty($family_member['occupation']) && !empty($family_member['monthly_income'])) {
+            $family_name = remove_junk($db->escape($family_member['name']));
+            $family_relation = remove_junk($db->escape($family_member['relation']));
+            $family_birthday = remove_junk($db->escape($family_member['birthday']));
+            $family_civil_status = remove_junk($db->escape($family_member['civil_status']));
+            $family_education = remove_junk($db->escape($family_member['education']));
+            $family_occupation = remove_junk($db->escape($family_member['occupation']));
+            $family_monthly_income = remove_junk($db->escape($family_member['monthly_income']));
 
-          // Validate family member's birthday
-          $family_birthDate = DateTime::createFromFormat('Y-m-d', $family_birthday);
-          if (!$family_birthDate || $family_birthDate->format('Y-m-d') !== $family_birthday) {
-            $session->msg('d', 'Invalid family member birthday format.');
-            redirect('add_product.php', false);
+            // Validate family member's birthday
+            $family_birthDate = DateTime::createFromFormat('Y-m-d', $family_birthday);
+            if (!$family_birthDate || $family_birthDate->format('Y-m-d') !== $family_birthday) {
+              $session->msg('d', 'Invalid family member birthday format.');
+              redirect('add_product.php', false);
+            }
+
+            // Calculate family member's age based on birthday
+            $family_age = $today->diff($family_birthDate)->y;
+
+            $family_query = "INSERT INTO family_members (application_id, name, relation, age, birthday, civil_status, education, occupation, monthly_income) VALUES ('{$application_id}', '{$family_name}', '{$family_relation}', '{$family_age}', '{$family_birthday}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
+            $db->query($family_query);
           }
-
-          // Calculate family member's age based on birthday
-          $family_age = $today->diff($family_birthDate)->y;
-
-          $family_query = "INSERT INTO family_members (application_id, name, relation, age, birthday, civil_status, education, occupation, monthly_income) VALUES ('{$application_id}', '{$family_name}', '{$family_relation}', '{$family_age}', '{$family_birthday}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
-          $db->query($family_query);
         }
       }
 
       // Process emergency contact
-      $emergency_name = remove_junk($db->escape($_POST['emergency']['name']));
-      $emergency_relation = remove_junk($db->escape($_POST['emergency']['relation']));
-      $emergency_address = remove_junk($db->escape($_POST['emergency']['address']));
-      $emergency_contact = remove_junk($db->escape($_POST['emergency']['contact']));
+      if (!empty($_POST['emergency']['name']) && !empty($_POST['emergency']['relation']) && !empty($_POST['emergency']['address']) && !empty($_POST['emergency']['contact'])) {
+        $emergency_name = remove_junk($db->escape($_POST['emergency']['name']));
+        $emergency_relation = remove_junk($db->escape($_POST['emergency']['relation']));
+        $emergency_address = remove_junk($db->escape($_POST['emergency']['address']));
+        $emergency_contact = remove_junk($db->escape($_POST['emergency']['contact']));
 
-      $emergency_query = "INSERT INTO emergency_contacts (application_id, name, relation, address, contact_number) VALUES ('{$application_id}', '{$emergency_name}', '{$emergency_relation}', '{$emergency_address}', '{$emergency_contact}')";
-      $db->query($emergency_query);
+        $emergency_query = "INSERT INTO emergency_contacts (application_id, name, relation, address, contact_number) VALUES ('{$application_id}', '{$emergency_name}', '{$emergency_relation}', '{$emergency_address}', '{$emergency_contact}')";
+        $db->query($emergency_query);
+      }
 
       // Success message and redirect
       $session->msg('s', "Data added ");
@@ -374,8 +378,7 @@ if (isset($_POST['add_product'])) {
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon"> Name</span>
-                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name"
-                              required>
+                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name">
                           </div>
                         </div>
                       </div>
@@ -384,7 +387,7 @@ if (isset($_POST['add_product'])) {
                           <div class="input-group">
                             <span class="input-group-addon"> Relationship</span>
                             <input type="text" class="form-control" name="family[0][relation]"
-                              placeholder="Relationship" required>
+                              placeholder="Relationship">
                           </div>
                         </div>
                       </div>
@@ -393,8 +396,7 @@ if (isset($_POST['add_product'])) {
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon"> Birthday</span>
-                            <input type="date" class="form-control" name="family[0][birthday]" placeholder="Birthday"
-                              required>
+                            <input type="date" class="form-control" name="family[0][birthday]" placeholder="Birthday">
                           </div>
                         </div>
                       </div>
@@ -405,7 +407,7 @@ if (isset($_POST['add_product'])) {
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon"> Civil Status</span>
-                            <select class="form-control" name="family[0][civil_status]" required>
+                            <select class="form-control" name="family[0][civil_status]">
                               <option value="">Civil Status</option>
                               <option value="Single">Single</option>
                               <option value="Married">Married</option>
@@ -420,7 +422,7 @@ if (isset($_POST['add_product'])) {
                           <div class="input-group">
                             <span class="input-group-addon"> Education</span>
                             <input type="text" class="form-control" name="family[0][education]"
-                              placeholder="Educational Attainment" required>
+                              placeholder="Educational Attainment">
                           </div>
                         </div>
                       </div>
@@ -429,7 +431,7 @@ if (isset($_POST['add_product'])) {
                           <div class="input-group">
                             <span class="input-group-addon"> Occupation</span>
                             <input type="text" class="form-control" name="family[0][occupation]"
-                              placeholder="Occupation" required>
+                              placeholder="Occupation">
                           </div>
                         </div>
                       </div>
@@ -438,7 +440,7 @@ if (isset($_POST['add_product'])) {
                           <div class="input-group">
                             <span class="input-group-addon">Income</span>
                             <input type="number" class="form-control" name="family[0][monthly_income]"
-                              placeholder="Income" required>
+                              placeholder="Income">
                           </div>
                         </div>
                       </div>
@@ -459,7 +461,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <label for="classification"> III. Classification</label>
                   <textarea class="form-control" id="classification" name="classification"
-                    placeholder="Enter classification details" required></textarea>
+                    placeholder="Enter classification details"></textarea>
                 </div>
               </div>
             </div>
@@ -469,8 +471,8 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="problems">IV. Problems</label>
-                  <textarea class="form-control" id="problems" name="problems" placeholder="Enter problems details"
-                    required></textarea>
+                  <textarea class="form-control" id="problems" name="problems"
+                    placeholder="Enter problems details"></textarea>
                 </div>
               </div>
             </div>
@@ -495,7 +497,7 @@ if (isset($_POST['add_product'])) {
                   <div class="input-group">
                     <span class="input-group-addon">Name</span>
                     <input type="text" class="form-control" id="emergency-name" name="emergency[name]"
-                      placeholder="Full Name" required>
+                      placeholder="Full Name">
                   </div>
                 </div>
               </div>
@@ -504,7 +506,7 @@ if (isset($_POST['add_product'])) {
                   <div class="input-group">
                     <span class="input-group-addon">Relationship</span>
                     <input type="text" class="form-control" id="emergency-relation" name="emergency[relation]"
-                      placeholder="Relationship" required>
+                      placeholder="Relationship">
                   </div>
                 </div>
               </div>
@@ -517,7 +519,7 @@ if (isset($_POST['add_product'])) {
                   <div class="input-group">
                     <span class="input-group-addon">Address</span>
                     <input type="text" class="form-control" id="emergency-address" name="emergency[address]"
-                      placeholder="Address" required>
+                      placeholder="Address">
                   </div>
                 </div>
               </div>
@@ -526,7 +528,7 @@ if (isset($_POST['add_product'])) {
                   <div class="input-group">
                     <span class="input-group-addon">Contact Number</span>
                     <input type="text" class="form-control" id="emergency-contact" name="emergency[contact]"
-                      placeholder="Contact Number" required>
+                      placeholder="Contact Number">
                   </div>
                 </div>
               </div>
@@ -561,76 +563,76 @@ if (isset($_POST['add_product'])) {
       <div class="family-member">
         <div class="row">
           <div class="col-md-12">
-            <h5 class="family-order">Family Member ${index + 1}</h5>
+        <h5 class="family-order">Family Member ${index + 1}</h5>
           </div>
           <div class="col-md-5">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"> Name</span>
-                <input type="text" class="form-control" name="family[${index}][name]" placeholder="Full Name" required>
-              </div>
-            </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"> Name</span>
+            <input type="text" class="form-control" name="family[${index}][name]" placeholder="Full Name">
+          </div>
+        </div>
           </div>
           <div class="col-md-4">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"> Relationship</span>
-                <input type="text" class="form-control" name="family[${index}][relation]" placeholder="Relationship" required>
-              </div>
-            </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"> Relationship</span>
+            <input type="text" class="form-control" name="family[${index}][relation]" placeholder="Relationship">
+          </div>
+        </div>
           </div>
           <div class="col-md-3">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"> Birthday</span>
-                <input type="date" class="form-control" name="family[${index}][birthday]" placeholder="Birthday" required>
-              </div>
-            </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"> Birthday</span>
+            <input type="date" class="form-control" name="family[${index}][birthday]" placeholder="Birthday">
+          </div>
+        </div>
           </div>
         </div>
         <!-- -----------------------ROW 2 ------------------ -->
         <div class="row">
           <div class="col-md-3">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"> Civil Status</span>
-                <select class="form-control" name="family[${index}][civil_status]" required>
-                  <option value="">Civil Status</option>
-                  <option value="Single">Single</option>
-                  <option value="Married">Married</option>
-                  <option value="Divorced">Divorced</option>
-                  <option value="Widowed">Widowed</option>
-                </select>
-              </div>
-            </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"> Civil Status</span>
+            <select class="form-control" name="family[${index}][civil_status]">
+          <option value="">Civil Status</option>
+          <option value="Single">Single</option>
+          <option value="Married">Married</option>
+          <option value="Divorced">Divorced</option>
+          <option value="Widowed">Widowed</option>
+            </select>
+          </div>
+        </div>
           </div>
           <div class="col-md-3">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"> Education</span>
-                <input type="text" class="form-control" name="family[${index}][education]" placeholder="Educational Attainment" required>
-              </div>
-            </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"> Education</span>
+            <input type="text" class="form-control" name="family[${index}][education]" placeholder="Educational Attainment">
+          </div>
+        </div>
           </div>
           <div class="col-md-3">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"> Occupation</span>
-                <input type="text" class="form-control" name="family[${index}][occupation]" placeholder="Occupation" required>
-              </div>
-            </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"> Occupation</span>
+            <input type="text" class="form-control" name="family[${index}][occupation]" placeholder="Occupation">
+          </div>
+        </div>
           </div>
           <div class="col-md-2">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon">Income</span>
-                <input type="number" class="form-control" name="family[${index}][monthly_income]" placeholder="Income" required>
-              </div>
-            </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">Income</span>
+            <input type="number" class="form-control" name="family[${index}][monthly_income]" placeholder="Income">
+          </div>
+        </div>
           </div>
           <div class="col-md-1">
-            <!-- Button to remove the family member -->
-            <button type="button" class="btn btn-danger remove-family-member">Remove</button>
+        <!-- Button to remove the family member -->
+        <button type="button" class="btn btn-danger remove-family-member">Remove</button>
           </div>
         </div>
       </div>
