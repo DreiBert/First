@@ -15,7 +15,7 @@ $all_photo = find_all('media');
 // Check if the form is submitted
 if (isset($_POST['add_product'])) {
   // Required fields for validation
-  $req_fields = array('case-number', 'full-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq');
+  $req_fields = array('case-number', 'last-name', 'first-name', 'middle-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq');
 
   // Validate the required fields
   validate_fields($req_fields);
@@ -24,7 +24,10 @@ if (isset($_POST['add_product'])) {
   if (empty($errors)) {
     // Sanitize and escape form inputs
     $case_number = remove_junk($db->escape($_POST['case-number']));
-    $full_name = remove_junk($db->escape($_POST['full-name']));
+    $last_name = remove_junk($db->escape($_POST['last-name']));
+    $first_name = remove_junk($db->escape($_POST['first-name']));
+    $middle_name = remove_junk($db->escape($_POST['middle-name']));
+    $full_name = "{$last_name}, {$first_name} {$middle_name}";
     $sex = remove_junk($db->escape($_POST['sex']));
     $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
     $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
@@ -173,15 +176,36 @@ if (isset($_POST['add_product'])) {
                 </div>
               </div>
 
-              <div class="col-md-7">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i> Full Name</span>
-                    <input type="text" class="form-control" name="full-name" placeholder="Full Name" required>
+                    <span class="input-group-addon">Surname</span>
+                    <input type="text" class="form-control" name="last-name" placeholder="Last Name" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"> First </span>
+                    <input type="text" class="form-control" name="first-name" placeholder="First Name" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Middle</span>
+                    <input type="text" class="form-control" name="middle-name" placeholder="Middle Name" required>
                   </div>
                 </div>
               </div>
 
+
+            </div>
+
+            <!-- Date of Birth & Place of Birth -->
+            <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
                   <div class="input-group">
@@ -195,10 +219,6 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-            </div>
-
-            <!-- Date of Birth & Place of Birth -->
-            <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
@@ -208,7 +228,7 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-9">
+              <div class="col-md-7">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i> Place of Birth</span>
