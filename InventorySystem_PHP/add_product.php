@@ -15,7 +15,7 @@ $all_photo = find_all('media');
 // Check if the form is submitted
 if (isset($_POST['add_product'])) {
   // Required fields for validation
-  $req_fields = array('case-number', 'full-name', 'age', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq');
+  $req_fields = array('case-number', 'full-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq');
 
   // Validate the required fields
   validate_fields($req_fields);
@@ -25,7 +25,6 @@ if (isset($_POST['add_product'])) {
     // Sanitize and escape form inputs
     $case_number = remove_junk($db->escape($_POST['case-number']));
     $full_name = remove_junk($db->escape($_POST['full-name']));
-    $age = remove_junk($db->escape($_POST['age']));
     $sex = remove_junk($db->escape($_POST['sex']));
     $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
     $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
@@ -42,8 +41,18 @@ if (isset($_POST['add_product'])) {
     $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
     $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
 
+    // Validate date of birth
+    $birthDate = DateTime::createFromFormat('Y-m-d', $date_of_birth);
+    if (!$birthDate || $birthDate->format('Y-m-d') !== $date_of_birth) {
+      $session->msg('d', 'Invalid date of birth format.');
+      redirect('add_product.php', false);
+    }
+
+    // Calculate age based on date of birth
+    $today = new DateTime();
+    $age = $today->diff($birthDate)->y;
+
     // Get the current date
-    //test2
     $date = make_date();
 
     // Construct the SQL query to insert data into the database
@@ -64,12 +73,21 @@ if (isset($_POST['add_product'])) {
         foreach ($_POST['family'] as $family_member) {
           $family_name = remove_junk($db->escape($family_member['name']));
           $family_relation = remove_junk($db->escape($family_member['relation']));
-          $family_age = remove_junk($db->escape($family_member['age']));
           $family_birthday = remove_junk($db->escape($family_member['birthday']));
           $family_civil_status = remove_junk($db->escape($family_member['civil_status']));
           $family_education = remove_junk($db->escape($family_member['education']));
           $family_occupation = remove_junk($db->escape($family_member['occupation']));
           $family_monthly_income = remove_junk($db->escape($family_member['monthly_income']));
+
+          // Validate family member's birthday
+          $family_birthDate = DateTime::createFromFormat('Y-m-d', $family_birthday);
+          if (!$family_birthDate || $family_birthDate->format('Y-m-d') !== $family_birthday) {
+            $session->msg('d', 'Invalid family member birthday format.');
+            redirect('add_product.php', false);
+          }
+
+          // Calculate family member's age based on birthday
+          $family_age = $today->diff($family_birthDate)->y;
 
           $family_query = "INSERT INTO family_members (application_id, name, relation, age, birthday, civil_status, education, occupation, monthly_income) VALUES ('{$application_id}', '{$family_name}', '{$family_relation}', '{$family_age}', '{$family_birthday}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
           $db->query($family_query);
@@ -91,7 +109,6 @@ if (isset($_POST['add_product'])) {
   }
 }
 ?>
-
 <?php include_once('layouts/header.php'); ?>
 
 <!-- Display messages -->
@@ -146,13 +163,7 @@ if (isset($_POST['add_product'])) {
                 </div>
               </div>
 
-              <div class="col-md-2">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="number" class="form-control" name="age" placeholder="Age" required>
-                  </div>
-                </div>
-              </div>
+             
 
               <div class="col-md-2">
                 <div class="form-group">
@@ -345,14 +356,7 @@ if (isset($_POST['add_product'])) {
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <span class="input-group-addon"> Age</span>
-                            <input type="number" class="form-control" name="family[0][age]" placeholder="Age" required>
-                          </div>
-                        </div>
-                      </div>
+                      
                       <div class="col-md-2">
                         <div class="form-group">
                           <div class="input-group">
@@ -454,14 +458,7 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
           </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"> Age</span>
-                <input type="number" class="form-control" name="family[${index}][age]" placeholder="Age" required>
-              </div>
-            </div>
-          </div>
+          
           <div class="col-md-2">
             <div class="form-group">
               <div class="input-group">
