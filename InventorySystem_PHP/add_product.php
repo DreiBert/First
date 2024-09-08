@@ -55,11 +55,15 @@ if (isset($_POST['add_product'])) {
     // Get the current date
     $date = make_date();
 
+    // Sanitize and escape form inputs
+    $classification = remove_junk($db->escape($_POST['classification']));
+    $problems = remove_junk($db->escape($_POST['problems']));
+
     // Construct the SQL query to insert data into the database
     $query = "INSERT INTO application_forms (";
-    $query .= "case_number, full_name, age, sex, date_of_birth, place_of_birth, address, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, date";
+    $query .= "case_number, full_name, age, sex, date_of_birth, place_of_birth, address, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, classification, problems, date";
     $query .= ") VALUES (";
-    $query .= "'{$case_number}','{$full_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}',  '{$date}'";
+    $query .= "'{$case_number}','{$full_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$classification}', '{$problems}', '{$date}'";
     $query .= ")";
     $query .= " ON DUPLICATE KEY UPDATE full_name='{$full_name}'";
 
@@ -439,6 +443,86 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
 
+            <!-- ------------------------- Classification Section -------------------------------- -->
+            <br>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="classification"> III. Classification</label>
+                  <textarea class="form-control" id="classification" name="classification"
+                    placeholder="Enter classification details" required></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Problems Section -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="problems">IV. Problems</label>
+                  <textarea class="form-control" id="problems" name="problems" placeholder="Enter problems details"
+                    required></textarea>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- -------------------In Case of Emergency Section-------------------------------- -->
+
+            <div class="row">
+              <div class="col-md-12">
+                <strong>
+                  <i>
+                    <p class="mb-0">V. IN CASE OF EMERGENCY</p>
+                  </i>
+                </strong>
+              </div>
+            </div>
+
+            <!-- Row 1: Name, Relationship -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Name</span>
+                    <input type="text" class="form-control" id="emergency-name" name="emergency[name]"
+                      placeholder="Full Name" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Relationship</span>
+                    <input type="text" class="form-control" id="emergency-relation" name="emergency[relation]"
+                      placeholder="Relationship" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: Address, Contact Number -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Address</span>
+                    <input type="text" class="form-control" id="emergency-address" name="emergency[address]"
+                      placeholder="Address" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Contact Number</span>
+                    <input type="text" class="form-control" id="emergency-contact" name="emergency[contact]"
+                      placeholder="Contact Number" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <!-- Submit button -->
             <div class="row">
@@ -446,6 +530,7 @@ if (isset($_POST['add_product'])) {
                 <button type="submit" name="add_product" class="btn btn-danger">Submit</button>
               </div>
             </div>
+
 
           </form>
         </div>
