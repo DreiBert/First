@@ -428,16 +428,16 @@ if (isset($_POST['add_product'])) {
 </div>
 
 <?php include_once('layouts/footer.php'); ?>
-
-<!-- Client-side form validation script -->
 <script>
   document.getElementById('add-family-member').addEventListener('click', function () {
     var container = document.getElementById('family-members-container');
-    var index = container.children.length;
+    var index = container.querySelectorAll('.family-member').length; // Ensure correct indexing
     var template = `
-    <br>
       <div class="family-member">
         <div class="row">
+          <div class="col-md-12">
+            <h5 class="family-order">Family Member ${index + 1}</h5>
+          </div>
           <div class="col-md-4">
             <div class="form-group">
               <div class="input-group">
@@ -518,11 +518,30 @@ if (isset($_POST['add_product'])) {
       </div>
     `;
     container.insertAdjacentHTML('beforeend', template);
+    updateFamilyOrder();
   });
 
   document.getElementById('family-members-container').addEventListener('click', function (event) {
     if (event.target.classList.contains('remove-family-member')) {
       event.target.closest('.family-member').remove();
+      updateFamilyOrder();
     }
   });
+
+  function updateFamilyOrder() {
+    var familyMembers = document.querySelectorAll('.family-member');
+    familyMembers.forEach(function (member, index) {
+      var orderText = member.querySelector('.family-order');
+      orderText.textContent = `Family Member ${index + 1}`;
+
+      // Update name attributes
+      member.querySelectorAll('input, select').forEach(function (input) {
+        var name = input.getAttribute('name');
+        if (name) {
+          var newName = name.replace(/\[\d+\]/, `[${index}]`);
+          input.setAttribute('name', newName);
+        }
+      });
+    });
+  }
 </script>
