@@ -143,44 +143,46 @@ if (isset($_POST['add_product'])) {
                 </strong>
               </div>
             </div>
+            <!-- ------------------------PERSONAL INFORMATION -------------------------- -->
 
             <!-- Full Name, Age, and Sex input fields in one row -->
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group mb-2">
                   <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Case Number</span>
                     <input type="text" class="form-control" name="case-number" placeholder="Case Number" required>
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-7">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i> Full Name</span>
                     <input type="text" class="form-control" name="full-name" placeholder="Full Name" required>
                   </div>
                 </div>
               </div>
 
-             
-
               <div class="col-md-2">
                 <div class="form-group">
-
-                  <select class="form-control sex" name="sex" required>
-                    <option value="">Select Sex</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
+                  <div class="input-group">
+                    <span class="input-group-addon"> Sex</span>
+                    <select class="form-control sex" name="sex" required>
+                      <option value="">Select Sex</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Date of Birth & Place of Birth -->
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i> Date of Birth</span>
@@ -189,10 +191,10 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-9">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i> Place of Birth</span>
                     <input type="text" class="form-control" name="place-of-birth" placeholder="Place of Birth" required>
                   </div>
                 </div>
@@ -204,94 +206,101 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-12">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i> Address</span>
                     <input type="text" class="form-control" name="address" placeholder="Address">
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Educational Attainment and Civil Status input -->
+            <!-- Educational Attainment, Civil Status input, Religion  -->
             <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-6">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i> Educational
+                      Attainment</span>
                     <input type="text" class="form-control" name="educational-attainment"
                       placeholder="Educational Attainment">
                   </div>
                 </div>
               </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <select class="form-control civil-status" name="civil-status" required>
-                    <option value="">Select Civil Status</option>
-                    <option value="Single">Single</option>
-                    <option value="Married">Married</option>
-                    <option value="Divorced">Divorced</option>
-                    <option value="Widowed">Widowed</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- Occupation, and Religion -->
-            <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
-                    <input type="text" class="form-control" name="occupation" placeholder="Occupation">
+                    <span class="input-group-addon"></i> Civil Status</span>
+                    <select class="form-control civil-status" name="civil-status" required>
+                      <option value="">Select Civil Status</option>
+                      <option value="Single">Single</option>
+                      <option value="Married">Married</option>
+                      <option value="Divorced">Divorced</option>
+                      <option value="Widowed">Widowed</option>
+                    </select>
                   </div>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i> Religion</span>
                     <input type="text" class="form-control" name="religion" placeholder="Religion">
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Company/Agency and Monthly Income -->
+            <!-- Occupation, Agency, Montly Income -->
             <div class="row">
-              <div class="col-md-5">
+              <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i> Occupation</span>
+                    <input type="text" class="form-control" name="occupation" placeholder="Occupation">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i> Company</span>
                     <input type="text" class="form-control" name="company-agency" placeholder="Company/Agency">
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-5">
+              <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i> Monthly Income</span>
                     <input type="number" class="form-control" name="monthly-income" placeholder="Input Monthly Income">
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-2">
-                <div class="form-group">
-                  <select class="form-control employment-status" name="employment-status">
-                    <option value="">Select Employment Status</option>
-                    <option value="Employed">Employed</option>
-                    <option value="Self-employed">Self-employed</option>
-                    <option value="Not employed">Not employed</option>
-                  </select>
-                </div>
-              </div>
             </div>
 
-            <!-- Contact No. and Email Address -->
+            <!-- Employment Status, Contact Number -->
             <div class="row">
+
+
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i> Employment
+                      Status</span>
+                    <select class="form-control employment-status" name="employment-status">
+                      <option value="">Select Status</option>
+                      <option value="Employed">Employed</option>
+                      <option value="Self-employed">Self-employed</option>
+                      <option value="Not employed">Not employed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i> Contact Number</span>
                     <input type="text" class="form-control" name="contact-number" placeholder="Contact Number">
                   </div>
                 </div>
@@ -299,14 +308,21 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i> Email Address</span>
                     <input type="email" class="form-control" name="email-address" placeholder="Email Address">
                   </div>
                 </div>
               </div>
-              <div class="col-md-2">
+            </div>
+
+            <!-- Pantawid Beneficiary, LGBTQ -->
+            <div class="row">
+
+
+              <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i> Pantawid Beneficiary</span>
                     <select class="form-control" name="pantawid-beneficiary" required>
                       <option value="">Pantawid Beneficiary</option>
                       <option value="Y">Yes</option>
@@ -315,9 +331,10 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i> LGBTQ+</span>
                     <select class="form-control" name="lgbtq" required>
                       <option value="">LGBTQ+</option>
                       <option value="Y">Yes</option>
@@ -328,7 +345,7 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
 
-                        <!-- Family Members Section -->
+            <!-- -------------------Family Members Section-------------------------------- -->
             <div class="row">
               <div class="col-md-12">
                 <strong>
@@ -337,36 +354,39 @@ if (isset($_POST['add_product'])) {
                   </i>
                 </strong>
                 <div id="family-members-container">
-                                    <!-- Family member template -->
+                  <!-- Family member template -->
                   <div class="family-member">
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-5">
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon"> Name</span>
-                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name" required>
+                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name"
+                              required>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon"> Relationship</span>
-                            <input type="text" class="form-control" name="family[0][relation]" placeholder="Relationship" required>
+                            <input type="text" class="form-control" name="family[0][relation]"
+                              placeholder="Relationship" required>
                           </div>
                         </div>
                       </div>
-                      
-                      <div class="col-md-2">
+
+                      <div class="col-md-3">
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon"> Birthday</span>
-                            <input type="date" class="form-control" name="family[0][birthday]" placeholder="Birthday" required>
+                            <input type="date" class="form-control" name="family[0][birthday]" placeholder="Birthday"
+                              required>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- ------------------------ROW 2 ----------------------- -->
+                    <!-- -------- ROW 2 --------- -->
                     <div class="row">
                       <div class="col-md-3">
                         <div class="form-group">
@@ -382,27 +402,30 @@ if (isset($_POST['add_product'])) {
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-3">
                         <div class="form-group">
                           <div class="input-group">
                             <span class="input-group-addon"> Education</span>
-                            <input type="text" class="form-control" name="family[0][education]" placeholder="Educational Attainment" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <span class="input-group-addon"> Occupation</span>
-                            <input type="text" class="form-control" name="family[0][occupation]" placeholder="Occupation" required>
+                            <input type="text" class="form-control" name="family[0][education]"
+                              placeholder="Educational Attainment" required>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <div class="input-group">
-                            <span class="input-group-addon"> Monthly Income</span>
-                            <input type="number" class="form-control" name="family[0][monthly_income]" placeholder="Monthly Income" required>
+                            <span class="input-group-addon"> Occupation</span>
+                            <input type="text" class="form-control" name="family[0][occupation]"
+                              placeholder="Occupation" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <span class="input-group-addon">Income</span>
+                            <input type="number" class="form-control" name="family[0][monthly_income]"
+                              placeholder="Income" required>
                           </div>
                         </div>
                       </div>
@@ -433,16 +456,20 @@ if (isset($_POST['add_product'])) {
 
 <?php include_once('layouts/footer.php'); ?>
 <script>
+  // Add event listener to the "Add Family Member" button
   document.getElementById('add-family-member').addEventListener('click', function () {
+    // Get the container where family members are added
     var container = document.getElementById('family-members-container');
-    var index = container.querySelectorAll('.family-member').length; // Ensure correct indexing
+    // Get the current number of family members to ensure correct indexing
+    var index = container.querySelectorAll('.family-member').length;
+    // Template for a new family member form
     var template = `
       <div class="family-member">
         <div class="row">
           <div class="col-md-12">
             <h5 class="family-order">Family Member ${index + 1}</h5>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"> Name</span>
@@ -450,7 +477,7 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"> Relationship</span>
@@ -458,8 +485,7 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
           </div>
-          
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"> Birthday</span>
@@ -484,7 +510,7 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"> Education</span>
@@ -492,7 +518,7 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"> Occupation</span>
@@ -500,41 +526,53 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <div class="input-group">
-                <span class="input-group-addon"> Monthly Income</span>
-                <input type="number" class="form-control" name="family[${index}][monthly_income]" placeholder="Monthly Income" required>
+                <span class="input-group-addon">Income</span>
+                <input type="number" class="form-control" name="family[${index}][monthly_income]" placeholder="Income" required>
               </div>
             </div>
           </div>
           <div class="col-md-1">
+            <!-- Button to remove the family member -->
             <button type="button" class="btn btn-danger remove-family-member">Remove</button>
           </div>
         </div>
       </div>
     `;
+    // Insert the new family member form into the container
     container.insertAdjacentHTML('beforeend', template);
+    // Update the order of family members
     updateFamilyOrder();
   });
 
+  // Add event listener to the container to handle removing family members
   document.getElementById('family-members-container').addEventListener('click', function (event) {
+    // Check if the clicked element is a "Remove" button
     if (event.target.classList.contains('remove-family-member')) {
+      // Remove the closest parent element with the class "family-member"
       event.target.closest('.family-member').remove();
+      // Update the order of remaining family members
       updateFamilyOrder();
     }
   });
 
+  // Function to update the order of family members
   function updateFamilyOrder() {
+    // Get all family member elements
     var familyMembers = document.querySelectorAll('.family-member');
+    // Iterate over each family member to update their order and name attributes
     familyMembers.forEach(function (member, index) {
+      // Update the order text
       var orderText = member.querySelector('.family-order');
       orderText.textContent = `Family Member ${index + 1}`;
 
-      // Update name attributes
+      // Update name attributes to ensure correct indexing
       member.querySelectorAll('input, select').forEach(function (input) {
         var name = input.getAttribute('name');
         if (name) {
+          // Replace the index in the name attribute with the new index
           var newName = name.replace(/\[\d+\]/, `[${index}]`);
           input.setAttribute('name', newName);
         }
