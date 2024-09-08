@@ -317,7 +317,7 @@ if (isset($_POST['add_product'])) {
               </div>
             </div>
 
-            <!-- Family Members Section -->
+                        <!-- Family Members Section -->
             <div class="row">
               <div class="col-md-12">
                 <strong>
@@ -326,77 +326,85 @@ if (isset($_POST['add_product'])) {
                   </i>
                 </strong>
                 <div id="family-members-container">
-                  <!-- Family member template -->
+                                    <!-- Family member template -->
                   <div class="family-member">
                     <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name"
-                              required>
-                          </div>
-
-
-
-                        </div>
-                      </div>
-
-
-
                       <div class="col-md-4">
                         <div class="form-group">
-                          <input type="text" class="form-control" name="family[0][relation]" placeholder="Relationship"
-                            required>
+                          <div class="input-group">
+                            <span class="input-group-addon"> Name</span>
+                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name" required>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-3">
                         <div class="form-group">
-                          <input type="number" class="form-control" name="family[0][age]" placeholder="Age" required>
+                          <div class="input-group">
+                            <span class="input-group-addon"> Relationship</span>
+                            <input type="text" class="form-control" name="family[0][relation]" placeholder="Relationship" required>
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <input type="date" class="form-control" name="family[0][birthday]" placeholder="Birthday"
-                            required>
+                          <div class="input-group">
+                            <span class="input-group-addon"> Age</span>
+                            <input type="number" class="form-control" name="family[0][age]" placeholder="Age" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <span class="input-group-addon"> Birthday</span>
+                            <input type="date" class="form-control" name="family[0][birthday]" placeholder="Birthday" required>
+                          </div>
                         </div>
                       </div>
                     </div>
                     <!-- ------------------------ROW 2 ----------------------- -->
                     <div class="row">
-                      <div class="col-md-2">
+                      <div class="col-md-3">
                         <div class="form-group">
-                          <select class="form-control" name="family[0][civil_status]" required>
-                            <option value="">Civil Status</option>
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Divorced">Divorced</option>
-                            <option value="Widowed">Widowed</option>
-                          </select>
+                          <div class="input-group">
+                            <span class="input-group-addon"> Civil Status</span>
+                            <select class="form-control" name="family[0][civil_status]" required>
+                              <option value="">Civil Status</option>
+                              <option value="Single">Single</option>
+                              <option value="Married">Married</option>
+                              <option value="Divorced">Divorced</option>
+                              <option value="Widowed">Widowed</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <input type="text" class="form-control" name="family[0][education]"
-                            placeholder="Educational Attainment" required>
+                          <div class="input-group">
+                            <span class="input-group-addon"> Education</span>
+                            <input type="text" class="form-control" name="family[0][education]" placeholder="Educational Attainment" required>
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <input type="text" class="form-control" name="family[0][occupation]" placeholder="Occupation"
-                            required>
+                          <div class="input-group">
+                            <span class="input-group-addon"> Occupation</span>
+                            <input type="text" class="form-control" name="family[0][occupation]" placeholder="Occupation" required>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-3">
                         <div class="form-group">
-                          <input type="number" class="form-control" name="family[0][monthly_income]"
-                            placeholder="Monthly Income" required>
+                          <div class="input-group">
+                            <span class="input-group-addon"> Monthly Income</span>
+                            <input type="number" class="form-control" name="family[0][monthly_income]" placeholder="Monthly Income" required>
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-1">
-                        <button type="button" class="btn btn-danger remove-family-member">Remove</button>
+                        <!-- Empty column for spacing or future use -->
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -430,59 +438,77 @@ if (isset($_POST['add_product'])) {
     <br>
       <div class="family-member">
         <div class="row">
-          <div class="col-md-5">
-            <div class="form-group">
-              <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input type="text" class="form-control" name="family[0][name]" placeholder="Full Name"
-                              required>
-                          </div>
-
-            </div>
-          </div>
           <div class="col-md-4">
             <div class="form-group">
-              <input type="text" class="form-control" name="family[${index}][relation]" placeholder="Relationship" required>
+              <div class="input-group">
+                <span class="input-group-addon"> Name</span>
+                <input type="text" class="form-control" name="family[${index}][name]" placeholder="Full Name" required>
+              </div>
             </div>
           </div>
-          <div class="col-md-1">
+          <div class="col-md-3">
             <div class="form-group">
-              <input type="number" class="form-control" name="family[${index}][age]" placeholder="Age" required>
+              <div class="input-group">
+                <span class="input-group-addon"> Relationship</span>
+                <input type="text" class="form-control" name="family[${index}][relation]" placeholder="Relationship" required>
+              </div>
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-group">
-              <input type="date" class="form-control" name="family[${index}][birthday]" placeholder="Birthday" required>
+              <div class="input-group">
+                <span class="input-group-addon"> Age</span>
+                <input type="number" class="form-control" name="family[${index}][age]" placeholder="Age" required>
+              </div>
             </div>
           </div>
-          
+          <div class="col-md-2">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"> Birthday</span>
+                <input type="date" class="form-control" name="family[${index}][birthday]" placeholder="Birthday" required>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- -----------------------ROW 2 ------------------ -->
         <div class="row">
-        <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
-              <select class="form-control" name="family[${index}][civil_status]" required>
-                <option value="">Civil Status</option>
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
-                <option value="Divorced">Divorced</option>
-                <option value="Widowed">Widowed</option>
-              </select>
+              <div class="input-group">
+                <span class="input-group-addon"> Civil Status</span>
+                <select class="form-control" name="family[${index}][civil_status]" required>
+                  <option value="">Civil Status</option>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Divorced">Divorced</option>
+                  <option value="Widowed">Widowed</option>
+                </select>
+              </div>
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-group">
-              <input type="text" class="form-control" name="family[${index}][education]" placeholder="Educational Attainment" required>
+              <div class="input-group">
+                <span class="input-group-addon"> Education</span>
+                <input type="text" class="form-control" name="family[${index}][education]" placeholder="Educational Attainment" required>
+              </div>
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-group">
-              <input type="text" class="form-control" name="family[${index}][occupation]" placeholder="Occupation" required>
+              <div class="input-group">
+                <span class="input-group-addon"> Occupation</span>
+                <input type="text" class="form-control" name="family[${index}][occupation]" placeholder="Occupation" required>
+              </div>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
-              <input type="number" class="form-control" name="family[${index}][monthly_income]" placeholder="Monthly Income" required>
+              <div class="input-group">
+                <span class="input-group-addon"> Monthly Income</span>
+                <input type="number" class="form-control" name="family[${index}][monthly_income]" placeholder="Monthly Income" required>
+              </div>
             </div>
           </div>
           <div class="col-md-1">
@@ -490,7 +516,6 @@ if (isset($_POST['add_product'])) {
           </div>
         </div>
       </div>
-      
     `;
     container.insertAdjacentHTML('beforeend', template);
   });
