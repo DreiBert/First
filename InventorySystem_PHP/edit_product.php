@@ -62,7 +62,30 @@ if (isset($_POST['update_form'])) {
     $query .= " WHERE id='{$form['id']}'";
     $result = $db->query($query);
 
-    if ($result && $db->affected_rows() === 1) {
+    // Update the emergency contact information in the database
+    if ($emergency_contact) {
+      $emergency_contact_name = remove_junk($db->escape($_POST['emergency_contact_name']));
+      $emergency_contact_relationship = remove_junk($db->escape($_POST['emergency_contact_relationship']));
+      $emergency_contact_number = remove_junk($db->escape($_POST['emergency_contact_number']));
+      $emergency_contact_address = remove_junk($db->escape($_POST['emergency_contact_address']));
+
+      $query = "UPDATE emergency_contacts SET";
+      $query .= " name='{$emergency_contact_name}', relation='{$emergency_contact_relationship}',";
+      $query .= " contact_number='{$emergency_contact_number}', address='{$emergency_contact_address}'";
+      $query .= " WHERE application_id='{$form['id']}'";
+      $result_emergency = $db->query($query);
+    } else {
+      $emergency_contact_name = remove_junk($db->escape($_POST['emergency_contact_name']));
+      $emergency_contact_relationship = remove_junk($db->escape($_POST['emergency_contact_relationship']));
+      $emergency_contact_number = remove_junk($db->escape($_POST['emergency_contact_number']));
+      $emergency_contact_address = remove_junk($db->escape($_POST['emergency_contact_address']));
+
+      $query = "INSERT INTO emergency_contacts (application_id, name, relation, contact_number, address)";
+      $query .= " VALUES ('{$form['id']}', '{$emergency_contact_name}', '{$emergency_contact_relationship}', '{$emergency_contact_number}', '{$emergency_contact_address}')";
+      $result_emergency = $db->query($query);
+    }
+
+    if ($result && $db->affected_rows() === 1 && $result_emergency) {
       $session->msg('s', "Application form updated ");
       redirect('edit_product.php?id=' . $form['id'], false);
     } else {
@@ -430,7 +453,7 @@ if (isset($_POST['update_form'])) {
                     </div>
                   </div>
                 </div>
-                <!-- -------------------Emergency Contact Section-------------------------------- -->
+
                 <!-- -------------------Emergency Contact Section-------------------------------- -->
                 <div class="row">
                   <div class="col-md-12">
