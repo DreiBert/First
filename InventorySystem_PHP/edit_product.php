@@ -116,7 +116,11 @@ if (isset($_POST['update_form'])) {
           <span class="glyphicon glyphicon-th"></span>
           <span>Edit Application Form</span>
         </strong>
+        <div class="pull-right">
+          <a href="product.php" class="btn btn-success">Back to List</a>
+        </div>
       </div>
+
       <div class="panel-body">
         <div class="col-md-12">
           <form method="post" action="edit_product.php?id=<?php echo (int) $form['id']; ?>" class="clearfix">
@@ -127,6 +131,7 @@ if (isset($_POST['update_form'])) {
                     <p class="mb-0">I. IDENTIFYING INFORMATION</p>
                   </i>
                 </strong>
+
               </div>
             </div>
             <div class="row">
