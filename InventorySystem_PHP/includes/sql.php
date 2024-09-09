@@ -330,6 +330,26 @@ function find_higest_saleing_product($limit)
   $sql .= " ORDER BY SUM(s.qty) DESC LIMIT " . $db->escape((int) $limit);
   return $db->query($sql);
 }
+
+
+/*--------------------------------------------------------------*/
+/* Function for finding family members by application ID
+/*--------------------------------------------------------------*/
+
+function find_family_members_by_application_id($application_id)
+{
+  global $db;
+  $sql = "SELECT * FROM family_members WHERE application_id = " . $db->escape((int) $application_id);
+  $result = find_by_sql($sql);
+
+  // Debugging: Check if the query returns any results
+  if (empty($result)) {
+    error_log("No family members found for application_id: " . $application_id);
+  }
+
+  return $result;
+}
+
 /*--------------------------------------------------------------*/
 /* Function for find all sales
 /*--------------------------------------------------------------*/

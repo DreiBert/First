@@ -12,6 +12,9 @@ if (!$form) {
   $session->msg("d", "Missing application form id.");
   redirect('product.php');
 }
+
+// Fetch the related family members
+$family_members = find_family_members_by_application_id((int) $_GET['id']);
 ?>
 <?php
 if (isset($_POST['update_form'])) {
@@ -333,6 +336,60 @@ if (isset($_POST['update_form'])) {
                       <option <?php if ($form['lgbtq'] === 'N')
                         echo 'selected="selected"'; ?> value="N">No</option>
                     </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Section to display related family members -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading clearfix">
+                    <strong>
+                      <span class="glyphicon glyphicon-th"></span>
+                      <span>Related Family Members</span>
+                    </strong>
+                  </div>
+                  <div class="panel-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-center">No.</th>
+                          <th class="text-center">Full Name</th>
+                          <th class="text-center">Relationship</th>
+                          <th class="text-center">Age</th>
+                          <th class="text-center">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php if (!empty($family_members)): ?>
+                          <?php foreach ($family_members as $index => $member): ?>
+                            <tr>
+                              <td class="text-center"><?php echo $index + 1; ?></td>
+                              <td class="text-center"><?php echo remove_junk($member['name']); ?></td>
+                              <td class="text-center"><?php echo remove_junk($member['relation']); ?></td>
+                              <td class="text-center"><?php echo remove_junk($member['age']); ?></td>
+                              <td class="text-center">
+                                <div class="btn-group">
+                                  <a href="edit_family_member.php?id=<?php echo (int) $member['id']; ?>"
+                                    class="btn btn-info btn-xs" title="Edit" data-toggle="tooltip">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                  </a>
+                                  <a href="delete_family_member.php?id=<?php echo (int) $member['id']; ?>"
+                                    class="btn btn-danger btn-xs" title="Delete" data-toggle="tooltip">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                  </a>
+                                </div>
+                              </td>
+                            </tr>
+                          <?php endforeach; ?>
+                        <?php else: ?>
+                          <tr>
+                            <td colspan="5" class="text-center">No family members found.</td>
+                          </tr>
+                        <?php endif; ?>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
