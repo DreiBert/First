@@ -4,7 +4,7 @@ $page_title = 'Add Product';
 
 // Include necessary files
 require_once('includes/load.php');
-
+$barangays = find_all_barangays();
 // Check what level user has permission to view this page
 page_require_level(2);
 
@@ -15,7 +15,7 @@ $all_photo = find_all('media');
 // Check if the form is submitted
 if (isset($_POST['add_product'])) {
   // Required fields for validation
-  $req_fields = array('case-number', 'last-name', 'first-name', 'middle-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq');
+  $req_fields = array('case-number', 'last-name', 'first-name', 'middle-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
 
   // Validate the required fields
   validate_fields($req_fields);
@@ -32,6 +32,7 @@ if (isset($_POST['add_product'])) {
     $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
     $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
     $address = remove_junk($db->escape($_POST['address']));
+    $barangay_id = (int) $_POST['barangay_id'];
     $educational_attainment = remove_junk($db->escape($_POST['educational-attainment']));
     $civil_status = remove_junk($db->escape($_POST['civil-status']));
     $occupation = remove_junk($db->escape($_POST['occupation']));
@@ -43,6 +44,7 @@ if (isset($_POST['add_product'])) {
     $email_address = remove_junk($db->escape($_POST['email-address']));
     $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
     $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
+    $pensioner = remove_junk($db->escape($_POST['pensioner']));
 
     // Validate date of birth
     $birthDate = DateTime::createFromFormat('Y-m-d', $date_of_birth);
@@ -64,9 +66,9 @@ if (isset($_POST['add_product'])) {
 
     // Construct the SQL query to insert data into the database
     $query = "INSERT INTO application_forms (";
-    $query .= "case_number, full_name, age, sex, date_of_birth, place_of_birth, address, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, classification, problems, date";
+    $query .= "case_number, full_name, age, sex, date_of_birth, place_of_birth, address, barangay_id, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, pensioner, classification, problems, date";
     $query .= ") VALUES (";
-    $query .= "'{$case_number}','{$full_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$classification}', '{$problems}', '{$date}'";
+    $query .= "'{$case_number}','{$full_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$pensioner}', '{$classification}', '{$problems}', '{$date}'";
     $query .= ")";
     $query .= " ON DUPLICATE KEY UPDATE full_name='{$full_name}'";
 
@@ -240,7 +242,7 @@ if (isset($_POST['add_product'])) {
 
             <!-- Address input fields in one row -->
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-8">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i> Address</span>
@@ -248,7 +250,24 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
+              <div class="col-md-4">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i> Barangay</span>
+                      <select class="form-control" name="barangay_id" required>
+                        <option value="">Select Barangay</option>
+                        <?php foreach ($barangays as $barangay): ?>
+                          <option value="<?php echo $barangay['id']; ?>"><?php echo $barangay['name']; ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
+
 
             <!-- Educational Attainment, Civil Status input, Religion  -->
             <div class="row">
@@ -371,6 +390,18 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i> Pensioner</span>
+                    <select class="form-control" name="pensioner" required>
+                      <option value="">Pensioner</option>
+                      <option value="Y">Yes</option>
+                      <option value="N">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i> LGBTQ+</span>
                     <select class="form-control" name="lgbtq" required>
                       <option value="">LGBTQ+</option>
@@ -380,6 +411,7 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
+
             </div>
 
             <!-- -------------------Family Members Section-------------------------------- -->

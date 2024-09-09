@@ -240,7 +240,12 @@ function join_product_table()
   return find_by_sql($sql);
 
 }
-
+function find_all_barangays()
+{
+  global $db;
+  $sql = "SELECT id, name FROM barangays ORDER BY name ASC";
+  return find_by_sql($sql);
+}
 function join_application_forms_table()
 {
   global $db;

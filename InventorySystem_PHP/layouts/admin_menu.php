@@ -13,10 +13,11 @@
     <ul class="nav submenu">
       <li><a href="group.php">Manage Groups</a> </li>
       <li><a href="users.php">Manage Users</a> </li>
-   </ul>
+    </ul>
   </li>
+
   <li>
-    <a href="categorie.php" >
+    <a href="barangay.php">
       <i class="glyphicon glyphicon-indent-left"></i>
       <span>Barangays</span>
     </a>
@@ -27,9 +28,9 @@
       <span>Solo Parent Forms</span>
     </a>
     <ul class="nav submenu">
-       <li><a href="product.php">Manage Forms</a> </li>
-       <li><a href="add_product.php">Add a Form</a> </li>
-   </ul>
+      <li><a href="product.php">Manage Forms</a> </li>
+      <li><a href="add_product.php">Add a Form</a> </li>
+    </ul>
   </li>
 
   <!-- ADDITIONAL FEATURES

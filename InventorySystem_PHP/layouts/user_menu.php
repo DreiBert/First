@@ -8,12 +8,12 @@
   <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-th-list"></i>
-       <span>Solo Parent Application Forms</span>
-      </a>
-      <ul class="nav submenu">
-         <li><a href="sales.php">Manage Forms</a> </li>
-         <li><a href="add_sale.php">Add a Form</a> </li>
-     </ul>
+      <span>Solo Parent Application Forms</span>
+    </a>
+    <ul class="nav submenu">
+      <li><a href="sales.php">Manage Forms</a> </li>
+      <li><a href="add_sale.php">Add a Form</a> </li>
+    </ul>
   </li>
   <!-- ADDITIONAL FEATURES 
   <li>
