@@ -5,12 +5,14 @@
       <span>Dashboard</span>
     </a>
   </li>
+  <!-- 
   <li>
     <a href="categorie.php">
       <i class="glyphicon glyphicon-indent-left"></i>
       <span>Categories</span>
     </a>
   </li>
+-->
   <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-th-large"></i>
