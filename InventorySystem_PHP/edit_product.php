@@ -392,29 +392,42 @@ if (isset($_POST['update_form'])) {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon">Classification</span>
-                      <input type="text" class="form-control" name="classification"
-                        value="<?php echo remove_junk($form['classification']); ?>" required>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <strong>
+                        <i>
+                          <p class="mb-0">III. CLASSIFICATION</p>
+                        </i>
+                      </strong>
+                      <div class="input-group">
+                        <span class="input-group-addon">Classification</span>
+                        <textarea class="form-control" name="classification"
+                          required><?php echo remove_junk($form['classification']); ?></textarea>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon">Problems</span>
-                      <input type="text" class="form-control" name="problems"
-                        value="<?php echo remove_junk($form['problems']); ?>" required>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <strong>
+                        <i>
+                          <p class="mb-0">II. PROBLEMS</p>
+                        </i>
+                      </strong>
+                      <div class="input-group">
+                        <span class="input-group-addon">Problems</span>
+                        <textarea class="form-control" name="problems"
+                          required><?php echo remove_junk($form['problems']); ?></textarea>
+                      </div>
                     </div>
                   </div>
                 </div>
+
+
               </div>
+
             </div>
             <div class="form-group clearfix">
               <button type="submit" name="update_form" class="btn btn-primary">Update</button>
