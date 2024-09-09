@@ -80,28 +80,29 @@ if (isset($_POST['add_product'])) {
       // Process family members
       if (isset($_POST['family'])) {
         foreach ($_POST['family'] as $family_member) {
-          if (!empty($family_member['name']) && !empty($family_member['relation']) && !empty($family_member['birthday']) && !empty($family_member['civil_status']) && !empty($family_member['education']) && !empty($family_member['occupation']) && !empty($family_member['monthly_income'])) {
-            $family_name = remove_junk($db->escape($family_member['name']));
-            $family_relation = remove_junk($db->escape($family_member['relation']));
-            $family_birthday = remove_junk($db->escape($family_member['birthday']));
-            $family_civil_status = remove_junk($db->escape($family_member['civil_status']));
-            $family_education = remove_junk($db->escape($family_member['education']));
-            $family_occupation = remove_junk($db->escape($family_member['occupation']));
-            $family_monthly_income = remove_junk($db->escape($family_member['monthly_income']));
+          $family_name = !empty($family_member['name']) ? remove_junk($db->escape($family_member['name'])) : NULL;
+          $family_relation = !empty($family_member['relation']) ? remove_junk($db->escape($family_member['relation'])) : NULL;
+          $family_birthday = !empty($family_member['birthday']) ? remove_junk($db->escape($family_member['birthday'])) : NULL;
+          $family_civil_status = !empty($family_member['civil_status']) ? remove_junk($db->escape($family_member['civil_status'])) : NULL;
+          $family_education = !empty($family_member['education']) ? remove_junk($db->escape($family_member['education'])) : NULL;
+          $family_occupation = !empty($family_member['occupation']) ? remove_junk($db->escape($family_member['occupation'])) : NULL;
+          $family_monthly_income = !empty($family_member['monthly_income']) ? remove_junk($db->escape($family_member['monthly_income'])) : NULL;
 
-            // Validate family member's birthday
+          // Validate family member's birthday if provided
+          if ($family_birthday) {
             $family_birthDate = DateTime::createFromFormat('Y-m-d', $family_birthday);
             if (!$family_birthDate || $family_birthDate->format('Y-m-d') !== $family_birthday) {
               $session->msg('d', 'Invalid family member birthday format.');
               redirect('add_product.php', false);
             }
-
             // Calculate family member's age based on birthday
             $family_age = $today->diff($family_birthDate)->y;
-
-            $family_query = "INSERT INTO family_members (application_id, name, relation, age, birthday, civil_status, education, occupation, monthly_income) VALUES ('{$application_id}', '{$family_name}', '{$family_relation}', '{$family_age}', '{$family_birthday}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
-            $db->query($family_query);
+          } else {
+            $family_age = NULL;
           }
+
+          $family_query = "INSERT INTO family_members (application_id, name, relation, age, birthday, civil_status, education, occupation, monthly_income) VALUES ('{$application_id}', '{$family_name}', '{$family_relation}', '{$family_age}', '{$family_birthday}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
+          $db->query($family_query);
         }
       }
 
