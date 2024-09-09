@@ -257,7 +257,7 @@ function find_all_barangays()
 function join_application_forms_table()
 {
   global $db;
-  $sql = "SELECT af.id, af.case_number, af.full_name, b.name AS barangay, af.age, af.sex AS sex, af.contact_number 
+  $sql = "SELECT af.id, af.case_number, af.full_name, af.address, b.name AS barangay, af.age, af.sex AS sex, af.contact_number, af.created_at 
           FROM application_forms af
           LEFT JOIN barangays b ON af.barangay_id = b.id
           ORDER BY af.id ASC";

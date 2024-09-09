@@ -24,10 +24,12 @@ $application_forms = join_application_forms_table();
               <th class="text-center" style="width: 5vh;">No.</th>
               <th class="text-center" style="width: 12vh;"> ID No. </th>
               <th class="text-center" style="width: 30vh;"> Fullname </th>
+              <th class="text-center" style="width: 30vh;"> Address </th>
               <th class="text-center" style="width: 15vh;"> Barangay </th>
               <th class="text-center" style="width: 15vh;"> Age </th>
               <th class="text-center" style="width: 15vh;"> Gender </th>
               <th class="text-center" style="width: 15vh;"> Contact </th>
+              <th class="text-center" style="width: 20vh;"> Timestamp </th>
               <th class="text-center" style="width: 100px;"> Actions </th>
             </tr>
           </thead>
@@ -37,10 +39,12 @@ $application_forms = join_application_forms_table();
                 <td class="text-center"><?php echo count_id(); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['case_number']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['full_name']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['address']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['barangay']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['age']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['sex']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['contact_number']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['created_at']); ?></td>
                 <td class="text-center">
                   <div class="btn-group">
                     <a href="edit_product.php?id=<?php echo (int) $form['id']; ?>" class="btn btn-info btn-xs"
