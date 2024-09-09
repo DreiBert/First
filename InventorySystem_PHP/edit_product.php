@@ -19,7 +19,7 @@ $emergency_contact = find_emergency_contact_by_application_id((int) $_GET['id'])
 ?>
 <?php
 if (isset($_POST['update_form'])) {
-  $req_fields = array('case-number', 'full_name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner', 'classification', 'problems');
+  $req_fields = array('case-number', 'full_name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
   validate_fields($req_fields);
 
   if (empty($errors)) {
@@ -431,8 +431,8 @@ if (isset($_POST['update_form'])) {
                       </strong>
                       <div class="input-group">
                         <span class="input-group-addon">Classification</span>
-                        <textarea class="form-control" name="classification"
-                          required><?php echo remove_junk($form['classification']); ?></textarea>
+                        <textarea class="form-control"
+                          name="classification"><?php echo remove_junk($form['classification']); ?></textarea>
                       </div>
                     </div>
                   </div>
@@ -447,8 +447,8 @@ if (isset($_POST['update_form'])) {
                       </strong>
                       <div class="input-group">
                         <span class="input-group-addon">Problems</span>
-                        <textarea class="form-control" name="problems"
-                          required><?php echo remove_junk($form['problems']); ?></textarea>
+                        <textarea class="form-control"
+                          name="problems"><?php echo remove_junk($form['problems']); ?></textarea>
                       </div>
                     </div>
                   </div>
