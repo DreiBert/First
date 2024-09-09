@@ -177,7 +177,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group mb-2">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Case Number</span>
-                    <input type="text" class="form-control" name="case-number" placeholder="Case Number" required>
+                    <input type="text" class="form-control" name="case-number" required>
                   </div>
                 </div>
               </div>
@@ -238,7 +238,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i> Place of Birth</span>
-                    <input type="text" class="form-control" name="place-of-birth" placeholder="Place of Birth" required>
+                    <input type="text" class="form-control" name="place-of-birth" required>
                   </div>
                 </div>
               </div>
@@ -250,7 +250,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i> Address</span>
-                    <input type="text" class="form-control" name="address" placeholder="Address">
+                    <input type="text" class="form-control" name="address">
                   </div>
                 </div>
               </div>
@@ -280,8 +280,7 @@ if (isset($_POST['add_product'])) {
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i> Educational
                       Attainment</span>
-                    <input type="text" class="form-control" name="educational-attainment"
-                      placeholder="Educational Attainment">
+                    <input type="text" class="form-control" name="educational-attainment">
                   </div>
                 </div>
               </div>
@@ -303,7 +302,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i> Religion</span>
-                    <input type="text" class="form-control" name="religion" placeholder="Religion">
+                    <input type="text" class="form-control" name="religion">
                   </div>
                 </div>
               </div>
@@ -315,7 +314,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i> Occupation</span>
-                    <input type="text" class="form-control" name="occupation" placeholder="Occupation">
+                    <input type="text" class="form-control" name="occupation">
                   </div>
                 </div>
               </div>
@@ -323,7 +322,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i> Company</span>
-                    <input type="text" class="form-control" name="company-agency" placeholder="Company/Agency">
+                    <input type="text" class="form-control" name="company-agency">
                   </div>
                 </div>
               </div>
@@ -332,7 +331,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i> Monthly Income</span>
-                    <input type="number" class="form-control" name="monthly-income" placeholder="Input Monthly Income">
+                    <input type="number" class="form-control" name="monthly-income">
                   </div>
                 </div>
               </div>
@@ -361,7 +360,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i> Contact Number</span>
-                    <input type="text" class="form-control" name="contact-number" placeholder="Contact Number">
+                    <input type="text" class="form-control" name="contact-number">
                   </div>
                 </div>
               </div>
@@ -369,7 +368,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i> Email Address</span>
-                    <input type="email" class="form-control" name="email-address" placeholder="Email Address">
+                    <input type="email" class="form-control" name="email-address">
                   </div>
                 </div>
               </div>
@@ -382,9 +381,9 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i> Pantawid Beneficiary</span>
+                    <span class="input-group-addon"> Pantawid Beneficiary</span>
                     <select class="form-control" name="pantawid-beneficiary" required>
-                      <option value="">Pantawid Beneficiary</option>
+                      <option value="">Select</option>
                       <option value="Y">Yes</option>
                       <option value="N">No</option>
                     </select>
@@ -394,9 +393,9 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i> Pensioner</span>
+                    <span class="input-group-addon">Pensioner</span>
                     <select class="form-control" name="pensioner" required>
-                      <option value="">Pensioner</option>
+                      <option value="">Select</option>
                       <option value="Y">Yes</option>
                       <option value="N">No</option>
                     </select>
@@ -406,9 +405,9 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i> LGBTQ+</span>
+                    <span class="input-group-addon"> LGBTQ+</span>
                     <select class="form-control" name="lgbtq" required>
-                      <option value="">LGBTQ+</option>
+                      <option value="">Select</option>
                       <option value="Y">Yes</option>
                       <option value="N">No</option>
                     </select>
