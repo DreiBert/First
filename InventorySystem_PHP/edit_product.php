@@ -41,55 +41,58 @@ if (isset($_POST['update_form'])) {
     $contact_number = remove_junk($db->escape($_POST['contact-number']));
     $email_address = remove_junk($db->escape($_POST['email-address']));
     $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
-    $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
     $pensioner = remove_junk($db->escape($_POST['pensioner']));
-    $classification = remove_junk($db->escape($_POST['classification']));
-    $problems = remove_junk($db->escape($_POST['problems']));
+    $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
 
-    // Calculate age
-    $dob = new DateTime($date_of_birth);
-    $now = new DateTime();
-    $age = $now->diff($dob)->y;
+    // Sanitize and escape emergency contact inputs
+    $emergency_name = remove_junk($db->escape($_POST['emergency_contact_name']));
+    $emergency_relationship = remove_junk($db->escape($_POST['emergency_contact_relationship']));
+    $emergency_contact_number = remove_junk($db->escape($_POST['emergency_contact_number']));
+    $emergency_contact_address = remove_junk($db->escape($_POST['emergency_contact_address']));
 
-    // Update the application form in the database
-    $query = "UPDATE application_forms SET";
-    $query .= " case_number='{$case_number}', full_name='{$full_name}', sex='{$sex}', date_of_birth='{$date_of_birth}',";
-    $query .= " place_of_birth='{$place_of_birth}', address='{$address}', barangay_id='{$barangay_id}',";
-    $query .= " educational_attainment='{$educational_attainment}', civil_status='{$civil_status}', occupation='{$occupation}',";
-    $query .= " religion='{$religion}', company_agency='{$company_agency}', monthly_income='{$monthly_income}',";
-    $query .= " employment_status='{$employment_status}', contact_number='{$contact_number}', email_address='{$email_address}',";
-    $query .= " pantawid_beneficiary='{$pantawid_beneficiary}', lgbtq='{$lgbtq}', pensioner='{$pensioner}', classification='{$classification}', problems='{$problems}', age='{$age}'";
-    $query .= " WHERE id='{$form['id']}'";
+    // Construct the SQL update query for application form
+    $query = "UPDATE application_forms SET 
+                case_number = '{$case_number}', 
+                full_name = '{$full_name}', 
+                sex = '{$sex}', 
+                date_of_birth = '{$date_of_birth}', 
+                place_of_birth = '{$place_of_birth}', 
+                address = '{$address}', 
+                barangay_id = '{$barangay_id}', 
+                educational_attainment = '{$educational_attainment}', 
+                civil_status = '{$civil_status}', 
+                occupation = '{$occupation}', 
+                religion = '{$religion}', 
+                company_agency = '{$company_agency}', 
+                monthly_income = '{$monthly_income}', 
+                employment_status = '{$employment_status}', 
+                contact_number = '{$contact_number}', 
+                email_address = '{$email_address}', 
+                pantawid_beneficiary = '{$pantawid_beneficiary}', 
+                pensioner = '{$pensioner}', 
+                lgbtq = '{$lgbtq}'
+              WHERE id = '{$form['id']}'";
+
+    // Execute the query for application form
     $result = $db->query($query);
 
-    // Update the emergency contact information in the database
-    if ($emergency_contact) {
-      $emergency_contact_name = remove_junk($db->escape($_POST['emergency_contact_name']));
-      $emergency_contact_relationship = remove_junk($db->escape($_POST['emergency_contact_relationship']));
-      $emergency_contact_number = remove_junk($db->escape($_POST['emergency_contact_number']));
-      $emergency_contact_address = remove_junk($db->escape($_POST['emergency_contact_address']));
+    // Construct the SQL update query for emergency contact
+    $emergency_query = "UPDATE emergency_contacts SET 
+                          name = '{$emergency_name}', 
+                          relation = '{$emergency_relationship}', 
+                          contact_number = '{$emergency_contact_number}', 
+                          address = '{$emergency_contact_address}'
+                        WHERE application_id = '{$form['id']}'";
 
-      $query = "UPDATE emergency_contacts SET";
-      $query .= " name='{$emergency_contact_name}', relation='{$emergency_contact_relationship}',";
-      $query .= " contact_number='{$emergency_contact_number}', address='{$emergency_contact_address}'";
-      $query .= " WHERE application_id='{$form['id']}'";
-      $result_emergency = $db->query($query);
-    } else {
-      $emergency_contact_name = remove_junk($db->escape($_POST['emergency_contact_name']));
-      $emergency_contact_relationship = remove_junk($db->escape($_POST['emergency_contact_relationship']));
-      $emergency_contact_number = remove_junk($db->escape($_POST['emergency_contact_number']));
-      $emergency_contact_address = remove_junk($db->escape($_POST['emergency_contact_address']));
+    // Execute the query for emergency contact
+    $emergency_result = $db->query($emergency_query);
 
-      $query = "INSERT INTO emergency_contacts (application_id, name, relation, contact_number, address)";
-      $query .= " VALUES ('{$form['id']}', '{$emergency_contact_name}', '{$emergency_contact_relationship}', '{$emergency_contact_number}', '{$emergency_contact_address}')";
-      $result_emergency = $db->query($query);
-    }
-
-    if ($result && $db->affected_rows() === 1 && $result_emergency) {
+    // Check if the update was successful
+    if ($result && $emergency_result) {
       $session->msg('s', "Application form updated ");
       redirect('edit_product.php?id=' . $form['id'], false);
     } else {
-      $session->msg('d', ' Sorry failed to update!');
+      $session->msg('d', 'Sorry, failed to update!');
       redirect('edit_product.php?id=' . $form['id'], false);
     }
   } else {
@@ -98,7 +101,6 @@ if (isset($_POST['update_form'])) {
   }
 }
 ?>
-
 <!-- Section 2 -->
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -130,7 +132,7 @@ if (isset($_POST['update_form'])) {
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group mb-2">
-                  <div class=" input-group">
+                  <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Case Number</span>
                     <input type="text" class="form-control" name="case-number"
                       value="<?php echo remove_junk($form['case_number']); ?>" required>
@@ -139,14 +141,13 @@ if (isset($_POST['update_form'])) {
               </div>
               <div class="col-md-9">
                 <div class="form-group">
-                  <div class=" input-group">
+                  <div class="input-group">
                     <span class="input-group-addon">Full Name</span>
                     <input type="text" class="form-control" name="full_name"
                       value="<?php echo remove_junk($form['full_name']); ?>" required>
                   </div>
                 </div>
               </div>
-
             </div>
 
             <div class="row">
