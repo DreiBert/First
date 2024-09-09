@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2024 at 05:34 AM
+-- Generation Time: Sep 09, 2024 at 07:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,56 +51,30 @@ CREATE TABLE `application_forms` (
   `lgbtq` char(1) NOT NULL,
   `date` datetime NOT NULL,
   `classification` text DEFAULT NULL,
-  `problems` text DEFAULT NULL
+  `problems` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `application_forms`
 --
 
-INSERT INTO `application_forms` (`id`, `case_number`, `full_name`, `age`, `sex`, `date_of_birth`, `place_of_birth`, `address`, `pensioner`, `barangay_id`, `educational_attainment`, `civil_status`, `occupation`, `religion`, `company_agency`, `monthly_income`, `employment_status`, `contact_number`, `email_address`, `pantawid_beneficiary`, `lgbtq`, `date`, `classification`, `problems`) VALUES
-(1, NULL, 'user', 21, 'Male', '1970-01-01', '', 'asdfas', NULL, NULL, 'asdfasd', 'Married', 'asdf', 'adfas', 'sdfasdf', 123431.00, 'Employed', 'asdfa', 'asdfa@fasdf.com', 'Y', 'Y', '2024-08-30 04:14:00', NULL, NULL),
-(2, NULL, 'Eubert ', 22, 'Male', '1970-01-01', '', 'alsdjflajk', NULL, NULL, 'lasjdflasjk', 'Single', 'lasjdflj', 'lajsdfl', 'lasdjflajk', 1242134.00, 'Employed', '123413', 'asdfasd@asdfas.com', 'Y', 'N', '2024-08-30 04:48:53', NULL, NULL),
-(3, NULL, 'Andrei ', 23, 'Male', '1970-01-01', '', 'Cavite', NULL, NULL, 'College', 'Single', 'Student', 'Born Again ', 'CSWD', 10000.00, 'Employed', '09267033282', 'eubert@gmail.com', 'Y', 'N', '2024-08-30 04:50:15', NULL, NULL),
-(4, NULL, 'Hello ', 123, 'Male', '1970-01-01', '', 'lasjkdflsdjk', NULL, NULL, 'lasdjflajk', 'Married', 'alsdkjflkj', 'lasdjflj', 'jalsdkjfl', 12341.00, 'Employed', '123413', 'asdfn@gmail.com', 'N', 'N', '2024-08-30 05:02:04', NULL, NULL),
-(5, NULL, 'Eubert ', 22, 'Male', '2001-10-07', 'Quezon ', 'Cavite ', NULL, NULL, 'College', 'Single', 'IT ', 'Born Again ', 'CSWD', 100000.00, 'Employed', '09324123413', 'eubert@gmail.com', 'N', 'N', '2024-08-30 05:22:22', NULL, NULL),
-(6, '1234', 'Eubert ', 21, 'Male', '2001-09-09', 'Quezon ', 'Cavite ', NULL, NULL, 'College', 'Single', 'Student', 'Born Again ', 'CSWD', 99999999.99, 'Employed', '1234', 'eubert@gmail.com', 'Y', 'Y', '2024-08-30 08:26:54', NULL, NULL),
-(7, '1234', 'Andrea ', 19, 'Female', '2002-02-02', 'Quezon City ', 'Cavite ', NULL, NULL, 'College ', 'Single', 'None ', 'Catholic ', 'eac ', 20000.00, 'Employed', '09521341234', 'andrea@gmail.com', 'Y', 'N', '2024-09-04 07:42:08', NULL, NULL),
-(8, '1234', 'Eubert ', 22, 'Male', '2014-02-01', 'Quezon City ', 'Cavite ', NULL, NULL, 'College', 'Single', 'Student', 'asdf', 'asdfadfs', 21341.00, 'Employed', '09267033282', 'eubert@gmail.com', 'Y', 'Y', '2024-09-04 08:04:54', NULL, NULL),
-(9, '1234', 'eric ', 22, 'Male', '2001-01-01', 'cavite ', 'cavite ', NULL, NULL, 'college ', 'Single', 'student ', 'sldfjk', 'lskjflsdkj', 1234.00, 'Employed', '092134', 'eric@gmail.com', 'Y', 'N', '2024-09-04 08:09:57', NULL, NULL),
-(10, '1234', 'Eubert ', 21, 'Male', '2001-10-10', 'quezon ', 'cavite ', NULL, NULL, 'college ', 'Single', 'student ', 'catholic ', 'it ', 200.00, 'Employed', '032142134', 'eubert@gmail.com', 'Y', 'N', '2024-09-05 02:44:31', NULL, NULL),
-(11, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', NULL, NULL, 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:53:07', NULL, NULL),
-(12, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', NULL, NULL, 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:54:59', NULL, NULL),
-(13, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', NULL, NULL, 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:55:01', NULL, NULL),
-(14, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', NULL, NULL, 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:55:03', NULL, NULL),
-(15, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', NULL, NULL, 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:55:09', NULL, NULL),
-(16, '1234', 'user', 21, 'Male', '2001-01-01', 'cavite ', 'cavite ', NULL, NULL, 'college ', 'Single', 'pres ', 'pres ', 'pres ', 1234.00, 'Employed', '01923412934', 'user@gmail.com', 'Y', 'Y', '2024-09-05 02:55:34', NULL, NULL),
-(17, '1234', 'asdf', 12, 'Male', '2001-01-01', 'quezon ', 'aldksfj', NULL, NULL, 'alsdkfj', 'Single', 'sldkfj', 'lskdfj', 'lskdfj', 134234.00, 'Employed', '1234', '234@gmail.com', 'Y', 'Y', '2024-09-05 03:24:46', NULL, NULL),
-(18, '1234', 'asdf', 12, 'Male', '2001-01-01', 'sadf', 'sdfsdf', NULL, NULL, 'sfasdf', 'Single', 'asdf', 'asdf', 'sdafas', 1234.00, 'Self-employed', 'asdf', 'asdfa@gmadfl.com', 'Y', 'Y', '2024-09-05 03:26:28', NULL, NULL),
-(19, '134', 'Bertee', 23, 'Male', '2001-01-01', 'asdf', 'asdfasd', NULL, NULL, 'asdfs', 'Single', 'as,dmfn', 'asdfn', 'sadnf,n', 1234.00, 'Self-employed', '123412', 'eubert@gmail.com', 'N', 'N', '2024-09-05 03:30:20', NULL, NULL),
-(20, '1234', 'fasdf', 2134, 'Male', '2001-01-01', 'ewalkrj', 'lksafjl', NULL, NULL, 'ladjsflak', 'Single', 'asdfdas', 'asdf', 'asdf', 1234.00, 'Employed', '2134', 'eubert@gmail.com', 'Y', 'Y', '2024-09-05 03:47:03', NULL, NULL),
-(21, '1234', 'Eubert ', 21, 'Male', '2001-12-07', 'Quezon ', 'Cavite ', NULL, NULL, 'colelge ', 'Single', 'IT ', 'Catholic ', 'IT ', 2000.00, 'Employed', '01923413', 'eubert@gmail.com', 'Y', 'Y', '2024-09-06 08:21:38', NULL, NULL),
-(22, '1234', 'Eubert', 30, 'Male', '2001-01-01', 'quezon', 'Cavite ', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'Cavite@gmail.com', 'Y', 'N', '2024-09-06 09:00:52', NULL, NULL),
-(23, '1234', 'Eubert', 30, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-06 09:02:21', NULL, NULL),
-(24, '1234', 'Eubert', 30, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-06 09:41:57', NULL, NULL),
-(25, '1234', 'eubert', 21, 'Male', '2001-01-01', 'queonz', 'asldjkf', NULL, NULL, 'laksjdflj', 'Single', 'adsf', 'afda', 'adfads', 23.00, 'Employed', '1234123', 'asdfsd@gmail.com', 'N', 'Y', '2024-09-07 12:42:24', NULL, NULL),
-(26, '1234', 'asdfasdf', 22, 'Male', '2001-10-07', 'Quezon', 'alsdfkjdas', NULL, NULL, 'laf', 'Single', 'asdfas', 'asdfad', 'asdfasd', 1234.00, 'Employed', '12341', 'eubert@gmail.com', 'Y', 'Y', '2024-09-08 08:30:01', NULL, NULL),
-(27, '1234', 'Esguerra', 22, 'Male', '2001-10-07', 'Quezon', 'Cavite ', NULL, NULL, 'College', 'Single', 'asdf', 'asfd', 'asdfadsf', 134.00, 'Employed', '0132412', 'me@mydomain.com', 'Y', 'Y', '2024-09-08 08:34:57', NULL, NULL),
-(28, '1234', 'eubert', 23, 'Male', '2001-01-01', 'Quezon', 'adsfadsf', NULL, NULL, 'asdfasdf', 'Single', 'adsfasdf', 'asdfsaf', 'asdfasdf', 1234.00, 'Employed', '12342', 'asdf@gmail.com', 'Y', 'Y', '2024-09-08 08:39:35', NULL, NULL),
-(29, '1234', 'company name', 23, 'Male', '2001-01-01', 'adfas', 'country nameasdfadf', NULL, NULL, 'asdfasd', 'Single', 'asdfasdf', 'afsdasdf', 'asdfasd', 3214.00, 'Employed', '12342', 'FASDF@GMAIL.COM', 'Y', 'Y', '2024-09-08 18:52:36', 'asdfasdf asdf asdf asdf asdf asd fasdf asdf asdfasdf asdf asdf asdf asdf asd fasdf asdf asdfasdf asdf asdf asdf asdf asd fasdf asdf ', 'asfdasdfasdf asdf asdf asdf asdf asd fasdf asdf asdfasdf asdf asdf asdf asdf asd fasdf asdf asdfasdf asdf asdf asdf asdf asd fasdf asdf '),
-(30, '1234', 'Eubert', 17, 'Male', '2007-01-01', 'Quezon', 'Cavite', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:18:44', 'asdfasdf', 'adfasdfas'),
-(31, '1234', 'Eubert', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:33:03', '', ''),
-(32, '1234', 'Eubert', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:35:08', '', ''),
-(33, '1234', 'Eubert ey', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:37:43', '', ''),
-(34, '1234', 'Eubert', 26, 'Male', '1998-01-01', 'Quezon', 'Cavite', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'N', '2024-09-08 19:40:56', 'asdfasdf', 'asdasdfasd'),
-(35, '1234', 'Eubert', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:43:25', '', ''),
-(36, '1234', 'Eubertfdf', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 19:45:16', '', ''),
-(37, '1234', 'Esguerra, Eubert Andrei', 24, 'Male', '2000-01-01', 'Quezon', 'Cavite', NULL, NULL, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-08 20:06:56', '', ''),
-(38, '1234', 'my last name, my first name 01', 17, 'Male', '2007-01-01', 'quezon', 'eubert@gmail.com', NULL, 1, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 03:33:46', '', ''),
-(39, '1234', 'my last name, my first name 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', NULL, 1, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 03:37:32', '', ''),
-(40, '1234', 'my last name, my first name 01', 22, 'Male', '2002-02-02', 'quezon', 'eubert@gmail.com', NULL, 31, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 03:38:25', '', ''),
-(41, '1234', 'my last name, my first name 01', 21, 'Male', '2003-01-01', 'quezon', 'eubert@gmail.com', 'Y', 38, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 03:54:16', '', ''),
-(42, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-20', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 03:58:02', '', '');
+INSERT INTO `application_forms` (`id`, `case_number`, `full_name`, `age`, `sex`, `date_of_birth`, `place_of_birth`, `address`, `pensioner`, `barangay_id`, `educational_attainment`, `civil_status`, `occupation`, `religion`, `company_agency`, `monthly_income`, `employment_status`, `contact_number`, `email_address`, `pantawid_beneficiary`, `lgbtq`, `date`, `classification`, `problems`, `created_at`) VALUES
+(42, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-20', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 03:58:02', '', '', '2024-09-09 05:41:16'),
+(43, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:38:40', '', '', '2024-09-09 05:41:16'),
+(44, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 5, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:41:14', '', '', '2024-09-09 05:41:16'),
+(45, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:41:45', '', '', '2024-09-09 05:41:16'),
+(46, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 11, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:43:17', 'asdfasf', 'asdfasf', '2024-09-09 05:41:16'),
+(47, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:48:54', '', '', '2024-09-09 05:41:16'),
+(48, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:51:44', '', '', '2024-09-09 05:41:16'),
+(49, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:54:14', '', '', '2024-09-09 05:41:16'),
+(50, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-02', 'quezon', 'eubert@gmail.com', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:54:47', '', '', '2024-09-09 05:41:16'),
+(51, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-02-02', 'quezon', 'eubert@gmail.com', 'Y', 76, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:57:37', '', '', '2024-09-09 05:41:16'),
+(52, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:59:12', '', '', '2024-09-09 05:41:16'),
+(53, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:59:38', '', '', '2024-09-09 05:41:16'),
+(54, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 06:03:47', '', '', '2024-09-09 05:41:16'),
+(56, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:42:13', '', '', '2024-09-09 05:42:13'),
+(57, '1234', 'Esgera, Bert 01', 44, 'Male', '1980-01-01', 'quezon', 'Cavite', 'Y', 8, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:49:22', '', '', '2024-09-09 05:49:22');
 
 -- --------------------------------------------------------
 
@@ -118,69 +92,82 @@ CREATE TABLE `barangays` (
 --
 
 INSERT INTO `barangays` (`id`, `name`) VALUES
-(1, 'Salawag'),
+(1, 'Burol'),
 (2, 'Burol I'),
 (3, 'Burol II'),
 (4, 'Burol III'),
-(5, 'Burol Main'),
-(6, 'San Dionisio'),
-(7, 'San Esteban'),
-(8, 'Sto. Cristo'),
-(9, 'Sto. Niño I'),
-(10, 'Sto. Niño II'),
-(11, 'San Manuel I'),
-(12, 'San Manuel II'),
-(13, 'San Miguel I'),
-(14, 'San Miguel II'),
-(15, 'St. Peter I'),
-(16, 'St. Peter II'),
-(17, 'Parts of Burol III'),
-(18, 'San Andres I'),
-(19, 'San Andres II'),
-(20, 'San Roque'),
-(21, 'San Simon'),
-(22, 'Sta. Cristina I'),
-(23, 'Victoria Reyes'),
-(24, 'Bautista Property (part of Sampaloc IV)'),
-(25, 'Luzviminda I'),
-(26, 'Luzviminda II'),
-(27, 'San Nicolas I'),
-(28, 'San Nicolas II'),
-(29, 'San Mateo'),
-(30, 'Emmanuel Bergado I'),
-(31, 'Emmanuel Bergado II'),
-(32, 'San Luis I'),
-(33, 'San Luis II'),
-(34, 'San Francisco I'),
-(35, 'San Francisco II'),
-(36, 'Sta. Fe'),
-(37, 'Langkaan I'),
-(38, 'Langkaan II (Humayao)'),
-(39, 'Paliparan I'),
-(40, 'Paliparan II'),
-(41, 'Paliparan III'),
-(42, 'Salitran I'),
-(43, 'Salitran II'),
-(44, 'Salitran III'),
-(45, 'Salitran IV'),
-(46, 'Sampaloc I (Pala-Pala)'),
-(47, 'Sampaloc II'),
-(48, 'Sampaloc III'),
-(49, 'Sampaloc IV'),
-(50, 'Sampaloc V'),
-(51, 'San Agustin I'),
-(52, 'San Agustin II'),
-(53, 'San Agustin III'),
-(54, 'San Antonio de Padua I'),
-(55, 'San Antonio de Padua II'),
-(56, 'Sta. Cruz I'),
-(57, 'Sta. Cruz II'),
-(58, 'Sta. Maria'),
-(59, 'Zone I'),
-(60, 'Zone I-A'),
-(61, 'Zone II'),
-(62, 'Zone III'),
-(63, 'Zone IV');
+(5, 'Datu Esmael (Bago-a-ingud)'),
+(6, 'Emmanuel Bergado I'),
+(7, 'Emmanuel Bergado II'),
+(8, 'Fatima I'),
+(9, 'Fatima II'),
+(10, 'Fatima III'),
+(11, 'H-2'),
+(12, 'Langkaan I'),
+(13, 'Langkaan II'),
+(14, 'Luzviminda I'),
+(15, 'Luzviminda II'),
+(16, 'Paliparan I'),
+(17, 'Paliparan II'),
+(18, 'Paliparan III'),
+(19, 'Sabang'),
+(20, 'Saint Peter I'),
+(21, 'Saint Peter II'),
+(22, 'Salawag'),
+(23, 'Salitran I'),
+(24, 'Salitran II'),
+(25, 'Salitran III'),
+(26, 'Salitran IV'),
+(27, 'Sampaloc I'),
+(28, 'Sampaloc II'),
+(29, 'Sampaloc III'),
+(30, 'Sampaloc IV'),
+(31, 'Sampaloc V'),
+(32, 'San Agustin I'),
+(33, 'San Agustin II'),
+(34, 'San Agustin III'),
+(35, 'San Andres I'),
+(36, 'San Andres II'),
+(37, 'San Antonio De Padua I'),
+(38, 'San Antonio De Padua II'),
+(39, 'San Dionisio (Barangay 1)'),
+(40, 'San Esteban (Barangay 4)'),
+(41, 'San Francisco I'),
+(42, 'San Francisco II'),
+(43, 'San Isidro Labrador I'),
+(44, 'San Isidro Labrador II'),
+(45, 'San Jose'),
+(46, 'San Juan (San Juan I)'),
+(47, 'San Lorenzo Ruiz I'),
+(48, 'San Lorenzo Ruiz II'),
+(49, 'San Luis I'),
+(50, 'San Luis II'),
+(51, 'San Manuel I'),
+(52, 'San Manuel II'),
+(53, 'San Mateo'),
+(54, 'San Miguel'),
+(55, 'San Miguel II'),
+(56, 'San Nicolas I'),
+(57, 'San Nicolas II'),
+(58, 'San Roque (Sta. Cristina II)'),
+(59, 'San Simon (Barangay 7)'),
+(60, 'Santa Cristina I'),
+(61, 'Santa Cristina II'),
+(62, 'Santa Cruz I'),
+(63, 'Santa Cruz II'),
+(64, 'Santa Fe'),
+(65, 'Santa Lucia (San Juan II)'),
+(66, 'Santa Maria (Barangay 20)'),
+(67, 'Santo Cristo (Barangay 3)'),
+(68, 'Santo Niño I'),
+(69, 'Santo Niño II'),
+(70, 'Victoria Reyes'),
+(71, 'Zone I'),
+(72, 'Zone I-B'),
+(73, 'Zone II'),
+(74, 'Zone III'),
+(75, 'Zone IV'),
+(76, 'Dasmariñas (City)');
 
 -- --------------------------------------------------------
 
@@ -227,9 +214,7 @@ CREATE TABLE `emergency_contacts` (
 --
 
 INSERT INTO `emergency_contacts` (`id`, `application_id`, `name`, `relation`, `address`, `contact_number`) VALUES
-(1, 30, 'Bhea ', 'Mom', 'Cavite', '1341234'),
-(2, 32, '', '', '', ''),
-(3, 34, 'asdfasdf', 'asdfasdf', 'adfasdf', '12341234');
+(4, 46, 'asdfasdf', 'asdfasdf', 'eubert@gmail.com', 'asdfasdf');
 
 -- --------------------------------------------------------
 
@@ -255,24 +240,17 @@ CREATE TABLE `family_members` (
 --
 
 INSERT INTO `family_members` (`id`, `application_id`, `name`, `relation`, `age`, `birthday`, `civil_status`, `education`, `occupation`, `monthly_income`) VALUES
-(1, 24, 'andrea ', 'sis', 19, '2001-09-09', 'Single', 'asdf', 'IT', 1234.00),
-(2, 24, 'emman', 'bro', 23, '2001-01-01', 'Single', 'asdf', 'asdf', 1234.00),
-(3, 25, 'asdf', 'asdfa', 212, '0001-01-01', 'Single', 'asdf', 'asfd', 1234.00),
-(4, 25, 'asdf', 'asdf', 2, '2001-01-01', 'Single', 'asdf', 'adsf', 1243.00),
-(5, 26, 'asdf', 'asdf', 23, '2001-01-01', 'Single', 'asdf', 'asdfsadf', 1234.00),
-(6, 27, 'my full name', 'sis', 20, '2004-01-01', 'Single', 'asdf', 'occupation', 1234.00),
-(7, 28, 'emman1', 'asdfasdf', 19, '2005-01-01', 'Single', 'adfa', 'adsfadf', 1234.00),
-(8, 28, 'emman2', 'asdfasdf', 10, '2014-01-01', 'Single', 'asdfa', 'asdfas', 3214.00),
-(9, 28, 'emman2', 'asdfasdf', 4, '2020-01-01', 'Single', 'asdf', 'asdfas', 1234.00),
-(10, 29, 'company namea', 'adfasd', 23, '2001-01-01', 'Single', 'asdfads', 'sadfafsd', 234.00),
-(11, 30, 'Andrea', 'sis', 22, '2002-02-02', 'Single', 'asdfads', 'asdfasd', 112341.00),
-(12, 30, 'Emman', 'bro', 21, '2002-12-01', 'Single', 'fasdf', 'fasdf', 12341.00),
-(13, 34, 'brobro', 'asdf', 22, '2002-02-20', 'Single', 'adfasd', 'adsf', 1234.00),
-(14, 34, 'brobrobro', 'adfaf', 24, '1999-10-10', 'Single', 'asdf', 'asdf', 124.00),
-(15, 35, 'bro1', 'asdfa', 23, '2001-01-01', 'Single', 'asdfa', 'asdfdas', 123412.00),
-(16, 35, 'bro2', 'asdfas', 23, '2001-01-01', 'Single', 'asdfasd', 'asdfasd', 1234123.00),
-(17, 35, 'bro3', 'asdfasdf', 23, '2001-01-01', 'Single', 'asdfas', 'asdfadsf', 31241.00),
-(18, 36, 'asdfa', 'asdfasdf', 23, '2001-01-01', 'Single', 'adfasd', 'asdfas', 12312.00);
+(19, 47, 'bro1', 'alskdjfl', 23, '2001-01-01', 'Single', 'adsfasd', 'IT', 1234124.00),
+(20, 47, 'asdfas', 'asdfasdf', 0, '0000-00-00', '', 'adfas', '', 0.00),
+(21, 48, 'sis1', 'fasdfdasf', 22, '2002-01-02', 'Single', 'asdfad', 'IT', 12341.00),
+(22, 49, 'sis1', 'fasdfdasf', 22, '2002-01-02', 'Single', 'asdfad', 'IT', 12341.00),
+(23, 49, 'sis2', '', 0, '0000-00-00', '', '', '', 0.00),
+(24, 50, 'asdfas', 'dfasdfaf', 0, '0000-00-00', 'Married', 'asdf', 'IT', 123421.00),
+(25, 51, 'asdf', 'asdf', 0, '0000-00-00', '', 'asdf', 'IT', 123431.00),
+(26, 53, 'asdfad', 'asdfa', 0, '0000-00-00', 'Single', 'asdf', 'IT', 1234.00),
+(27, 54, '', '', 0, '0000-00-00', '', '', '', 0.00),
+(29, 56, '', '', 0, '0000-00-00', '', '', 'IT', 0.00),
+(30, 57, '', '', 0, '0000-00-00', '', '', 'IT', 0.00);
 
 -- --------------------------------------------------------
 
@@ -485,13 +463,13 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT for table `application_forms`
 --
 ALTER TABLE `application_forms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `barangays`
 --
 ALTER TABLE `barangays`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -503,13 +481,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `emergency_contacts`
 --
 ALTER TABLE `emergency_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `family_members`
 --
 ALTER TABLE `family_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `media`
