@@ -88,21 +88,24 @@ if (isset($_POST['add_product'])) {
           $family_occupation = !empty($family_member['occupation']) ? remove_junk($db->escape($family_member['occupation'])) : NULL;
           $family_monthly_income = !empty($family_member['monthly_income']) ? remove_junk($db->escape($family_member['monthly_income'])) : NULL;
 
-          // Validate family member's birthday if provided
-          if ($family_birthday) {
-            $family_birthDate = DateTime::createFromFormat('Y-m-d', $family_birthday);
-            if (!$family_birthDate || $family_birthDate->format('Y-m-d') !== $family_birthday) {
-              $session->msg('d', 'Invalid family member birthday format.');
-              redirect('add_product.php', false);
+          // Check if all fields are empty
+          if ($family_name || $family_relation || $family_birthday || $family_civil_status || $family_education || $family_occupation || $family_monthly_income) {
+            // Validate family member's birthday if provided
+            if ($family_birthday) {
+              $family_birthDate = DateTime::createFromFormat('Y-m-d', $family_birthday);
+              if (!$family_birthDate || $family_birthDate->format('Y-m-d') !== $family_birthday) {
+                $session->msg('d', 'Invalid family member birthday format.');
+                redirect('add_product.php', false);
+              }
+              // Calculate family member's age based on birthday
+              $family_age = $today->diff($family_birthDate)->y;
+            } else {
+              $family_age = NULL;
             }
-            // Calculate family member's age based on birthday
-            $family_age = $today->diff($family_birthDate)->y;
-          } else {
-            $family_age = NULL;
-          }
 
-          $family_query = "INSERT INTO family_members (application_id, name, relation, age, birthday, civil_status, education, occupation, monthly_income) VALUES ('{$application_id}', '{$family_name}', '{$family_relation}', '{$family_age}', '{$family_birthday}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
-          $db->query($family_query);
+            $family_query = "INSERT INTO family_members (application_id, name, relation, age, birthday, civil_status, education, occupation, monthly_income) VALUES ('{$application_id}', '{$family_name}', '{$family_relation}', '{$family_age}', '{$family_birthday}', '{$family_civil_status}', '{$family_education}', '{$family_occupation}', '{$family_monthly_income}')";
+            $db->query($family_query);
+          }
         }
       }
 

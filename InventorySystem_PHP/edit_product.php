@@ -18,7 +18,7 @@ $family_members = find_family_members_by_application_id((int) $_GET['id']);
 ?>
 <?php
 if (isset($_POST['update_form'])) {
-  $req_fields = array('case-number', 'full_name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
+  $req_fields = array('case-number', 'full_name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner', 'classification', 'problems');
   validate_fields($req_fields);
 
   if (empty($errors)) {
@@ -42,6 +42,8 @@ if (isset($_POST['update_form'])) {
     $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
     $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
     $pensioner = remove_junk($db->escape($_POST['pensioner']));
+    $classification = remove_junk($db->escape($_POST['classification']));
+    $problems = remove_junk($db->escape($_POST['problems']));
 
     // Calculate age
     $dob = new DateTime($date_of_birth);
@@ -50,7 +52,7 @@ if (isset($_POST['update_form'])) {
 
     // Update the application form in the database
     $query = "UPDATE application_forms SET";
-    $query .= " case_number='{$case_number}', full_name='{$full_name}', sex='{$sex}', date_of_birth='{$date_of_birth}', age='{$age}', place_of_birth='{$place_of_birth}', address='{$address}', barangay_id='{$barangay_id}', educational_attainment='{$educational_attainment}', civil_status='{$civil_status}', occupation='{$occupation}', religion='{$religion}', company_agency='{$company_agency}', monthly_income='{$monthly_income}', employment_status='{$employment_status}', contact_number='{$contact_number}', email_address='{$email_address}', pantawid_beneficiary='{$pantawid_beneficiary}', lgbtq='{$lgbtq}', pensioner='{$pensioner}'";
+    $query .= " case_number='{$case_number}', full_name='{$full_name}', sex='{$sex}', date_of_birth='{$date_of_birth}', age='{$age}', place_of_birth='{$place_of_birth}', address='{$address}', barangay_id='{$barangay_id}', educational_attainment='{$educational_attainment}', civil_status='{$civil_status}', occupation='{$occupation}', religion='{$religion}', company_agency='{$company_agency}', monthly_income='{$monthly_income}', employment_status='{$employment_status}', contact_number='{$contact_number}', email_address='{$email_address}', pantawid_beneficiary='{$pantawid_beneficiary}', lgbtq='{$lgbtq}', pensioner='{$pensioner}', classification='{$classification}', problems='{$problems}'";
     $query .= " WHERE id='{$form['id']}'";
     $result = $db->query($query);
 
@@ -67,6 +69,7 @@ if (isset($_POST['update_form'])) {
   }
 }
 ?>
+
 <!-- Section 2 -->
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -88,8 +91,7 @@ if (isset($_POST['update_form'])) {
           <form method="post" action="edit_product.php?id=<?php echo (int) $form['id']; ?>" class="clearfix">
             <!-- Row 1: Case Number, Full Name, Sex, Date of Birth -->
             <div class="row d-flex align-items-center">
-              <div class="col-md-10">
-                <strong>
+              <div class="col-md-10"> <strong>
                   <i>
                     <p class="mb-0">I. IDENTIFYING INFORMATION</p>
                   </i>
@@ -99,7 +101,7 @@ if (isset($_POST['update_form'])) {
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group mb-2">
-                  <div class="input-group">
+                  <div class=" input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Case Number</span>
                     <input type="text" class="form-control" name="case-number"
                       value="<?php echo remove_junk($form['case_number']); ?>" required>
@@ -108,7 +110,7 @@ if (isset($_POST['update_form'])) {
               </div>
               <div class="col-md-9">
                 <div class="form-group">
-                  <div class="input-group">
+                  <div class=" input-group">
                     <span class="input-group-addon">Full Name</span>
                     <input type="text" class="form-control" name="full_name"
                       value="<?php echo remove_junk($form['full_name']); ?>" required>
@@ -157,7 +159,7 @@ if (isset($_POST['update_form'])) {
             <div class="row">
               <div class="col-md-8">
                 <div class="form-group">
-                  <div class="input-group">
+                  <div class=" input-group">
                     <span class="input-group-addon">Address</span>
                     <input type="text" class="form-control" name="address"
                       value="<?php echo remove_junk($form['address']); ?>" required>
@@ -166,13 +168,13 @@ if (isset($_POST['update_form'])) {
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <div class="input-group">
+                  <div class=" input-group">
                     <span class="input-group-addon">Barangay</span>
                     <select class="form-control" name="barangay_id" required>
                       <?php foreach ($all_barangays as $barangay): ?>
                         <option <?php if ($form['barangay_id'] === $barangay['id'])
-                          echo 'selected="selected"'; ?>
-                          value="<?php echo (int) $barangay['id']; ?>">
+                          echo 'selected="selected"'; ?> value="
+        <?php echo (int) $barangay['id']; ?>">
                           <?php echo remove_junk($barangay['name']); ?>
                         </option>
                       <?php endforeach; ?>
@@ -194,7 +196,7 @@ if (isset($_POST['update_form'])) {
                 </div>
               </div>
               <div class="col-md-3">
-                <div class="form-group">
+                <div class=" form-group">
                   <div class="input-group">
                     <span class="input-group-addon">Civil Status</span>
                     <select class="form-control" name="civil-status" required>
@@ -229,7 +231,7 @@ if (isset($_POST['update_form'])) {
 
             <div class="row">
               <div class="col-md-4">
-                <div class="form-group">
+                <div class=" form-group">
                   <div class="input-group">
                     <span class="input-group-addon">Occupation</span>
                     <input type="text" class="form-control" name="occupation"
@@ -261,8 +263,8 @@ if (isset($_POST['update_form'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon">Employment Status</span>
-                    <select class="form-control" name="employment-status" required>
+                    <span class="input-group-addon">Employment Status</span> <select class="form-control"
+                      name="employment-status" required>
                       <option <?php if ($form['employment_status'] === 'Employed')
                         echo 'selected="selected"'; ?>
                         value="Employed">Employed</option>
@@ -278,7 +280,7 @@ if (isset($_POST['update_form'])) {
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <div class="input-group">
+                  <div class=" input-group">
                     <span class="input-group-addon">Contact Number</span>
                     <input type="text" class="form-control" name="contact-number"
                       value="<?php echo remove_junk($form['contact_number']); ?>" required>
@@ -299,7 +301,7 @@ if (isset($_POST['update_form'])) {
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <div class="input-group">
+                  <div class=" input-group">
                     <span class="input-group-addon">Pantawid Beneficiary</span>
                     <select class="form-control" name="pantawid-beneficiary" required>
                       <option <?php if ($form['pantawid_beneficiary'] === 'Y')
@@ -321,7 +323,8 @@ if (isset($_POST['update_form'])) {
                       <option <?php if ($form['pensioner'] === 'Y')
                         echo 'selected="selected"'; ?> value="Y">Yes</option>
                       <option <?php if ($form['pensioner'] === 'N')
-                        echo 'selected="selected"'; ?> value="N">No</option>
+                        echo 'selected="selected"'; ?> value="N">No
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -344,52 +347,71 @@ if (isset($_POST['update_form'])) {
             <div class="row">
               <div class="col-md-12">
                 <div class="panel panel-default">
-                  <div class="panel-heading clearfix">
-                    <strong>
-                      <span class="glyphicon glyphicon-th"></span>
-                      <span>Related Family Members</span>
-                    </strong>
-                  </div>
                   <div class="panel-body">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th class="text-center">No.</th>
-                          <th class="text-center">Full Name</th>
-                          <th class="text-center">Relationship</th>
-                          <th class="text-center">Age</th>
-                          <th class="text-center">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php if (!empty($family_members)): ?>
-                          <?php foreach ($family_members as $index => $member): ?>
-                            <tr>
-                              <td class="text-center"><?php echo $index + 1; ?></td>
-                              <td class="text-center"><?php echo remove_junk($member['name']); ?></td>
-                              <td class="text-center"><?php echo remove_junk($member['relation']); ?></td>
-                              <td class="text-center"><?php echo remove_junk($member['age']); ?></td>
-                              <td class="text-center">
-                                <div class="btn-group">
-                                  <a href="edit_family_member.php?id=<?php echo (int) $member['id']; ?>"
-                                    class="btn btn-info btn-xs" title="Edit" data-toggle="tooltip">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                  </a>
-                                  <a href="delete_family_member.php?id=<?php echo (int) $member['id']; ?>"
-                                    class="btn btn-danger btn-xs" title="Delete" data-toggle="tooltip">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                  </a>
-                                </div>
-                              </td>
-                            </tr>
-                          <?php endforeach; ?>
-                        <?php else: ?>
+                    <strong>
+                      <i>
+                        <p class="mb-0">II. FAMILY MEMBERS</p>
+                      </i>
+                    </strong>
+
+                    <div class="panel-body">
+                      <table class="table table-bordered">
+                        <thead>
                           <tr>
-                            <td colspan="5" class="text-center">No family members found.</td>
+                            <th class="text-center">No.</th>
+                            <th class="text-center">Full Name</th>
+                            <th class="text-center">Relationship</th>
+                            <th class="text-center">Age</th>
                           </tr>
-                        <?php endif; ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php if (!empty($family_members)): ?>
+                            <?php foreach ($family_members as $index => $member): ?>
+                              <tr>
+                                <td class="text-center">
+                                  <?php echo $index + 1; ?>
+                                </td>
+                                <td class="text-center">
+                                  <?php echo remove_junk($member['name']); ?>
+                                </td>
+                                <td class="text-center">
+                                  <?php echo remove_junk($member['relation']); ?>
+                                </td>
+                                <td class="text-center">
+                                  <?php echo remove_junk($member['age']); ?>
+                                </td>
+
+                              </tr>
+                            <?php endforeach; ?>
+                          <?php else: ?>
+                            <tr>
+                              <td colspan="5" class="text-center">No family members found.</td>
+                            </tr> <?php endif; ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon">Classification</span>
+                      <input type="text" class="form-control" name="classification"
+                        value="<?php echo remove_junk($form['classification']); ?>" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon">Problems</span>
+                      <input type="text" class="form-control" name="problems"
+                        value="<?php echo remove_junk($form['problems']); ?>" required>
+                    </div>
                   </div>
                 </div>
               </div>
