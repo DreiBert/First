@@ -53,15 +53,20 @@ if (isset($_POST['update_form'])) {
 
     // Update the application form in the database
     $query = "UPDATE application_forms SET";
-    $query .= " case_number='{$case_number}', full_name='{$full_name}', sex='{$sex}', date_of_birth='{$date_of_birth}', age='{$age}', place_of_birth='{$place_of_birth}', address='{$address}', barangay_id='{$barangay_id}', educational_attainment='{$educational_attainment}', civil_status='{$civil_status}', occupation='{$occupation}', religion='{$religion}', company_agency='{$company_agency}', monthly_income='{$monthly_income}', employment_status='{$employment_status}', contact_number='{$contact_number}', email_address='{$email_address}', pantawid_beneficiary='{$pantawid_beneficiary}', lgbtq='{$lgbtq}', pensioner='{$pensioner}', classification='{$classification}', problems='{$problems}'";
+    $query .= " case_number='{$case_number}', full_name='{$full_name}', sex='{$sex}', date_of_birth='{$date_of_birth}',";
+    $query .= " place_of_birth='{$place_of_birth}', address='{$address}', barangay_id='{$barangay_id}',";
+    $query .= " educational_attainment='{$educational_attainment}', civil_status='{$civil_status}', occupation='{$occupation}',";
+    $query .= " religion='{$religion}', company_agency='{$company_agency}', monthly_income='{$monthly_income}',";
+    $query .= " employment_status='{$employment_status}', contact_number='{$contact_number}', email_address='{$email_address}',";
+    $query .= " pantawid_beneficiary='{$pantawid_beneficiary}', lgbtq='{$lgbtq}', pensioner='{$pensioner}', classification='{$classification}', problems='{$problems}', age='{$age}'";
     $query .= " WHERE id='{$form['id']}'";
     $result = $db->query($query);
 
     if ($result && $db->affected_rows() === 1) {
       $session->msg('s', "Application form updated ");
-      redirect('product.php', false);
+      redirect('edit_product.php?id=' . $form['id'], false);
     } else {
-      $session->msg('d', 'Sorry, failed to update!');
+      $session->msg('d', ' Sorry failed to update!');
       redirect('edit_product.php?id=' . $form['id'], false);
     }
   } else {
@@ -426,6 +431,7 @@ if (isset($_POST['update_form'])) {
                   </div>
                 </div>
                 <!-- -------------------Emergency Contact Section-------------------------------- -->
+                <!-- -------------------Emergency Contact Section-------------------------------- -->
                 <div class="row">
                   <div class="col-md-12">
                     <strong>
@@ -440,7 +446,7 @@ if (isset($_POST['update_form'])) {
                             <div class="input-group">
                               <span class="input-group-addon">Contact Name</span>
                               <input type="text" class="form-control" name="emergency_contact_name"
-                                value="<?php echo remove_junk($emergency_contact['name']); ?>" required>
+                                value="<?php echo isset($emergency_contact['name']) ? remove_junk($emergency_contact['name']) : ''; ?>">
                             </div>
                           </div>
                         </div>
@@ -449,7 +455,7 @@ if (isset($_POST['update_form'])) {
                             <div class="input-group">
                               <span class="input-group-addon">Relationship</span>
                               <input type="text" class="form-control" name="emergency_contact_relationship"
-                                value="<?php echo remove_junk($emergency_contact['relation']); ?>" required>
+                                value="<?php echo isset($emergency_contact['relation']) ? remove_junk($emergency_contact['relation']) : ''; ?>">
                             </div>
                           </div>
                         </div>
@@ -460,7 +466,7 @@ if (isset($_POST['update_form'])) {
                             <div class="input-group">
                               <span class="input-group-addon">Contact Number</span>
                               <input type="text" class="form-control" name="emergency_contact_number"
-                                value="<?php echo remove_junk($emergency_contact['contact_number']); ?>" required>
+                                value="<?php echo isset($emergency_contact['contact_number']) ? remove_junk($emergency_contact['contact_number']) : ''; ?>">
                             </div>
                           </div>
                         </div>
@@ -469,7 +475,7 @@ if (isset($_POST['update_form'])) {
                             <div class="input-group">
                               <span class="input-group-addon">Address</span>
                               <input type="text" class="form-control" name="emergency_contact_address"
-                                value="<?php echo remove_junk($emergency_contact['address']); ?>" required>
+                                value="<?php echo isset($emergency_contact['address']) ? remove_junk($emergency_contact['address']) : ''; ?>">
                             </div>
                           </div>
                         </div>
