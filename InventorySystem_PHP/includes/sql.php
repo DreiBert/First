@@ -43,6 +43,12 @@ function delete_by_id($table, $id)
 {
   global $db;
   if (tableExists($table)) {
+    // Delete related records in emergency_contacts table
+    if ($table == 'application_forms') {
+      $db->query("DELETE FROM emergency_contacts WHERE application_id=" . $db->escape($id));
+    }
+
+    // Delete the record in the specified table
     $sql = "DELETE FROM " . $db->escape($table);
     $sql .= " WHERE id=" . $db->escape($id);
     $sql .= " LIMIT 1";
@@ -69,13 +75,14 @@ function count_by_id($table)
 function tableExists($table)
 {
   global $db;
-  $table_exit = $db->query('SHOW TABLES FROM ' . DB_NAME . ' LIKE "' . $db->escape($table) . '"');
+  $table_exit = $db->query("SHOW TABLES LIKE '{$db->escape($table)}'");
   if ($table_exit) {
     if ($db->num_rows($table_exit) > 0)
       return true;
     else
       return false;
   }
+  return false;
 }
 /*--------------------------------------------------------------*/
 /* Login with the data provided in $_POST,
