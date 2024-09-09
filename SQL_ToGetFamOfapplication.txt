@@ -1,0 +1,4 @@
+SELECT fm.*
+FROM family_members fm
+JOIN application_forms af ON fm.application_id = af.id
+WHERE af.id = ?;  -- Replace ? with the actual application ID
