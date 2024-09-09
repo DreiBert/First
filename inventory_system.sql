@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2024 at 10:54 AM
+-- Generation Time: Sep 10, 2024 at 12:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,7 +60,7 @@ CREATE TABLE `application_forms` (
 --
 
 INSERT INTO `application_forms` (`id`, `case_number`, `full_name`, `age`, `sex`, `date_of_birth`, `place_of_birth`, `address`, `pensioner`, `barangay_id`, `educational_attainment`, `civil_status`, `occupation`, `religion`, `company_agency`, `monthly_income`, `employment_status`, `contact_number`, `email_address`, `pantawid_beneficiary`, `lgbtq`, `date`, `classification`, `problems`, `created_at`) VALUES
-(42, '123456', 'Esguerra, Eubert Andreie', 23, 'Male', '1999-01-20', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 03:58:02', '', '', '2024-09-09 05:41:16'),
+(42, '123456', 'Esguerra, Pogie', 25, 'Female', '1999-01-20', 'quezons', 'eubert@gmail.com', 'Y', 2, 'Collegesdasdf', 'Single', 'ITs', 'Christian', 'company name', 10000.00, 'Self-employed', '09568884009', 'eubert@gmail.com', 'N', 'N', '2024-09-09 03:58:02', 'asdfas', '', '2024-09-09 05:41:16'),
 (44, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 5, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:41:14', '', '', '2024-09-09 05:41:16'),
 (45, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:41:45', '', '', '2024-09-09 05:41:16'),
 (46, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 11, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:43:17', 'asdfasf', 'asdfasf', '2024-09-09 05:41:16'),
@@ -71,9 +71,14 @@ INSERT INTO `application_forms` (`id`, `case_number`, `full_name`, `age`, `sex`,
 (51, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-02-02', 'quezon', 'eubert@gmail.com', 'Y', 76, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:57:37', '', '', '2024-09-09 05:41:16'),
 (52, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:59:12', '', '', '2024-09-09 05:41:16'),
 (53, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:59:38', '', '', '2024-09-09 05:41:16'),
-(54, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 06:03:47', '', '', '2024-09-09 05:41:16'),
+(54, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 06:03:47', 'Hello? ', 'Wassup?  asdf', '2024-09-09 05:41:16'),
 (56, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:42:13', '', '', '2024-09-09 05:42:13'),
-(57, '1234', 'Esgera, Bert 01', 44, 'Male', '1980-01-01', 'quezon', 'Cavite', 'Y', 8, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:49:22', '', '', '2024-09-09 05:49:22');
+(57, '1234', 'Esgera, Bert 01', 44, 'Male', '1980-01-01', 'quezon', 'Cavite', 'Y', 8, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:49:22', '', '', '2024-09-09 05:49:22'),
+(58, '1234', 'Hello, Wassup new', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', 'Y', 76, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 19:26:57', 'asdfasdf', 'asdfasdfa', '2024-09-09 17:26:57'),
+(59, '1234', 'Hi, Hello Again', 21, 'Male', '2003-01-01', 'Quezon', 'Cavite', 'Y', 3, 'Collegeasdf', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Self-employed', '0913241234', 'Bert@gmail.com', 'N', 'Y', '2024-09-09 19:30:11', 'hELLO wasasdf fasdfas', 'asfdasdf', '2024-09-09 17:30:11'),
+(60, '1234', 'asdf, afdsasdf asdfasd', 22, 'Male', '2002-02-20', 'Quezon', 'Cavite', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 19:31:06', '', '', '2024-09-09 17:31:06'),
+(61, '4321', 'Sequerra, Drei bERT', 27, 'Male', '1997-01-01', 'Quezon', 'Cavite', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 20:54:57', 'AFDASDF ASDF ASDF ASDF AD FAS F', 'A SDF ASDF ASDF A FASDF F', '2024-09-09 18:54:57'),
+(62, '124132', 'wasdfas, dasdfasd asdfasd', 23, 'Male', '2001-01-01', 'asdfasd', 'asdfasdfa', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 21:22:28', '', '', '2024-09-09 19:22:28');
 
 -- --------------------------------------------------------
 
@@ -91,7 +96,6 @@ CREATE TABLE `barangays` (
 --
 
 INSERT INTO `barangays` (`id`, `name`) VALUES
-(1, 'Burol'),
 (2, 'Burol I'),
 (3, 'Burol II'),
 (4, 'Burol III'),
@@ -143,7 +147,6 @@ INSERT INTO `barangays` (`id`, `name`) VALUES
 (50, 'San Luis II'),
 (51, 'San Manuel I'),
 (52, 'San Manuel II'),
-(53, 'San Mateo'),
 (54, 'San Miguel'),
 (55, 'San Miguel II'),
 (56, 'San Nicolas I'),
@@ -158,7 +161,6 @@ INSERT INTO `barangays` (`id`, `name`) VALUES
 (65, 'Santa Lucia (San Juan II)'),
 (66, 'Santa Maria (Barangay 20)'),
 (67, 'Santo Cristo (Barangay 3)'),
-(68, 'Santo Niño I'),
 (69, 'Santo Niño II'),
 (70, 'Victoria Reyes'),
 (71, 'Zone I'),
@@ -213,7 +215,12 @@ CREATE TABLE `emergency_contacts` (
 --
 
 INSERT INTO `emergency_contacts` (`id`, `application_id`, `name`, `relation`, `address`, `contact_number`) VALUES
-(4, 46, 'asdfasdf', 'asdfasdf', 'eubert@gmail.com', 'asdfasdf');
+(4, 46, 'asdfasdf', 'asdfasdf', 'eubert@gmail.com', 'asdfasdf'),
+(5, 59, 'bhea', 'asdfasd', 'asdfasd', 'asdfasd'),
+(6, 42, 'asdfdddD', '', '', ''),
+(7, 60, '', '', '', ''),
+(8, 54, '', '', '', ''),
+(9, 61, 'HILBERT', 'FATER', 'Cavite', '01341234');
 
 -- --------------------------------------------------------
 
@@ -249,7 +256,13 @@ INSERT INTO `family_members` (`id`, `application_id`, `name`, `relation`, `age`,
 (26, 53, 'asdfad', 'asdfa', 0, '0000-00-00', 'Single', 'asdf', 'IT', 1234.00),
 (27, 54, '', '', 0, '0000-00-00', '', '', '', 0.00),
 (29, 56, '', '', 0, '0000-00-00', '', '', 'IT', 0.00),
-(30, 57, '', '', 0, '0000-00-00', '', '', 'IT', 0.00);
+(30, 57, '', '', 0, '0000-00-00', '', '', 'IT', 0.00),
+(31, 58, '', '', 0, '0000-00-00', '', '', '', 0.00),
+(32, 60, 'Eubert', 'asdfads', 0, '0000-00-00', '', '', '', 0.00),
+(33, 61, 'aNDREA', 'SIS', 23, '2001-01-01', '', '', '', 0.00),
+(34, 61, 'EMMAN', 'BRO ', 10, '2014-01-01', 'Single', 'ADFADS', 'ADFA', 1234.00),
+(35, 61, 'BHEA', '', 47, '1977-01-01', '', '', '', 0.00),
+(36, 62, 'Eubert', '', 0, '0000-00-00', '', '', '', 0.00);
 
 -- --------------------------------------------------------
 
@@ -350,7 +363,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `image`, `status`, `last_login`) VALUES
-(1, 'Harry Denn', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.png', 1, '2024-09-09 02:48:22'),
+(1, 'Harry Denn', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.png', 1, '2024-09-09 18:35:06'),
 (2, 'John Walker', 'special', 'ba36b97a41e7faf742ab09bf88405ac04f99599a', 2, 'no_image.png', 1, '2021-04-04 19:53:26'),
 (3, 'Christopher', 'user', 'd033e22ae348aeb5660fc2140aec35850c4da997', 3, 'no_image.png', 1, '2024-08-30 03:17:35'),
 (4, 'Natie Williams', 'natie', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 3, 'no_image.png', 1, NULL),
@@ -462,7 +475,7 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT for table `application_forms`
 --
 ALTER TABLE `application_forms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `barangays`
@@ -480,13 +493,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `emergency_contacts`
 --
 ALTER TABLE `emergency_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `family_members`
 --
 ALTER TABLE `family_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `media`
