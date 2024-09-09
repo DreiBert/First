@@ -262,7 +262,9 @@ if (isset($_POST['add_product'])) {
                       <select class="form-control" name="barangay_id" required>
                         <option value="">Select Barangay</option>
                         <?php foreach ($barangays as $barangay): ?>
-                          <option value="<?php echo $barangay['id']; ?>"><?php echo $barangay['name']; ?></option>
+                          <?php if ($barangay['name'] !== 'Dasmariñas (City)'): ?>
+                            <option value="<?php echo $barangay['id']; ?>"><?php echo $barangay['name']; ?></option>
+                          <?php endif; ?>
                         <?php endforeach; ?>
                       </select>
                     </div>
