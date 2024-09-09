@@ -1,147 +1,349 @@
+<!-- Section 1 -->
 <?php
-  $page_title = 'Edit product';
-  require_once('includes/load.php');
-  // Checkin What level user has permission to view this page
-   page_require_level(2);
+$page_title = 'Edit Application Form';
+require_once('includes/load.php');
+// Check what level user has permission to view this page
+page_require_level(2);
 ?>
 <?php
-$product = find_by_id('products',(int)$_GET['id']);
-$all_categories = find_all('categories');
-$all_photo = find_all('media');
-if(!$product){
-  $session->msg("d","Missing product id.");
+$form = find_by_id('application_forms', (int) $_GET['id']);
+$all_barangays = find_all('barangays');
+if (!$form) {
+  $session->msg("d", "Missing application form id.");
   redirect('product.php');
 }
 ?>
 <?php
- if(isset($_POST['product'])){
-    $req_fields = array('product-title','product-categorie','product-quantity','buying-price', 'saleing-price' );
-    validate_fields($req_fields);
+if (isset($_POST['update_form'])) {
+  $req_fields = array('case-number', 'full_name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
+  validate_fields($req_fields);
 
-   if(empty($errors)){
-       $p_name  = remove_junk($db->escape($_POST['product-title']));
-       $p_cat   = (int)$_POST['product-categorie'];
-       $p_qty   = remove_junk($db->escape($_POST['product-quantity']));
-       $p_buy   = remove_junk($db->escape($_POST['buying-price']));
-       $p_sale  = remove_junk($db->escape($_POST['saleing-price']));
-       if (is_null($_POST['product-photo']) || $_POST['product-photo'] === "") {
-         $media_id = '0';
-       } else {
-         $media_id = remove_junk($db->escape($_POST['product-photo']));
-       }
-       $query   = "UPDATE products SET";
-       $query  .=" name ='{$p_name}', quantity ='{$p_qty}',";
-       $query  .=" buy_price ='{$p_buy}', sale_price ='{$p_sale}', categorie_id ='{$p_cat}',media_id='{$media_id}'";
-       $query  .=" WHERE id ='{$product['id']}'";
-       $result = $db->query($query);
-               if($result && $db->affected_rows() === 1){
-                 $session->msg('s',"Product updated ");
-                 redirect('product.php', false);
-               } else {
-                 $session->msg('d',' Sorry failed to updated!');
-                 redirect('edit_product.php?id='.$product['id'], false);
-               }
+  if (empty($errors)) {
+    // Sanitize and escape form inputs
+    $case_number = remove_junk($db->escape($_POST['case-number']));
+    $full_name = remove_junk($db->escape($_POST['full_name']));
+    $sex = remove_junk($db->escape($_POST['sex']));
+    $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
+    $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
+    $address = remove_junk($db->escape($_POST['address']));
+    $barangay_id = (int) $_POST['barangay_id'];
+    $educational_attainment = remove_junk($db->escape($_POST['educational-attainment']));
+    $civil_status = remove_junk($db->escape($_POST['civil-status']));
+    $occupation = remove_junk($db->escape($_POST['occupation']));
+    $religion = remove_junk($db->escape($_POST['religion']));
+    $company_agency = remove_junk($db->escape($_POST['company-agency']));
+    $monthly_income = remove_junk($db->escape($_POST['monthly-income']));
+    $employment_status = remove_junk($db->escape($_POST['employment-status']));
+    $contact_number = remove_junk($db->escape($_POST['contact-number']));
+    $email_address = remove_junk($db->escape($_POST['email-address']));
+    $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
+    $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
+    $pensioner = remove_junk($db->escape($_POST['pensioner']));
 
-   } else{
-       $session->msg("d", $errors);
-       redirect('edit_product.php?id='.$product['id'], false);
-   }
+    // Calculate age
+    $dob = new DateTime($date_of_birth);
+    $now = new DateTime();
+    $age = $now->diff($dob)->y;
 
- }
+    // Update the application form in the database
+    $query = "UPDATE application_forms SET";
+    $query .= " case_number='{$case_number}', full_name='{$full_name}', sex='{$sex}', date_of_birth='{$date_of_birth}', age='{$age}', place_of_birth='{$place_of_birth}', address='{$address}', barangay_id='{$barangay_id}', educational_attainment='{$educational_attainment}', civil_status='{$civil_status}', occupation='{$occupation}', religion='{$religion}', company_agency='{$company_agency}', monthly_income='{$monthly_income}', employment_status='{$employment_status}', contact_number='{$contact_number}', email_address='{$email_address}', pantawid_beneficiary='{$pantawid_beneficiary}', lgbtq='{$lgbtq}', pensioner='{$pensioner}'";
+    $query .= " WHERE id='{$form['id']}'";
+    $result = $db->query($query);
 
+    if ($result && $db->affected_rows() === 1) {
+      $session->msg('s', "Application form updated ");
+      redirect('product.php', false);
+    } else {
+      $session->msg('d', 'Sorry, failed to update!');
+      redirect('edit_product.php?id=' . $form['id'], false);
+    }
+  } else {
+    $session->msg("d", $errors);
+    redirect('edit_product.php?id=' . $form['id'], false);
+  }
+}
 ?>
+<!-- Section 2 -->
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
   <div class="col-md-12">
     <?php echo display_msg($msg); ?>
   </div>
 </div>
-  <div class="row">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <strong>
-            <span class="glyphicon glyphicon-th"></span>
-            <span>Add New Product</span>
-         </strong>
-        </div>
-        <div class="panel-body">
-         <div class="col-md-7">
-           <form method="post" action="edit_product.php?id=<?php echo (int)$product['id'] ?>">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">
-                   <i class="glyphicon glyphicon-th-large"></i>
-                  </span>
-                  <input type="text" class="form-control" name="product-title" value="<?php echo remove_junk($product['name']);?>">
-               </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>
+          <span class="glyphicon glyphicon-th"></span>
+          <span>Edit Application Form</span>
+        </strong>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-12">
+          <form method="post" action="edit_product.php?id=<?php echo (int) $form['id']; ?>" class="clearfix">
+            <!-- Row 1: Case Number, Full Name, Sex, Date of Birth -->
+            <div class="row d-flex align-items-center">
+              <div class="col-md-10">
+                <strong>
+                  <i>
+                    <p class="mb-0">I. IDENTIFYING INFORMATION</p>
+                  </i>
+                </strong>
               </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-md-6">
-                    <select class="form-control" name="product-categorie">
-                    <option value=""> Select a categorie</option>
-                   <?php  foreach ($all_categories as $cat): ?>
-                     <option value="<?php echo (int)$cat['id']; ?>" <?php if($product['categorie_id'] === $cat['id']): echo "selected"; endif; ?> >
-                       <?php echo remove_junk($cat['name']); ?></option>
-                   <?php endforeach; ?>
-                 </select>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group mb-2">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Case Number</span>
+                    <input type="text" class="form-control" name="case-number"
+                      value="<?php echo remove_junk($form['case_number']); ?>" required>
                   </div>
-                  <div class="col-md-6">
-                    <select class="form-control" name="product-photo">
-                      <option value=""> No image</option>
-                      <?php  foreach ($all_photo as $photo): ?>
-                        <option value="<?php echo (int)$photo['id'];?>" <?php if($product['media_id'] === $photo['id']): echo "selected"; endif; ?> >
-                          <?php echo $photo['file_name'] ?></option>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Full Name</span>
+                    <input type="text" class="form-control" name="full_name"
+                      value="<?php echo remove_junk($form['full_name']); ?>" required>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Sex</span>
+                    <select class="form-control" name="sex" required>
+                      <option <?php if ($form['sex'] === 'Male')
+                        echo 'selected="selected"'; ?> value="Male">Male</option>
+                      <option <?php if ($form['sex'] === 'Female')
+                        echo 'selected="selected"'; ?> value="Female">Female
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Date of Birth</span>
+                    <input type="date" class="form-control" name="date-of-birth"
+                      value="<?php echo remove_junk($form['date_of_birth']); ?>" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Place of Birth</span>
+                    <input type="text" class="form-control" name="place-of-birth"
+                      value="<?php echo remove_junk($form['place_of_birth']); ?>" required>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Address</span>
+                    <input type="text" class="form-control" name="address"
+                      value="<?php echo remove_junk($form['address']); ?>" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Barangay</span>
+                    <select class="form-control" name="barangay_id" required>
+                      <?php foreach ($all_barangays as $barangay): ?>
+                        <option <?php if ($form['barangay_id'] === $barangay['id'])
+                          echo 'selected="selected"'; ?>
+                          value="<?php echo (int) $barangay['id']; ?>">
+                          <?php echo remove_junk($barangay['name']); ?>
+                        </option>
                       <?php endforeach; ?>
                     </select>
                   </div>
                 </div>
               </div>
 
-              <div class="form-group">
-               <div class="row">
-                 <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="qty">Quantity</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                       <i class="glyphicon glyphicon-shopping-cart"></i>
-                      </span>
-                      <input type="number" class="form-control" name="product-quantity" value="<?php echo remove_junk($product['quantity']); ?>">
-                   </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Educational Attainment</span>
+                    <input type="text" class="form-control" name="educational-attainment"
+                      value="<?php echo remove_junk($form['educational_attainment']); ?>" required>
                   </div>
-                 </div>
-                 <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="qty">Buying price</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-usd"></i>
-                      </span>
-                      <input type="number" class="form-control" name="buying-price" value="<?php echo remove_junk($product['buy_price']);?>">
-                      <span class="input-group-addon">.00</span>
-                   </div>
-                  </div>
-                 </div>
-                  <div class="col-md-4">
-                   <div class="form-group">
-                     <label for="qty">Selling price</label>
-                     <div class="input-group">
-                       <span class="input-group-addon">
-                         <i class="glyphicon glyphicon-usd"></i>
-                       </span>
-                       <input type="number" class="form-control" name="saleing-price" value="<?php echo remove_junk($product['sale_price']);?>">
-                       <span class="input-group-addon">.00</span>
-                    </div>
-                   </div>
-                  </div>
-               </div>
+                </div>
               </div>
-              <button type="submit" name="product" class="btn btn-danger">Update</button>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Civil Status</span>
+                    <select class="form-control" name="civil-status" required>
+                      <option <?php if ($form['civil_status'] === 'Single')
+                        echo 'selected="selected"'; ?> value="Single">
+                        Single</option>
+                      <option <?php if ($form['civil_status'] === 'Married')
+                        echo 'selected="selected"'; ?>
+                        value="Married">
+                        Married</option>
+                      <option <?php if ($form['civil_status'] === 'Divorced')
+                        echo 'selected="selected"'; ?>
+                        value="Divorced">Divorced</option>
+                      <option <?php if ($form['civil_status'] === 'Widowed')
+                        echo 'selected="selected"'; ?>
+                        value="Widowed">
+                        Widowed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Religion</span>
+                    <input type="text" class="form-control" name="religion"
+                      value="<?php echo remove_junk($form['religion']); ?>" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Occupation</span>
+                    <input type="text" class="form-control" name="occupation"
+                      value="<?php echo remove_junk($form['occupation']); ?>" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Company/Agency</span>
+                    <input type="text" class="form-control" name="company-agency"
+                      value="<?php echo remove_junk($form['company_agency']); ?>" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Monthly Income</span>
+                    <input type="text" class="form-control" name="monthly-income"
+                      value="<?php echo remove_junk($form['monthly_income']); ?>" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Employment Status</span>
+                    <select class="form-control" name="employment-status" required>
+                      <option <?php if ($form['employment_status'] === 'Employed')
+                        echo 'selected="selected"'; ?>
+                        value="Employed">Employed</option>
+                      <option <?php if ($form['employment_status'] === 'Self-employed')
+                        echo 'selected="selected"'; ?>
+                        value="Self-employed">Self-employed</option>
+                      <option <?php if ($form['employment_status'] === 'Not employed')
+                        echo 'selected="selected"'; ?>
+                        value="Not employed">Not employed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Contact Number</span>
+                    <input type="text" class="form-control" name="contact-number"
+                      value="<?php echo remove_junk($form['contact_number']); ?>" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Email Address</span>
+                    <input type="email" class="form-control" name="email-address"
+                      value="<?php echo remove_junk($form['email_address']); ?>" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Pantawid Beneficiary</span>
+                    <select class="form-control" name="pantawid-beneficiary" required>
+                      <option <?php if ($form['pantawid_beneficiary'] === 'Y')
+                        echo 'selected="selected"'; ?> value="Y">
+                        Yes
+                      </option>
+                      <option <?php if ($form['pantawid_beneficiary'] === 'N')
+                        echo 'selected="selected"'; ?> value="N">No
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Pensioner</span>
+                    <select class="form-control" name="pensioner" required>
+                      <option <?php if ($form['pensioner'] === 'Y')
+                        echo 'selected="selected"'; ?> value="Y">Yes</option>
+                      <option <?php if ($form['pensioner'] === 'N')
+                        echo 'selected="selected"'; ?> value="N">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">LGBTQ</span>
+                    <select class="form-control" name="lgbtq" required>
+                      <option <?php if ($form['lgbtq'] === 'Y')
+                        echo 'selected="selected"'; ?> value="Y">Yes</option>
+                      <option <?php if ($form['lgbtq'] === 'N')
+                        echo 'selected="selected"'; ?> value="N">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group clearfix">
+              <button type="submit" name="update_form" class="btn btn-primary">Update</button>
+            </div>
           </form>
-         </div>
         </div>
       </div>
+    </div>
   </div>
-
+</div>
 <?php include_once('layouts/footer.php'); ?>
