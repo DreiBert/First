@@ -250,7 +250,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i> Address</span>
-                    <input type="text" class="form-control" name="address">
+                    <input type="text" class="form-control" name="address" required>
                   </div>
                 </div>
               </div>

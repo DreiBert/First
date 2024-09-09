@@ -3,9 +3,22 @@ $page_title = 'All Application Forms';
 require_once('includes/load.php');
 // Check what level user has permission to view this page
 page_require_level(2);
-$application_forms = join_application_forms_table();
+
+// Get sorting parameters from URL
+$sort_column = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+$sort_order = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'desc' : 'asc';
+
+// Toggle sort order for next click
+$next_order = $sort_order === 'asc' ? 'desc' : 'asc';
+
+// Get search term from URL
+$search_term = isset($_GET['search']) ? $_GET['search'] : '';
+
+// Modify the query to include sorting and search
+$application_forms = join_application_forms_table($sort_column, $sort_order, $search_term);
 ?>
 <?php include_once('layouts/header.php'); ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <div class="row">
   <div class="col-md-12">
     <?php echo display_msg($msg); ?>
@@ -13,6 +26,15 @@ $application_forms = join_application_forms_table();
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
+        <div class="pull-left">
+          <form action="product.php" method="GET" class="form-inline">
+            <div class="form-group">
+              <input type="text" name="search" class="form-control" placeholder="Search"
+                value="<?php echo htmlspecialchars($search_term); ?>">
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+          </form>
+        </div>
         <div class="pull-right">
           <a href="add_product.php" class="btn btn-primary">Add New</a>
         </div>
@@ -21,16 +43,58 @@ $application_forms = join_application_forms_table();
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th class="text-center" style="width: 5vh;">No.</th>
-              <th class="text-center" style="width: 12vh;"> ID No. </th>
-              <th class="text-center" style="width: 30vh;"> Fullname </th>
-              <th class="text-center" style="width: 30vh;"> Address </th>
-              <th class="text-center" style="width: 15vh;"> Barangay </th>
-              <th class="text-center" style="width: 15vh;"> Age </th>
-              <th class="text-center" style="width: 15vh;"> Gender </th>
-              <th class="text-center" style="width: 15vh;"> Contact </th>
-              <th class="text-center" style="width: 20vh;"> Timestamp </th>
-              <th class="text-center" style="width: 100px;"> Actions </th>
+              <th class="text-center" style="width: 10vh;">
+                <a href="?sort=id&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>"
+                  style="text-decoration: none; color: inherit;">No.
+                  <i
+                    class="fas fa-sort<?php echo $sort_column == 'id' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
+                </a>
+              </th>
+              <th class="text-center" style="width: 12vh;">
+                <a href="?sort=case_number&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>"
+                  style="text-decoration: none; color: inherit;">ID No.
+                  <i
+                    class="fas fa-sort<?php echo $sort_column == 'case_number' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
+                </a>
+              </th>
+              <th class="text-center" style="width: 30vh;">
+                <a href="?sort=full_name&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>"
+                  style="text-decoration: none; color: inherit;">Fullname
+                  <i
+                    class="fas fa-sort<?php echo $sort_column == 'full_name' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
+                </a>
+              </th>
+              <th class="text-center" style="width: 30vh;">
+                <a href="?sort=address&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>"
+                  style="text-decoration: none; color: inherit;">Address
+                  <i
+                    class="fas fa-sort<?php echo $sort_column == 'address' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
+                </a>
+              </th>
+              <th class="text-center" style="width: 15vh;">
+                <a href="?sort=barangay&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>"
+                  style="text-decoration: none; color: inherit;">Barangay
+                  <i
+                    class="fas fa-sort<?php echo $sort_column == 'barangay' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
+                </a>
+              </th>
+              <th class="text-center" style="width: 15vh;">
+                <a href="?sort=age&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>"
+                  style="text-decoration: none; color: inherit;">Age
+                  <i
+                    class="fas fa-sort<?php echo $sort_column == 'age' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
+                </a>
+              </th>
+              <th class="text-center" style="width: 15vh;">Gender</th>
+              <th class="text-center" style="width: 15vh;">Contact</th>
+              <th class="text-center" style="width: 20vh;">
+                <a href="?sort=created_at&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>"
+                  style="text-decoration: none; color: inherit;">Timestamp
+                  <i
+                    class="fas fa-sort<?php echo $sort_column == 'created_at' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
+                </a>
+              </th>
+              <th class="text-center" style="width: 100px;">Actions</th>
             </tr>
           </thead>
           <tbody>

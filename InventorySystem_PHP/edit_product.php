@@ -391,6 +391,7 @@ if (isset($_POST['update_form'])) {
                             <th class="text-center">Full Name</th>
                             <th class="text-center">Relationship</th>
                             <th class="text-center">Age</th>
+                            <th class="text-center">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -401,24 +402,44 @@ if (isset($_POST['update_form'])) {
                                   <?php echo $index + 1; ?>
                                 </td>
                                 <td class="text-center">
-                                  <?php echo remove_junk($member['name']); ?>
+                                  <input type="text" class="form-control"
+                                    value="<?php echo remove_junk($member['name']); ?>" />
                                 </td>
                                 <td class="text-center">
-                                  <?php echo remove_junk($member['relation']); ?>
+                                  <input type="text" class="form-control"
+                                    value="<?php echo remove_junk($member['relation']); ?>" />
                                 </td>
                                 <td class="text-center">
-                                  <?php echo remove_junk($member['age']); ?>
+                                  <input type="text" class="form-control"
+                                    value="<?php echo remove_junk($member['age']); ?>" />
                                 </td>
-
+                                <td class="text-center">
+                                  <button class="btn btn-primary save-btn">Save</button>
+                                </td>
                               </tr>
                             <?php endforeach; ?>
                           <?php else: ?>
                             <tr>
                               <td colspan="5" class="text-center">No family members found.</td>
-                            </tr> <?php endif; ?>
+                            </tr>
+                          <?php endif; ?>
                         </tbody>
                       </table>
                     </div>
+
+                    <script>
+                      document.querySelectorAll('.save-btn').forEach(button => {
+                        button.addEventListener('click', function () {
+                          const row = this.closest('tr');
+                          const name = row.querySelector('input:nth-child(1)').value;
+                          const relation = row.querySelector('input:nth-child(2)').value;
+                          const age = row.querySelector('input:nth-child(3)').value;
+
+                          // Here you can add your AJAX call to save the data to the server
+                          console.log('Saving data:', { name, relation, age });
+                        });
+                      });
+                    </script>
                   </div>
                 </div>
                 <div class="row">
@@ -519,4 +540,17 @@ if (isset($_POST['update_form'])) {
     </div>
   </div>
 </div>
+<script>
+  document.querySelectorAll('.save-btn').forEach(button => {
+    button.addEventListener('click', function () {
+      const row = this.closest('tr');
+      const name = row.querySelector('input:nth-child(1)').value;
+      const relation = row.querySelector('input:nth-child(2)').value;
+      const age = row.querySelector('input:nth-child(3)').value;
+
+      // Here you can add your AJAX call to save the data to the server
+      console.log('Saving data:', { name, relation, age });
+    });
+  });
+</script>
 <?php include_once('layouts/footer.php'); ?>

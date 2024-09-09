@@ -266,16 +266,37 @@ function find_all_barangays()
   return find_by_sql($sql);
 }
 
-function join_application_forms_table()
+
+function join_application_forms_table($sort_column = 'id', $sort_order = 'asc', $search_term = '')
 {
   global $db;
+  $valid_columns = ['id', 'case_number', 'full_name', 'address', 'barangay', 'age', 'created_at'];
+  if (!in_array($sort_column, $valid_columns)) {
+    $sort_column = 'id';
+  }
+  $sort_order = $sort_order === 'desc' ? 'desc' : 'asc';
+
+  // Handle the special case for barangay
+  if ($sort_column == 'barangay') {
+    $sort_column = 'b.name';
+  } else {
+    $sort_column = 'af.' . $sort_column;
+  }
+
+  // Add search term to the query
+  $search_sql = '';
+  if (!empty($search_term)) {
+    $search_term = $db->escape($search_term);
+    $search_sql = "AND (af.case_number LIKE '%$search_term%' OR af.full_name LIKE '%$search_term%' OR af.address LIKE '%$search_term%' OR b.name LIKE '%$search_term%' OR af.age LIKE '%$search_term%' OR af.sex LIKE '%$search_term%' OR af.contact_number LIKE '%$search_term%' OR af.created_at LIKE '%$search_term%')";
+  }
+
   $sql = "SELECT af.id, af.case_number, af.full_name, af.address, b.name AS barangay, af.age, af.sex AS sex, af.contact_number, af.created_at 
           FROM application_forms af
           LEFT JOIN barangays b ON af.barangay_id = b.id
-          ORDER BY af.id ASC";
+          WHERE 1=1 $search_sql
+          ORDER BY {$sort_column} {$sort_order}";
   return find_by_sql($sql);
 }
-
 /*--------------------------------------------------------------*/
 /* Function for Finding all product name
 /* Request coming from ajax.php for auto suggest
