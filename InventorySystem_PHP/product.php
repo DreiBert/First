@@ -21,11 +21,13 @@ $application_forms = join_application_forms_table();
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th class="text-center" style="width: 50px;">#</th>
-              <th> Case Number </th>
-              <th> Full Name </th>
-              <th> Contact Number </th>
-              <th> Email Address </th>
+              <th class="text-center" style="width: 5vh;">No.</th>
+              <th class="text-center" style="width: 12vh;"> ID No. </th>
+              <th class="text-center" style="width: 30vh;"> Fullname </th>
+              <th class="text-center" style="width: 15vh;"> Barangay </th>
+              <th class="text-center" style="width: 15vh;"> Age </th>
+              <th class="text-center" style="width: 15vh;"> Gender </th>
+              <th class="text-center" style="width: 15vh;"> Contact </th>
               <th class="text-center" style="width: 100px;"> Actions </th>
             </tr>
           </thead>
@@ -33,10 +35,12 @@ $application_forms = join_application_forms_table();
             <?php foreach ($application_forms as $form): ?>
               <tr>
                 <td class="text-center"><?php echo count_id(); ?></td>
-                <td> <?php echo remove_junk($form['case_number']); ?></td>
-                <td> <?php echo remove_junk($form['full_name']); ?></td>
-                <td> <?php echo remove_junk($form['contact_number']); ?></td>
-                <td> <?php echo remove_junk($form['email_address']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['case_number']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['full_name']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['barangay']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['age']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['sex']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['contact_number']); ?></td>
                 <td class="text-center">
                   <div class="btn-group">
                     <a href="edit_product.php?id=<?php echo (int) $form['id']; ?>" class="btn btn-info btn-xs"

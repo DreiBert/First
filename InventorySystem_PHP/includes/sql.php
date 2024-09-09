@@ -246,10 +246,14 @@ function find_all_barangays()
   $sql = "SELECT id, name FROM barangays ORDER BY name ASC";
   return find_by_sql($sql);
 }
+
 function join_application_forms_table()
 {
   global $db;
-  $sql = "SELECT id, case_number, full_name, contact_number, email_address FROM application_forms ORDER BY id ASC";
+  $sql = "SELECT af.id, af.case_number, af.full_name, b.name AS barangay, af.age, af.sex AS sex, af.contact_number 
+          FROM application_forms af
+          LEFT JOIN barangays b ON af.barangay_id = b.id
+          ORDER BY af.id ASC";
   return find_by_sql($sql);
 }
 
