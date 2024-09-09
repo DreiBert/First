@@ -21,6 +21,18 @@ function find_by_sql($sql)
   $result_set = $db->while_loop($result);
   return $result_set;
 }
+
+function find_emergency_contact_by_application_id($application_id)
+{
+  global $db;
+  $sql = "SELECT * FROM emergency_contacts WHERE application_id = " . $db->escape((int) $application_id) . " LIMIT 1";
+  $result = find_by_sql($sql);
+  return !empty($result) ? $result[0] : null;
+}
+
+
+
+
 /*--------------------------------------------------------------*/
 /*  Function for Find data from table by id
 /*--------------------------------------------------------------*/

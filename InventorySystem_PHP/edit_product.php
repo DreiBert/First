@@ -15,6 +15,7 @@ if (!$form) {
 
 // Fetch the related family members
 $family_members = find_family_members_by_application_id((int) $_GET['id']);
+$emergency_contact = find_emergency_contact_by_application_id((int) $_GET['id']);
 ?>
 <?php
 if (isset($_POST['update_form'])) {
@@ -424,7 +425,58 @@ if (isset($_POST['update_form'])) {
                     </div>
                   </div>
                 </div>
-
+                <!-- -------------------Emergency Contact Section-------------------------------- -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <strong>
+                      <i>
+                        <p class="mb-0">III. IN CASE OF EMERGENCY</p>
+                      </i>
+                    </strong>
+                    <div id="emergency-contact-container">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">Contact Name</span>
+                              <input type="text" class="form-control" name="emergency_contact_name"
+                                value="<?php echo remove_junk($emergency_contact['name']); ?>" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">Relationship</span>
+                              <input type="text" class="form-control" name="emergency_contact_relationship"
+                                value="<?php echo remove_junk($emergency_contact['relation']); ?>" required>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">Contact Number</span>
+                              <input type="text" class="form-control" name="emergency_contact_number"
+                                value="<?php echo remove_junk($emergency_contact['contact_number']); ?>" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">Address</span>
+                              <input type="text" class="form-control" name="emergency_contact_address"
+                                value="<?php echo remove_junk($emergency_contact['address']); ?>" required>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
               </div>
 
