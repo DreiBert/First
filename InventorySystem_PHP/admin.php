@@ -24,8 +24,8 @@ $barangay_data = find_people_per_barangay();
   <a href="application_forms.php" style="color:black;">
     <div class="col-md-3">
       <div class="panel panel-box clearfix">
-        <div class="panel-icon pull-left bg-secondary1">
-          <i class="glyphicon glyphicon-user"></i>
+        <div class="panel-icon pull-left bg-primary">
+          <i class="glyphicon glyphicon-list-alt"></i>
         </div>
         <div class="panel-value pull-right">
           <h2 class="margin-top"> <?php echo $c_application_forms['total']; ?> </h2>
@@ -52,7 +52,7 @@ $barangay_data = find_people_per_barangay();
   <a href="females.php" style="color:black;">
     <div class="col-md-3">
       <div class="panel panel-box clearfix">
-        <div class="panel-icon pull-left bg-pink">
+        <div class="panel-icon pull-left bg-secondary1">
           <i class="glyphicon glyphicon-user"></i>
         </div>
         <div class="panel-value pull-right">
@@ -84,7 +84,7 @@ $barangay_data = find_people_per_barangay();
 
 <!-- People per Barangay Chart -->
 <div class="row justify-content-center">
-  <div class="col-md-10 mx-auto">
+  <div class="col-md-8 mx-auto">
     <div class="panel panel-default">
       <div class="panel-heading text-center">
         <strong>
@@ -97,22 +97,37 @@ $barangay_data = find_people_per_barangay();
       </div>
     </div>
   </div>
+
+  <!-- Gender Distribution Chart -->
+  <div class="col-md-4 mx-auto">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <strong>
+          <span class="glyphicon glyphicon-th"></span>
+          <span>Gender Distribution</span>
+        </strong>
+      </div>
+      <div class="panel-body">
+        <canvas id="genderChart"></canvas>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var ctx = document.getElementById('barangayChart').getContext('2d');
+    var ctxBarangay = document.getElementById('barangayChart').getContext('2d');
     var barangayData = <?php echo json_encode($barangay_data); ?>;
-    var labels = barangayData.map(function (item) { return item.barangay; });
-    var data = barangayData.map(function (item) { return item.total; });
+    var labelsBarangay = barangayData.map(function (item) { return item.barangay; });
+    var dataBarangay = barangayData.map(function (item) { return item.total; });
 
-    new Chart(ctx, {
+    new Chart(ctxBarangay, {
       type: 'bar',
       data: {
-        labels: labels,
+        labels: labelsBarangay,
         datasets: [{
           label: 'Number of People',
-          data: data,
+          data: dataBarangay,
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1
@@ -133,6 +148,43 @@ $barangay_data = find_people_per_barangay();
             zoom: {
               enabled: true,
               mode: 'xy'
+            }
+          }
+        }
+      }
+    });
+
+    var ctxGender = document.getElementById('genderChart').getContext('2d');
+    var genderData = {
+      labels: ['Males', 'Females'],
+      datasets: [{
+        label: 'Gender Distribution',
+        data: [<?php echo $c_males['total']; ?>, <?php echo $c_females['total']; ?>],
+        backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+        borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+        borderWidth: 1
+      }]
+    };
+
+    new Chart(ctxGender, {
+      type: 'pie',
+      data: genderData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                var label = context.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                label += context.raw;
+                return label;
+              }
             }
           }
         }
