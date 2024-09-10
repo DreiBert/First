@@ -19,7 +19,7 @@ $emergency_contact = find_emergency_contact_by_application_id((int) $_GET['id'])
 ?>
 <?php
 if (isset($_POST['update_form'])) {
-  $req_fields = array('case-number', 'full_name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
+  $req_fields = array('case-number', 'full_name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner', 'classification', 'problems');
   validate_fields($req_fields);
 
   if (empty($errors)) {
@@ -43,6 +43,8 @@ if (isset($_POST['update_form'])) {
     $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
     $pensioner = remove_junk($db->escape($_POST['pensioner']));
     $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
+    $classification = remove_junk($db->escape($_POST['classification']));
+    $problems = remove_junk($db->escape($_POST['problems']));
 
     // Sanitize and escape emergency contact inputs
     $emergency_name = remove_junk($db->escape($_POST['emergency_contact_name']));
@@ -70,7 +72,9 @@ if (isset($_POST['update_form'])) {
                 email_address = '{$email_address}', 
                 pantawid_beneficiary = '{$pantawid_beneficiary}', 
                 pensioner = '{$pensioner}', 
-                lgbtq = '{$lgbtq}'
+                lgbtq = '{$lgbtq}', 
+                classification = '{$classification}', 
+                problems = '{$problems}'
               WHERE id = '{$form['id']}'";
 
     // Execute the query for application form
@@ -86,6 +90,24 @@ if (isset($_POST['update_form'])) {
 
     // Execute the query for emergency contact
     $emergency_result = $db->query($emergency_query);
+
+    // Process family members
+    if (isset($_POST['family_members'])) {
+      // Delete existing family members
+      $db->query("DELETE FROM family_members WHERE application_id='{$form['id']}'");
+
+      // Insert new family members
+      foreach ($_POST['family_members'] as $index => $family_member) {
+        $family_name = remove_junk($db->escape($family_member['name']));
+        $family_relation = remove_junk($db->escape($family_member['relation']));
+        $family_age = (int) $family_member['age'];
+
+        if ($family_name || $family_relation || $family_age) {
+          $family_query = "INSERT INTO family_members (application_id, name, relation, age) VALUES ('{$form['id']}', '{$family_name}', '{$family_relation}', '{$family_age}')";
+          $db->query($family_query);
+        }
+      }
+    }
 
     // Check if the update was successful
     if ($result && $emergency_result) {
@@ -390,7 +412,7 @@ if (isset($_POST['update_form'])) {
                     </strong>
 
                     <div class="panel-body">
-                      <table class="table table-bordered">
+                      <table class="table table-bordered" id="family-members-table">
                         <thead>
                           <tr>
                             <th class="text-center">No.</th>
@@ -408,19 +430,20 @@ if (isset($_POST['update_form'])) {
                                   <?php echo $index + 1; ?>
                                 </td>
                                 <td class="text-center">
-                                  <input type="text" class="form-control"
+                                  <input type="text" class="form-control" name="family_members[<?php echo $index; ?>][name]"
                                     value="<?php echo remove_junk($member['name']); ?>" />
                                 </td>
                                 <td class="text-center">
                                   <input type="text" class="form-control"
+                                    name="family_members[<?php echo $index; ?>][relation]"
                                     value="<?php echo remove_junk($member['relation']); ?>" />
                                 </td>
                                 <td class="text-center">
-                                  <input type="text" class="form-control"
+                                  <input type="text" class="form-control" name="family_members[<?php echo $index; ?>][age]"
                                     value="<?php echo remove_junk($member['age']); ?>" />
                                 </td>
                                 <td class="text-center">
-                                  <button class="btn btn-primary save-btn">Save</button>
+                                  <button type="button" class="btn btn-danger remove-btn">Remove</button>
                                 </td>
                               </tr>
                             <?php endforeach; ?>
@@ -431,120 +454,152 @@ if (isset($_POST['update_form'])) {
                           <?php endif; ?>
                         </tbody>
                       </table>
+                      <button type="button" class="btn btn-success" id="add-member-btn">Add Member</button>
                     </div>
 
                     <script>
-                      document.querySelectorAll('.save-btn').forEach(button => {
-                        button.addEventListener('click', function () {
-                          const row = this.closest('tr');
-                          const name = row.querySelector('input:nth-child(1)').value;
-                          const relation = row.querySelector('input:nth-child(2)').value;
-                          const age = row.querySelector('input:nth-child(3)').value;
-
-                          // Here you can add your AJAX call to save the data to the server
-                          console.log('Saving data:', { name, relation, age });
-                        });
+                      document.getElementById('add-member-btn').addEventListener('click', function () {
+                        const table = document.getElementById('family-members-table').getElementsByTagName('tbody')[0];
+                        const rowCount = table.rows.length;
+                        const row = table.insertRow(rowCount);
+                        row.innerHTML = `
+                          <tr>
+                            <td class="text-center">${rowCount + 1}</td>
+                            <td class="text-center"><input type="text" class="form-control" name="family_members[${rowCount}][name]" /></td>
+                            <td class="text-center"><input type="text" class="form-control" name="family_members[${rowCount}][relation]" /></td>
+                            <td class="text-center"><input type="text" class="form-control" name="family_members[${rowCount}][age]" /></td>
+                            <td class="text-center"><button type="button" class="btn btn-danger remove-btn">Remove</button></td>
+                          </tr>
+                        `;
+                        attachRemoveEvent();
                       });
+
+                      function attachRemoveEvent() {
+                        const removeButtons = document.querySelectorAll('.remove-btn');
+                        removeButtons.forEach(button => {
+                          button.addEventListener('click', function () {
+                            const row = this.closest('tr');
+                            row.parentNode.removeChild(row);
+                            updateRowNumbers();
+                          });
+                        });
+                      }
+
+                      function updateRowNumbers() {
+                        const rows = document.querySelectorAll('#family-members-table tbody tr');
+                        rows.forEach((row, index) => {
+                          row.cells[0].innerText = index + 1;
+                          row.querySelectorAll('input').forEach(input => {
+                            const name = input.getAttribute('name');
+                            const newName = name.replace(/\[\d+\]/, `[${index}]`);
+                            input.setAttribute('name', newName);
+                          });
+                        });
+                      }
+
+                      attachRemoveEvent();
                     </script>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong>
-                        <i>
-                          <p class="mb-0">III. CLASSIFICATION</p>
-                        </i>
-                      </strong>
-                      <div class="input-group">
-                        <span class="input-group-addon">Classification</span>
-                        <textarea class="form-control"
-                          name="classification"><?php echo remove_junk($form['classification']); ?></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong>
-                        <i>
-                          <p class="mb-0">II. PROBLEMS</p>
-                        </i>
-                      </strong>
-                      <div class="input-group">
-                        <span class="input-group-addon">Problems</span>
-                        <textarea class="form-control"
-                          name="problems"><?php echo remove_junk($form['problems']); ?></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- -------------------Emergency Contact Section-------------------------------- -->
-                <div class="row">
-                  <div class="col-md-12">
-                    <strong>
-                      <i>
-                        <p class="mb-0">III. IN CASE OF EMERGENCY</p>
-                      </i>
-                    </strong>
-                    <div id="emergency-contact-container">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">Contact Name</span>
-                              <input type="text" class="form-control" name="emergency_contact_name"
-                                value="<?php echo isset($emergency_contact['name']) ? remove_junk($emergency_contact['name']) : ''; ?>">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">Relationship</span>
-                              <input type="text" class="form-control" name="emergency_contact_relationship"
-                                value="<?php echo isset($emergency_contact['relation']) ? remove_junk($emergency_contact['relation']) : ''; ?>">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">Contact Number</span>
-                              <input type="text" class="form-control" name="emergency_contact_number"
-                                value="<?php echo isset($emergency_contact['contact_number']) ? remove_junk($emergency_contact['contact_number']) : ''; ?>">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">Address</span>
-                              <input type="text" class="form-control" name="emergency_contact_address"
-                                value="<?php echo isset($emergency_contact['address']) ? remove_junk($emergency_contact['address']) : ''; ?>">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
               </div>
-
             </div>
-            <div class="form-group clearfix">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <strong>
+                    <i>
+                      <p class="mb-0">III. CLASSIFICATION</p>
+                    </i>
+                  </strong>
+                  <div class="input-group">
+                    <span class="input-group-addon">Classification</span>
+                    <textarea class="form-control"
+                      name="classification"><?php echo remove_junk($form['classification']); ?></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <strong>
+                    <i>
+                      <p class="mb-0">II. PROBLEMS</p>
+                    </i>
+                  </strong>
+                  <div class="input-group">
+                    <span class="input-group-addon">Problems</span>
+                    <textarea class="form-control"
+                      name="problems"><?php echo remove_junk($form['problems']); ?></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- -------------------Emergency Contact Section-------------------------------- -->
+            <div class="row">
+              <div class="col-md-12">
+                <strong>
+                  <i>
+                    <p class="mb-0">III. IN CASE OF EMERGENCY</p>
+                  </i>
+                </strong>
+                <div id="emergency-contact-container">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">Contact Name</span>
+                          <input type="text" class="form-control" name="emergency_contact_name"
+                            value="<?php echo isset($emergency_contact['name']) ? remove_junk($emergency_contact['name']) : ''; ?>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">Relationship</span>
+                          <input type="text" class="form-control" name="emergency_contact_relationship"
+                            value="<?php echo isset($emergency_contact['relation']) ? remove_junk($emergency_contact['relation']) : ''; ?>">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">Contact Number</span>
+                          <input type="text" class="form-control" name="emergency_contact_number"
+                            value="<?php echo isset($emergency_contact['contact_number']) ? remove_junk($emergency_contact['contact_number']) : ''; ?>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">Address</span>
+                          <input type="text" class="form-control" name="emergency_contact_address"
+                            value="<?php echo isset($emergency_contact['address']) ? remove_junk($emergency_contact['address']) : ''; ?>">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group clearfix text-right">
               <button type="submit" name="update_form" class="btn btn-primary">Update</button>
             </div>
-          </form>
         </div>
+
       </div>
+
+      </form>
     </div>
   </div>
+</div>
+</div>
 </div>
 <script>
   document.querySelectorAll('.save-btn').forEach(button => {

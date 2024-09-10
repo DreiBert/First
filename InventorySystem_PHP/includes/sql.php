@@ -18,7 +18,10 @@ function find_by_sql($sql)
 {
   global $db;
   $result = $db->query($sql);
-  $result_set = $db->while_loop($result);
+  $result_set = [];
+  while ($row = $db->fetch_assoc($result)) {
+    $result_set[] = $row;
+  }
   return $result_set;
 }
 
@@ -267,7 +270,7 @@ function find_all_barangays()
 }
 
 
-function join_application_forms_table($sort_column = 'id', $sort_order = 'asc', $search_term = '')
+function join_application_forms_table($sort_column = 'id', $sort_order = 'asc', $search_term = '', $rows_per_page = 20, $offset = 0)
 {
   global $db;
   $valid_columns = ['id', 'case_number', 'full_name', 'address', 'barangay', 'age', 'created_at'];
@@ -290,23 +293,28 @@ function join_application_forms_table($sort_column = 'id', $sort_order = 'asc', 
     $search_sql = "AND (af.case_number LIKE '%$search_term%' OR af.full_name LIKE '%$search_term%' OR af.address LIKE '%$search_term%' OR b.name LIKE '%$search_term%' OR af.age LIKE '%$search_term%' OR af.sex LIKE '%$search_term%' OR af.contact_number LIKE '%$search_term%' OR af.created_at LIKE '%$search_term%')";
   }
 
+  // Add pagination to the query
   $sql = "SELECT af.id, af.case_number, af.full_name, af.address, b.name AS barangay, af.age, af.sex AS sex, af.contact_number, af.created_at 
           FROM application_forms af
           LEFT JOIN barangays b ON af.barangay_id = b.id
           WHERE 1=1 $search_sql
-          ORDER BY {$sort_column} {$sort_order}";
+          ORDER BY {$sort_column} {$sort_order}
+          LIMIT {$db->escape($rows_per_page)} OFFSET {$db->escape($offset)}";
   return find_by_sql($sql);
 }
 
 /*--------------------------------------------------------------*/
 /* Function for Count total application forms
 /*--------------------------------------------------------------*/
-function count_application_forms()
+function count_application_forms($search_term)
 {
   global $db;
-  $sql = "SELECT COUNT(id) AS total FROM application_forms";
-  $result = $db->query($sql);
-  return ($db->fetch_assoc($result));
+  $sql = "SELECT COUNT(*) AS total FROM application_forms ";
+  if ($search_term) {
+    $sql .= "WHERE full_name LIKE '%{$db->escape($search_term)}%' ";
+  }
+  $result = find_by_sql($sql);
+  return $result[0]['total'];
 }
 
 /*--------------------------------------------------------------*/
