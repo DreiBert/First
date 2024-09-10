@@ -297,6 +297,67 @@ function join_application_forms_table($sort_column = 'id', $sort_order = 'asc', 
           ORDER BY {$sort_column} {$sort_order}";
   return find_by_sql($sql);
 }
+
+/*--------------------------------------------------------------*/
+/* Function for Count total application forms
+/*--------------------------------------------------------------*/
+function count_application_forms()
+{
+  global $db;
+  $sql = "SELECT COUNT(id) AS total FROM application_forms";
+  $result = $db->query($sql);
+  return ($db->fetch_assoc($result));
+}
+
+/*--------------------------------------------------------------*/
+/* Function for Count total males
+/*--------------------------------------------------------------*/
+function count_males()
+{
+  global $db;
+  $sql = "SELECT COUNT(id) AS total FROM application_forms WHERE sex = 'Male'";
+  $result = $db->query($sql);
+  return ($db->fetch_assoc($result));
+}
+
+/*--------------------------------------------------------------*/
+/* Function for Count total females
+/*--------------------------------------------------------------*/
+function count_females()
+{
+  global $db;
+  $sql = "SELECT COUNT(id) AS total FROM application_forms WHERE sex = 'Female'";
+  $result = $db->query($sql);
+  return ($db->fetch_assoc($result));
+}
+
+/*--------------------------------------------------------------*/
+/* Function for fetching people per barangay
+/*--------------------------------------------------------------*/
+function find_people_per_barangay()
+{
+  global $db;
+  $sql = "SELECT barangays.name AS barangay, COUNT(application_forms.id) AS total 
+          FROM barangays 
+          LEFT JOIN application_forms ON application_forms.barangay_id = barangays.id 
+          GROUP BY barangays.name";
+  $result = $db->query($sql);
+  return $db->while_loop($result);
+}
+
+/*--------------------------------------------------------------*/
+/* Function for Count total barangays
+/*--------------------------------------------------------------*/
+function count_barangays()
+{
+  global $db;
+  $sql = "SELECT COUNT(id) AS total FROM barangays";
+  $result = $db->query($sql);
+  return ($db->fetch_assoc($result));
+}
+
+
+
 /*--------------------------------------------------------------*/
 /* Function for Finding all product name
 /* Request coming from ajax.php for auto suggest
