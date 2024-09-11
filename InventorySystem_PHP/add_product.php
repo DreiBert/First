@@ -424,7 +424,7 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-12">
                 <strong>
                   <i>
-                    <p class="mb-0">II. FAMILY MEMBERS</p>
+                    <p class="mb-0">II. FAMILY COMPOSITION</p>
                   </i>
                 </strong>
                 <div id="family-members-container">
@@ -516,7 +516,8 @@ if (isset($_POST['add_product'])) {
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="classification"> III. Classification</label>
+                  <label for="classification"> III. Classification/ circumstances of being a solo parent Dahilan bakit
+                    naging solo parent</label>
                   <textarea class="form-control" id="classification" name="classification"
                     placeholder="Enter classification details"></textarea>
                 </div>
@@ -527,7 +528,8 @@ if (isset($_POST['add_product'])) {
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="problems">IV. Problems</label>
+                  <label for="problems">IV. Needs/problems as a solo parent (Kinakailangan/problema bilang isang solo
+                    parent?)</label>
                   <textarea class="form-control" id="problems" name="problems"
                     placeholder="Enter problems details"></textarea>
                 </div>
