@@ -6,7 +6,7 @@ $page_title = 'Add Product';
 require_once('includes/load.php');
 $barangays = find_all_barangays();
 // Check what level user has permission to view this page
-page_require_level(2);
+page_require_level(3);
 
 // Fetch all categories and photos
 $all_categories = find_all('categories');

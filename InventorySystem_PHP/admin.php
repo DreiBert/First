@@ -2,7 +2,7 @@
 $page_title = 'Admin Home Page';
 require_once('includes/load.php');
 // Checkin What level user has permission to view this page
-page_require_level(1);
+page_require_level(3);
 ?>
 <?php
 $c_application_forms = count_application_forms();

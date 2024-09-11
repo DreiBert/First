@@ -2,7 +2,7 @@
 $page_title = 'All Application Forms';
 require_once('includes/load.php');
 // Check what level user has permission to view this page
-page_require_level(2);
+page_require_level(3);
 
 // Get sorting parameters from URL
 $sort_column = isset($_GET['sort']) ? $_GET['sort'] : 'id';

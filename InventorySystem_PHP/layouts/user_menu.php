@@ -1,18 +1,18 @@
 <ul>
   <li>
-    <a href="home.php">
+    <a href="admin.php">
       <i class="glyphicon glyphicon-home"></i>
       <span>Dashboard</span>
     </a>
   </li>
   <li>
     <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-th-list"></i>
-      <span>Solo Parent Application Forms</span>
+      <i class="glyphicon glyphicon-th-large"></i>
+      <span>Solo Parent Forms</span>
     </a>
     <ul class="nav submenu">
-      <li><a href="sales.php">Manage Forms</a> </li>
-      <li><a href="add_sale.php">Add a Form</a> </li>
+      <li><a href="product.php">Manage Forms</a> </li>
+      <li><a href="add_product.php">Add a Form</a> </li>
     </ul>
   </li>
   <!-- ADDITIONAL FEATURES 
