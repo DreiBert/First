@@ -56,6 +56,21 @@ $application_forms = join_application_forms_table($sort_column, $sort_order, $se
         </div>
       </div>
       <div class="panel-body">
+        <form action="download_csv.php" method="POST" class="form-inline">
+          <div class="form-group">
+            <label for="barangay">Download:</label>
+            <select name="barangay" class="form-control">
+              <option value="all">Whole Database</option>
+              <?php
+              $barangays = find_all('barangays');
+              foreach ($barangays as $barangay) {
+                echo "<option value='{$barangay['id']}'>{$barangay['name']}</option>";
+              }
+              ?>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success">Download CSV</button>
+        </form>
         <table class="table table-bordered">
           <thead>
             <tr>
