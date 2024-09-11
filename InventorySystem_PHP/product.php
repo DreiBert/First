@@ -70,7 +70,9 @@ $application_forms = join_application_forms_table($sort_column, $sort_order, $se
             </select>
           </div>
           <button type="submit" class="btn btn-success">Download CSV</button>
+
         </form>
+        <br>
         <table class="table table-bordered">
           <thead>
             <tr>
