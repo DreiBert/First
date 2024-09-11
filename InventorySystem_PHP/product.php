@@ -5,8 +5,8 @@ require_once('includes/load.php');
 page_require_level(3);
 
 // Get sorting parameters from URL
-$sort_column = isset($_GET['sort']) ? $_GET['sort'] : 'id';
-$sort_order = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'desc' : 'asc';
+$sort_column = isset($_GET['sort']) ? $_GET['sort'] : 'created_at';
+$sort_order = isset($_GET['order']) ? $_GET['order'] : 'desc';
 
 // Toggle sort order for next click
 $next_order = $sort_order === 'asc' ? 'desc' : 'asc';
