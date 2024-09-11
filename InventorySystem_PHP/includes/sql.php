@@ -267,7 +267,7 @@ function find_all_barangays()
 }
 
 
-function join_application_forms_table($sort_column = 'id', $sort_order = 'asc', $search_term = '')
+function join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page)
 {
   global $db;
   $valid_columns = ['id', 'case_number', 'full_name', 'address', 'barangay', 'age', 'created_at'];
@@ -294,10 +294,11 @@ function join_application_forms_table($sort_column = 'id', $sort_order = 'asc', 
           FROM application_forms af
           LEFT JOIN barangays b ON af.barangay_id = b.id
           WHERE 1=1 $search_sql
-          ORDER BY {$sort_column} {$sort_order}";
+          ORDER BY {$sort_column} {$sort_order}
+          LIMIT {$rows_per_page}";
+
   return find_by_sql($sql);
 }
-
 /*--------------------------------------------------------------*/
 /* Function for Count total application forms
 /*--------------------------------------------------------------*/

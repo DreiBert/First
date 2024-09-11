@@ -15,11 +15,7 @@ $barangay_data = find_people_per_barangay();
 ?>
 <?php include_once('layouts/header.php'); ?>
 
-<div class="row">
-  <div class="col-md-6">
-    <?php echo display_msg($msg); ?>
-  </div>
-</div>
+
 <div class="row">
   <a href="application_forms.php" style="color:black;">
     <div class="col-md-3">
