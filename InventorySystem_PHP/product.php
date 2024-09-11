@@ -17,8 +17,25 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
 // Get rows per page from URL or set default to 20
 $rows_per_page = isset($_GET['rows']) ? (int) $_GET['rows'] : 20;
 
+// Get the current page from URL or set default to 1
+$current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+// Fetch the total number of records
+$total_records = count_by_id('application_forms')['total'];
+
+// Calculate total pages
+$total_pages = ceil($total_records / $rows_per_page);
+
+// Calculate the offset for the SQL query
+$offset = ($current_page - 1) * $rows_per_page;
+
+// Debugging statements
+error_log("Current Page: $current_page");
+error_log("Rows Per Page: $rows_per_page");
+error_log("Offset: $offset");
+
 // Modify the query to include sorting, search, and limit
-$application_forms = join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page);
+$application_forms = join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page, $offset);
 ?>
 <?php include_once('layouts/header.php'); ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -158,6 +175,28 @@ $application_forms = join_application_forms_table($sort_column, $sort_order, $se
             <?php endforeach; ?>
           </tbody>
         </table>
+        <div class="text-center">
+          <ul class="pagination">
+            <?php if ($current_page > 1): ?>
+              <li><a
+                  href="?page=<?php echo $current_page - 1; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>">&laquo;
+                  Previous</a></li>
+            <?php endif; ?>
+
+            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+              <li class="<?php echo $i == $current_page ? 'active' : ''; ?>">
+                <a
+                  href="?page=<?php echo $i; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"><?php echo $i; ?></a>
+              </li>
+            <?php endfor; ?>
+
+            <?php if ($current_page < $total_pages): ?>
+              <li><a
+                  href="?page=<?php echo $current_page + 1; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>">Next
+                  &raquo;</a></li>
+            <?php endif; ?>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

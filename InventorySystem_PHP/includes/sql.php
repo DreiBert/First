@@ -267,14 +267,9 @@ function find_all_barangays()
 }
 
 
-function join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page)
+function join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page, $offset)
 {
   global $db;
-  $valid_columns = ['id', 'case_number', 'full_name', 'address', 'barangay', 'age', 'created_at'];
-  if (!in_array($sort_column, $valid_columns)) {
-    $sort_column = 'id';
-  }
-  $sort_order = $sort_order === 'desc' ? 'desc' : 'asc';
 
   // Handle the special case for barangay
   if ($sort_column == 'barangay') {
@@ -290,13 +285,13 @@ function join_application_forms_table($sort_column, $sort_order, $search_term, $
     $search_sql = "AND (af.case_number LIKE '%$search_term%' OR af.full_name LIKE '%$search_term%' OR af.address LIKE '%$search_term%' OR b.name LIKE '%$search_term%' OR af.age LIKE '%$search_term%' OR af.sex LIKE '%$search_term%' OR af.contact_number LIKE '%$search_term%' OR af.created_at LIKE '%$search_term%')";
   }
 
+  // Add pagination to the query
   $sql = "SELECT af.id, af.case_number, af.full_name, af.address, b.name AS barangay, af.age, af.sex AS sex, af.contact_number, af.created_at 
           FROM application_forms af
           LEFT JOIN barangays b ON af.barangay_id = b.id
           WHERE 1=1 $search_sql
           ORDER BY {$sort_column} {$sort_order}
-          LIMIT {$rows_per_page}";
-
+          LIMIT {$db->escape($rows_per_page)} OFFSET {$db->escape($offset)}";
   return find_by_sql($sql);
 }
 /*--------------------------------------------------------------*/
