@@ -56,8 +56,9 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
                 value="<?php echo htmlspecialchars($search_term); ?>">
               <button type="submit" class="btn btn-primary">Search</button>
             </div>
+
             <div class="form-group">
-              <label for="rows">Rows per page:</label>
+              &nbsp;&nbsp;&nbsp;&nbsp;<label for="rows">Rows per page:</label>
               <select name="rows" class="form-control" onchange="this.form.submit()">
                 <option value="10" <?php if ($rows_per_page == 10)
                   echo 'selected'; ?>>10</option>
