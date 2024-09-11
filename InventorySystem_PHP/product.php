@@ -36,6 +36,9 @@ error_log("Offset: $offset");
 
 // Modify the query to include sorting, search, and limit
 $application_forms = join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page, $offset);
+
+// Calculate the starting row number for the current page
+$start_row_number = ($current_page - 1) * $rows_per_page + 1;
 ?>
 <?php include_once('layouts/header.php'); ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -148,9 +151,11 @@ $application_forms = join_application_forms_table($sort_column, $sort_order, $se
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($application_forms as $form): ?>
+            <?php
+            $row_number = $start_row_number;
+            foreach ($application_forms as $form): ?>
               <tr>
-                <td class="text-center"><?php echo count_id(); ?></td>
+                <td class="text-center"><?php echo $row_number++; ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['case_number']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['full_name']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['address']); ?></td>
