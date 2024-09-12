@@ -15,15 +15,29 @@ $all_photo = find_all('media');
 // Check if the form is submitted
 if (isset($_POST['add_product'])) {
   // Required fields for validation
-  $req_fields = array('case-number', 'last-name', 'first-name', 'middle-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
+  $req_fields = array('last-name', 'first-name', 'middle-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
 
   // Validate the required fields
   validate_fields($req_fields);
 
   // If no errors, proceed to process the form data
   if (empty($errors)) {
+    // Generate the case number
+    $current_year_month = date('Y-m');
+    $last_case_number_query = "SELECT case_number FROM application_forms WHERE case_number LIKE '{$current_year_month}-%' ORDER BY case_number DESC LIMIT 1";
+    $last_case_number_result = $db->query($last_case_number_query);
+    $last_case_number = $db->fetch_assoc($last_case_number_result)['case_number'];
+
+    if ($last_case_number) {
+      $last_number = (int) substr($last_case_number, -5);
+      $new_number = str_pad($last_number + 1, 5, '0', STR_PAD_LEFT);
+    } else {
+      $new_number = '00001';
+    }
+
+    $case_number = "{$current_year_month}-{$new_number}";
+
     // Sanitize and escape form inputs
-    $case_number = remove_junk($db->escape($_POST['case-number']));
     $last_name = remove_junk($db->escape($_POST['last-name']));
     $first_name = remove_junk($db->escape($_POST['first-name']));
     $middle_name = remove_junk($db->escape($_POST['middle-name']));
@@ -173,14 +187,7 @@ if (isset($_POST['add_product'])) {
 
             <!-- Full Name, Age, and Sex input fields in one row -->
             <div class="row">
-              <div class="col-md-3">
-                <div class="form-group mb-2">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Case Number</span>
-                    <input type="text" class="form-control" name="case-number" required>
-                  </div>
-                </div>
-              </div>
+
 
               <div class="col-md-3">
                 <div class="form-group">
