@@ -106,7 +106,7 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
               </th>
               <th class="text-center" style="width: 12vh;">
                 <a href="?sort=case_number&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
-                  style="text-decoration: none; color: inherit;">ID No.
+                  style="text-decoration: none; color: inherit;">CASE No.
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'case_number' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
