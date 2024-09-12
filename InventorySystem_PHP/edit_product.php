@@ -19,13 +19,16 @@ $emergency_contact = find_emergency_contact_by_application_id((int) $_GET['id'])
 ?>
 <?php
 if (isset($_POST['update_form'])) {
-  $req_fields = array('case-number', 'full_name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
+  $req_fields = array('last-name', 'first-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
   validate_fields($req_fields);
 
   if (empty($errors)) {
     // Sanitize and escape form inputs
     $case_number = remove_junk($db->escape($_POST['case-number']));
-    $full_name = remove_junk($db->escape($_POST['full_name']));
+    $last_name = remove_junk($db->escape($_POST['last-name']));
+    $first_name = remove_junk($db->escape($_POST['first-name']));
+    $middle_name = remove_junk($db->escape($_POST['middle-name']));
+    $extension_name = remove_junk($db->escape($_POST['extension-name']));
     $sex = remove_junk($db->escape($_POST['sex']));
     $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
     $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
@@ -55,7 +58,10 @@ if (isset($_POST['update_form'])) {
     // Construct the SQL update query for application form
     $query = "UPDATE application_forms SET 
                 case_number = '{$case_number}', 
-                full_name = '{$full_name}', 
+                last_name = '{$last_name}', 
+                first_name = '{$first_name}', 
+                middle_name = '{$middle_name}', 
+                extension_name = '{$extension_name}', 
                 sex = '{$sex}', 
                 date_of_birth = '{$date_of_birth}', 
                 place_of_birth = '{$place_of_birth}', 
@@ -158,20 +164,44 @@ if (isset($_POST['update_form'])) {
             </div>
             <div class="row">
               <div class="col-md-3">
-                <div class="form-group mb-2">
+                <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Case Number</span>
-                    <input type="text" class="form-control" name="case-number"
-                      value="<?php echo remove_junk($form['case_number']); ?>" required>
+                    <span class="input-group-addon">Surname</span>
+                    <input type="text" class="form-control" name="last-name" placeholder="Last Name"
+                      value="<?php echo remove_junk($form['last_name']); ?>" required>
                   </div>
                 </div>
               </div>
-              <div class="col-md-9">
+
+              <!-- First Name -->
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon">Full Name</span>
-                    <input type="text" class="form-control" name="full_name"
-                      value="<?php echo remove_junk($form['full_name']); ?>" required>
+                    <span class="input-group-addon">First</span>
+                    <input type="text" class="form-control" name="first-name" placeholder="First Name"
+                      value="<?php echo remove_junk($form['first_name']); ?>" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Name -->
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Middle</span>
+                    <input type="text" class="form-control" name="middle-name" placeholder="Middle Name"
+                      value="<?php echo remove_junk($form['middle_name']); ?>">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Extension Name -->
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Extension</span>
+                    <input type="text" class="form-control" name="extension-name" placeholder="Extension Name"
+                      value="<?php echo remove_junk($form['extension_name']); ?>">
                   </div>
                 </div>
               </div>
