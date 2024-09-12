@@ -305,7 +305,18 @@ if (isset($_POST['add_product'])) {
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i> Educational
                       Attainment</span>
-                    <input type="text" class="form-control" name="educational-attainment">
+                    <select class="form-control" name="educational-attainment" required>
+                      <option value="">Select</option>
+                      <option value="no education">No Education</option>
+                      <option value="elementary level">Elementary Level</option>
+                      <option value="elementary graduate">Elementary Graduate</option>
+                      <option value="high school level">High School Level</option>
+                      <option value="high school graduate">High School Graduate</option>
+                      <option value="vocational/tvet">Vocational/TVET</option>
+                      <option value="college level">College Level</option>
+                      <option value="college graduate">College Graduate</option>
+                      <option value="post-graduate">Post-Graduate</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -356,7 +367,12 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i> Monthly Income</span>
-                    <input type="number" class="form-control" name="monthly-income">
+                    <select class="form-control" name="monthly-income">
+                      <option value="">Select</option>
+                      <option value="minimum wage and below">Minimum Wage and Below</option>
+                      <option value="minimum wage +1 to Php 20833">(Minimum Wage +1) to Php 20833</option>
+                      <option value="Php 20834 and above">Php 20834 and Above</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -541,8 +557,22 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <label for="classification"> III. Classification/ circumstances of being a solo parent Dahilan bakit
                     naging solo parent</label>
-                  <textarea class="form-control" id="classification" name="classification"
-                    placeholder="Enter classification details"></textarea>
+                  <select class="form-control" id="classification" name="classification">
+                    <option value="">Select</option>
+                    <option value="a1. Consequence of rape">a1. Consequence of rape</option>
+                    <option value="a2. Widow/ widower">a2. Widow/ widower</option>
+                    <option value="a3. Spouse of PDL">a3. Spouse of PDL</option>
+                    <option value="a4. Spouse of PWD">a4. Spouse of PWD</option>
+                    <option value="a5. Separated of de facto separated">a5. Separated of de facto separated</option>
+                    <option value="a6. Anulled">a6. Anulled</option>
+                    <option value="a7. abandoned">a7. abandoned</option>
+                    <option value="b. Spouse/Relative of OFW">b. Spouse/Relative of OFW</option>
+                    <option value="c. Unmarried Person">c. Unmarried Person</option>
+                    <option value="d. Legal guardian, Adpotive or Foster Parent">d. Legal guardian, Adpotive or Foster
+                      Parent</option>
+                    <option value="e. Relative">e. Relative</option>
+                    <option value="f. Pregnant woman">f. Pregnant woman</option>
+                  </select>
                 </div>
               </div>
             </div>
