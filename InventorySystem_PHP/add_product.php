@@ -38,15 +38,17 @@ if (isset($_POST['add_product'])) {
     $case_number = "{$current_year_month}-{$new_number}";
 
     // Sanitize and escape form inputs
+
     $last_name = remove_junk($db->escape($_POST['last-name']));
     $first_name = remove_junk($db->escape($_POST['first-name']));
     $middle_name = remove_junk($db->escape($_POST['middle-name']));
-    $full_name = "{$last_name}, {$first_name} {$middle_name}";
-    $sex = remove_junk($db->escape($_POST['sex']));
+    $extension_name = remove_junk($db->escape($_POST['extension-name']));
+    $classification = remove_junk($db->escape($_POST['classification']));
+    $problems = remove_junk($db->escape($_POST['problems']));
     $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
     $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
     $address = remove_junk($db->escape($_POST['address']));
-    $barangay_id = (int) $_POST['barangay_id'];
+    $barangay_id = remove_junk($db->escape($_POST['barangay_id']));
     $educational_attainment = remove_junk($db->escape($_POST['educational-attainment']));
     $civil_status = remove_junk($db->escape($_POST['civil-status']));
     $occupation = remove_junk($db->escape($_POST['occupation']));
@@ -59,8 +61,8 @@ if (isset($_POST['add_product'])) {
     $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
     $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
     $pensioner = remove_junk($db->escape($_POST['pensioner']));
+    $sex = remove_junk($db->escape($_POST['sex']));
 
-    // Validate date of birth
     $birthDate = DateTime::createFromFormat('Y-m-d', $date_of_birth);
     if (!$birthDate || $birthDate->format('Y-m-d') !== $date_of_birth) {
       $session->msg('d', 'Invalid date of birth format.');
@@ -80,11 +82,11 @@ if (isset($_POST['add_product'])) {
 
     // Construct the SQL query to insert data into the database
     $query = "INSERT INTO application_forms (";
-    $query .= "case_number, full_name, age, sex, date_of_birth, place_of_birth, address, barangay_id, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, pensioner, classification, problems, date";
+    $query .= "case_number, last_name, first_name, middle_name, extension_name, age, sex, date_of_birth, place_of_birth, address, barangay_id, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, pensioner, classification, problems, date";
     $query .= ") VALUES (";
-    $query .= "'{$case_number}','{$full_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$pensioner}', '{$classification}', '{$problems}', '{$date}'";
+    $query .= "'{$case_number}', '{$last_name}', '{$first_name}', '{$middle_name}', '{$extension_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$pensioner}', '{$classification}', '{$problems}', '{$date}'";
     $query .= ")";
-    $query .= " ON DUPLICATE KEY UPDATE full_name='{$full_name}'";
+    $query .= " ON DUPLICATE KEY UPDATE last_name='{$last_name}'";
 
     // Execute the query and check if it was successful
     if ($db->query($query)) {
@@ -188,7 +190,7 @@ if (isset($_POST['add_product'])) {
             <!-- Full Name, Age, and Sex input fields in one row -->
             <div class="row">
 
-
+              <!-- Last Name -->
               <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
@@ -197,19 +199,33 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
+
+              <!-- First Name -->
               <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"> First </span>
+                    <span class="input-group-addon">First</span>
                     <input type="text" class="form-control" name="first-name" placeholder="First Name" required>
                   </div>
                 </div>
               </div>
+
+              <!-- Middle Name -->
               <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">Middle</span>
-                    <input type="text" class="form-control" name="middle-name" placeholder="Middle Name" required>
+                    <input type="text" class="form-control" name="middle-name" placeholder="Middle Name">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Extension Name -->
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Extension</span>
+                    <input type="text" class="form-control" name="extension-name" placeholder="Extension Name">
                   </div>
                 </div>
               </div>
