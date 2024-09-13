@@ -40,7 +40,6 @@ if (isset($_POST['add_product'])) {
     $case_number = "{$current_year_month}-{$new_number}";
 
     // Sanitize and escape form inputs
-
     $last_name = remove_junk($db->escape($_POST['last-name']));
     $first_name = remove_junk($db->escape($_POST['first-name']));
     $middle_name = remove_junk($db->escape($_POST['middle-name']));
@@ -70,7 +69,6 @@ if (isset($_POST['add_product'])) {
     $monthly_income_specified = remove_junk($db->escape($_POST['monthly-income-specified']));
     $form_id_no = remove_junk($db->escape($_POST['form-id-no']));
 
-
     $birthDate = DateTime::createFromFormat('Y-m-d', $date_of_birth);
     if (!$birthDate || $birthDate->format('Y-m-d') !== $date_of_birth) {
       $session->msg('d', 'Invalid date of birth format.');
@@ -93,7 +91,7 @@ if (isset($_POST['add_product'])) {
     $query = "INSERT INTO application_forms (";
     $query .= "case_number, last_name, first_name, middle_name, extension_name, age, sex, date_of_birth, place_of_birth, address, barangay_id, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, Indigenous_Person, pensioner, classification, problems, remarks, status,  date, monthly_income_specified, form_id_no";
     $query .= ") VALUES (";
-    $query .= "'{$case_number}', '{$last_name}', '{$first_name}', '{$middle_name}', '{$extension_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$Indigenous_Person}', '{$pensioner}', '{$classification}', '{$problems}', '{$remarks}', '{$status}', '{$date}', {$monthly_income_specified}, '{$form_id_no}'";
+    $query .= "'{$case_number}', '{$last_name}', '{$first_name}', '{$middle_name}', '{$extension_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$Indigenous_Person}', '{$pensioner}', '{$classification}', '{$problems}', '{$remarks}', '{$status}', '{$date}', '{$monthly_income_specified}', '{$form_id_no}'";
     $query .= ")";
     $query .= " ON DUPLICATE KEY UPDATE last_name='{$last_name}'";
 
@@ -201,7 +199,7 @@ if (isset($_POST['add_product'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Form ID No.</span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Single Parent ID No.</span>
                     <input type="text" class="form-control" name="form-id-no" required>
                   </div>
                 </div>
@@ -401,9 +399,13 @@ if (isset($_POST['add_product'])) {
                     <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i> Monthly Income</span>
                     <select class="form-control" name="monthly-income">
                       <option value="">Select</option>
-                      <option value="minimum wage and below">Minimum Wage and Below</option>
-                      <option value="minimum wage +1 to Php 20833">(Minimum Wage +1) to Php 20833</option>
-                      <option value="Php 20834 and above">Php 20834 and Above</option>
+                      <option value="Php-0-5,000.00">Php-0-5,000.00</option>
+                      <option value="Php-5,001.00-10,000.00">Php-5,001.00-10,000.00</option>
+                      <option value="Php-10,001.00-15,000.00">Php-10,001.00-15,000.00</option>
+                      <option value="Php-15,001-20,000.00">Php-15,001-20,000.00</option>
+                      <option value="Php-20,001.00-25,000.00">Php-20,001.00-25,000.00</option>
+                      <option value="Php-25,001.00-Above">Php-25,001.00-Above</option>
+
                     </select>
                   </div>
                 </div>
