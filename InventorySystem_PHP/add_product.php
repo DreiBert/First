@@ -67,6 +67,9 @@ if (isset($_POST['add_product'])) {
     $Indigenous_Person = remove_junk($db->escape($_POST['Indigenous_Person']));
     $pensioner = remove_junk($db->escape($_POST['pensioner']));
     $sex = remove_junk($db->escape($_POST['sex']));
+    $monthly_income_specified = remove_junk($db->escape($_POST['monthly-income-specified']));
+    $form_id_no = remove_junk($db->escape($_POST['form-id-no']));
+
 
     $birthDate = DateTime::createFromFormat('Y-m-d', $date_of_birth);
     if (!$birthDate || $birthDate->format('Y-m-d') !== $date_of_birth) {
@@ -86,12 +89,11 @@ if (isset($_POST['add_product'])) {
     $problems = remove_junk($db->escape($_POST['problems']));
     $remarks = remove_junk($db->escape($_POST['remarks']));
 
-
     // Construct the SQL query to insert data into the database
     $query = "INSERT INTO application_forms (";
-    $query .= "case_number, last_name, first_name, middle_name, extension_name, age, sex, date_of_birth, place_of_birth, address, barangay_id, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, Indigenous_Person, pensioner, classification, problems, remarks, status,  date";
+    $query .= "case_number, last_name, first_name, middle_name, extension_name, age, sex, date_of_birth, place_of_birth, address, barangay_id, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, Indigenous_Person, pensioner, classification, problems, remarks, status,  date, monthly_income_specified, form_id_no";
     $query .= ") VALUES (";
-    $query .= "'{$case_number}', '{$last_name}', '{$first_name}', '{$middle_name}', '{$extension_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$Indigenous_Person}', '{$pensioner}', '{$classification}', '{$problems}', '{$remarks}', '{$status}', '{$date}'";
+    $query .= "'{$case_number}', '{$last_name}', '{$first_name}', '{$middle_name}', '{$extension_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$Indigenous_Person}', '{$pensioner}', '{$classification}', '{$problems}', '{$remarks}', '{$status}', '{$date}', {$monthly_income_specified}, '{$form_id_no}'";
     $query .= ")";
     $query .= " ON DUPLICATE KEY UPDATE last_name='{$last_name}'";
 
@@ -195,6 +197,16 @@ if (isset($_POST['add_product'])) {
             <!-- ------------------------PERSONAL INFORMATION -------------------------- -->
 
             <!-- Full Name, Age, and Sex input fields in one row -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Form ID No.</span>
+                    <input type="text" class="form-control" name="form-id-no" required>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="row">
 
               <!-- Last Name -->
@@ -366,7 +378,7 @@ if (isset($_POST['add_product'])) {
 
             <!-- Occupation, Agency, Montly Income -->
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i> Occupation</span>
@@ -374,7 +386,7 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i> Company</span>
@@ -383,7 +395,7 @@ if (isset($_POST['add_product'])) {
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i> Monthly Income</span>
@@ -396,7 +408,16 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i> Specify Income</span>
+                      <input type="text" class="form-control" name="monthly-income-specified">
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- Employment Status, Contact Number -->

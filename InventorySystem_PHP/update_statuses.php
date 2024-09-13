@@ -39,6 +39,18 @@ function update_statuses()
             $sql = "UPDATE application_forms SET status='{$db->escape($new_status)}' WHERE id='{$db->escape($form['id'])}'";
             $db->query($sql);
         }
+
+        // Fetch all family members associated with the application form
+        $family_members = find_by_sql("SELECT * FROM family_members WHERE application_id='{$db->escape($form['id'])}'");
+
+        foreach ($family_members as $member) {
+            // Check if the family member's age is 22 or above
+            if ($member['age'] >= 22) {
+                // Delete the family member
+                $sql = "DELETE FROM family_members WHERE id='{$db->escape($member['id'])}'";
+                $db->query($sql);
+            }
+        }
     }
 }
 
