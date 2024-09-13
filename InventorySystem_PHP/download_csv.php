@@ -4,9 +4,9 @@ require_once('includes/load.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $barangay_id = $_POST['barangay'];
 
-    $sql = "SELECT af.id, af.case_number, af.first_name, af.middle_name, af.last_name, af.extension_name, af.age, af.sex, af.date_of_birth, af.place_of_birth, 
+    $sql = "SELECT af.id, af.case_number, af.form_id_no, af.first_name, af.middle_name, af.last_name, af.extension_name, af.age, af.sex, af.date_of_birth, af.place_of_birth, 
                    af.address, af.pensioner, af.barangay_id, af.educational_attainment, af.civil_status, af.occupation, af.religion, af.company_agency, 
-                   af.monthly_income, af.employment_status, af.contact_number, af.email_address, af.pantawid_beneficiary, af.lgbtq, af.date, af.classification, 
+                   af.monthly_income, af.monthly_income_specified, af.employment_status, af.contact_number, af.email_address, af.pantawid_beneficiary, af.lgbtq, af.date, af.classification, 
                    af.problems, af.created_at, af.Indigenous_Person, af.remarks, af.status, b.name AS barangay, 
                    fm.name AS family_member_name, fm.relation AS family_member_relation, fm.age AS family_member_age, fm.birthday AS family_member_birthday, 
                    fm.civil_status AS family_member_civil_status, fm.education AS family_member_education, fm.occupation AS family_member_occupation, 
@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Set header
     fputcsv($output, [
         'Case Number',
+        'Form ID No',
         'First Name',
         'Middle Name',
         'Last Name',
@@ -48,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'Religion',
         'Company/Agency',
         'Monthly Income',
+        'Monthly Income Specified',
         'Employment Status',
         'Contact Number',
         'Email Address',
@@ -85,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($current_application_id !== null) {
                 fputcsv($output, [
                     $result['case_number'],
+                    $result['form_id_no'],
                     $result['first_name'],
                     $result['middle_name'],
                     $result['last_name'],
@@ -103,6 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $result['religion'],
                     $result['company_agency'],
                     $result['monthly_income'],
+                    $result['monthly_income_specified'],
                     $result['employment_status'],
                     $result['contact_number'],
                     $result['email_address'],
@@ -187,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 '',
                 '',
                 '',
+                '',
                 $result['family_member_name'],
                 $result['family_member_relation'],
                 $result['family_member_age'],
@@ -206,6 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($current_application_id !== null) {
         fputcsv($output, [
             $result['case_number'],
+            $result['form_id_no'],
             $result['first_name'],
             $result['middle_name'],
             $result['last_name'],
@@ -224,6 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result['religion'],
             $result['company_agency'],
             $result['monthly_income'],
+            $result['monthly_income_specified'],
             $result['employment_status'],
             $result['contact_number'],
             $result['email_address'],
