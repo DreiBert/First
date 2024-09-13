@@ -91,7 +91,6 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
             </select>
           </div>
           <button type="submit" class="btn btn-success">Download CSV</button>
-
         </form>
         <br>
         <table class="table table-bordered">
@@ -148,6 +147,13 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
                     class="fas fa-sort<?php echo $sort_column == 'created_at' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
               </th>
+              <th class="text-center" style="width: 15vh;">
+                <a href="?sort=status&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                  style="text-decoration: none; color: inherit;">Status
+                  <i
+                    class="fas fa-sort<?php echo $sort_column == 'status' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
+                </a>
+              </th>
               <th class="text-center" style="width: 100px;">Actions</th>
             </tr>
           </thead>
@@ -165,6 +171,7 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
                 <td class="text-center"> <?php echo remove_junk($form['sex']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['contact_number']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['created_at']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($form['status']); ?></td>
                 <td class="text-center">
                   <div class="btn-group">
                     <a href="edit_product.php?id=<?php echo (int) $form['id']; ?>" class="btn btn-info btn-xs"

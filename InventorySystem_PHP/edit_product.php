@@ -1,11 +1,9 @@
-<!-- Section 1 -->
 <?php
 $page_title = 'Edit Application Form';
 require_once('includes/load.php');
 // Check what level user has permission to view this page
 page_require_level(2);
-?>
-<?php
+
 $form = find_by_id('application_forms', (int) $_GET['id']);
 $all_barangays = find_all('barangays');
 if (!$form) {
@@ -16,115 +14,83 @@ if (!$form) {
 // Fetch the related family members
 $family_members = find_family_members_by_application_id((int) $_GET['id']);
 $emergency_contact = find_emergency_contact_by_application_id((int) $_GET['id']);
-?>
-<?php
+
 if (isset($_POST['update_form'])) {
-  $req_fields = array('last-name', 'first-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
-  validate_fields($req_fields);
+  // Sanitize and escape form inputs
 
-  if (empty($errors)) {
-    // Sanitize and escape form inputs
-    $case_number = remove_junk($db->escape($_POST['case-number']));
-    $last_name = remove_junk($db->escape($_POST['last-name']));
-    $first_name = remove_junk($db->escape($_POST['first-name']));
-    $middle_name = remove_junk($db->escape($_POST['middle-name']));
-    $extension_name = remove_junk($db->escape($_POST['extension-name']));
-    $sex = remove_junk($db->escape($_POST['sex']));
-    $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
-    $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
-    $address = remove_junk($db->escape($_POST['address']));
-    $barangay_id = (int) $_POST['barangay_id'];
-    $educational_attainment = remove_junk($db->escape($_POST['educational-attainment']));
-    $civil_status = remove_junk($db->escape($_POST['civil-status']));
-    $occupation = remove_junk($db->escape($_POST['occupation']));
-    $religion = remove_junk($db->escape($_POST['religion']));
-    $company_agency = remove_junk($db->escape($_POST['company-agency']));
-    $monthly_income = remove_junk($db->escape($_POST['monthly-income']));
-    $employment_status = remove_junk($db->escape($_POST['employment-status']));
-    $contact_number = remove_junk($db->escape($_POST['contact-number']));
-    $email_address = remove_junk($db->escape($_POST['email-address']));
-    $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
-    $pensioner = remove_junk($db->escape($_POST['pensioner']));
-    $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
-    $classification = remove_junk($db->escape($_POST['classification']));
-    $problems = remove_junk($db->escape($_POST['problems']));
+  $last_name = remove_junk($db->escape($_POST['last-name']));
+  $first_name = remove_junk($db->escape($_POST['first-name']));
+  $middle_name = remove_junk($db->escape($_POST['middle-name']));
+  $extension_name = remove_junk($db->escape($_POST['extension-name']));
+  $sex = remove_junk($db->escape($_POST['sex']));
+  $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
+  $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
+  $address = remove_junk($db->escape($_POST['address']));
+  $barangay_id = (int) $_POST['barangay_id'];
+  $educational_attainment = remove_junk($db->escape($_POST['educational-attainment']));
+  $civil_status = remove_junk($db->escape($_POST['civil-status']));
+  $occupation = remove_junk($db->escape($_POST['occupation']));
+  $religion = remove_junk($db->escape($_POST['religion']));
+  $company_agency = remove_junk($db->escape($_POST['company-agency']));
+  $monthly_income = remove_junk($db->escape($_POST['monthly-income']));
+  $employment_status = remove_junk($db->escape($_POST['employment-status']));
+  $contact_number = remove_junk($db->escape($_POST['contact-number']));
+  $email_address = remove_junk($db->escape($_POST['email-address']));
+  $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
+  $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
+  $Indigenous_Person = remove_junk($db->escape($_POST['Indigenous_Person']));
+  $pensioner = remove_junk($db->escape($_POST['pensioner']));
+  $classification = remove_junk($db->escape($_POST['classification']));
+  $problems = remove_junk($db->escape($_POST['problems']));
+  $remarks = remove_junk($db->escape($_POST['remarks']));
+  $status = remove_junk($db->escape($_POST['status']));
 
-    // Sanitize and escape emergency contact inputs
-    $emergency_name = remove_junk($db->escape($_POST['emergency_contact_name']));
-    $emergency_relationship = remove_junk($db->escape($_POST['emergency_contact_relationship']));
-    $emergency_contact_number = remove_junk($db->escape($_POST['emergency_contact_number']));
-    $emergency_contact_address = remove_junk($db->escape($_POST['emergency_contact_address']));
+  // Update query
+  $query = "UPDATE application_forms SET ";
+  $query .= "last_name='{$last_name}', first_name='{$first_name}', middle_name='{$middle_name}', extension_name='{$extension_name}', sex='{$sex}', date_of_birth='{$date_of_birth}', place_of_birth='{$place_of_birth}', address='{$address}', barangay_id='{$barangay_id}', educational_attainment='{$educational_attainment}', civil_status='{$civil_status}', occupation='{$occupation}', religion='{$religion}', company_agency='{$company_agency}', monthly_income='{$monthly_income}', employment_status='{$employment_status}', contact_number='{$contact_number}', email_address='{$email_address}', pantawid_beneficiary='{$pantawid_beneficiary}', lgbtq='{$lgbtq}', Indigenous_Person='{$Indigenous_Person}', pensioner='{$pensioner}', classification='{$classification}', problems='{$problems}', remarks='{$remarks}', status='{$status}'";
+  $query .= " WHERE id='{$form['id']}'";
 
-    // Construct the SQL update query for application form
-    $query = "UPDATE application_forms SET 
-                case_number = '{$case_number}', 
-                last_name = '{$last_name}', 
-                first_name = '{$first_name}', 
-                middle_name = '{$middle_name}', 
-                extension_name = '{$extension_name}', 
-                sex = '{$sex}', 
-                date_of_birth = '{$date_of_birth}', 
-                place_of_birth = '{$place_of_birth}', 
-                address = '{$address}', 
-                barangay_id = '{$barangay_id}', 
-                educational_attainment = '{$educational_attainment}', 
-                civil_status = '{$civil_status}', 
-                occupation = '{$occupation}', 
-                religion = '{$religion}', 
-                company_agency = '{$company_agency}', 
-                monthly_income = '{$monthly_income}', 
-                employment_status = '{$employment_status}', 
-                contact_number = '{$contact_number}', 
-                email_address = '{$email_address}', 
-                pantawid_beneficiary = '{$pantawid_beneficiary}', 
-                pensioner = '{$pensioner}', 
-                lgbtq = '{$lgbtq}', 
-                classification = '{$classification}', 
-                problems = '{$problems}'
-              WHERE id = '{$form['id']}'";
+  // Execute the query for application form
+  $result = $db->query($query);
 
-    // Execute the query for application form
-    $result = $db->query($query);
+  // Construct the SQL update query for emergency contact
+  $emergency_name = remove_junk($db->escape($_POST['emergency_contact_name']));
+  $emergency_relationship = remove_junk($db->escape($_POST['emergency_contact_relationship']));
+  $emergency_contact_number = remove_junk($db->escape($_POST['emergency_contact_number']));
+  $emergency_contact_address = remove_junk($db->escape($_POST['emergency_contact_address']));
 
-    // Construct the SQL update query for emergency contact
-    $emergency_query = "UPDATE emergency_contacts SET 
-                          name = '{$emergency_name}', 
-                          relation = '{$emergency_relationship}', 
-                          contact_number = '{$emergency_contact_number}', 
-                          address = '{$emergency_contact_address}'
-                        WHERE application_id = '{$form['id']}'";
+  $emergency_query = "UPDATE emergency_contacts SET 
+                        name = '{$emergency_name}', 
+                        relation = '{$emergency_relationship}', 
+                        contact_number = '{$emergency_contact_number}', 
+                        address = '{$emergency_contact_address}'
+                      WHERE application_id = '{$form['id']}'";
 
-    // Execute the query for emergency contact
-    $emergency_result = $db->query($emergency_query);
+  // Execute the query for emergency contact
+  $emergency_result = $db->query($emergency_query);
 
-    // Process family members
-    if (isset($_POST['family_members'])) {
-      // Delete existing family members
-      $db->query("DELETE FROM family_members WHERE application_id='{$form['id']}'");
+  // Process family members
+  if (isset($_POST['family_members'])) {
+    // Delete existing family members
+    $delete_family_query = "DELETE FROM family_members WHERE application_id = '{$form['id']}'";
+    $db->query($delete_family_query);
 
-      // Insert new family members
-      foreach ($_POST['family_members'] as $index => $family_member) {
-        $family_name = remove_junk($db->escape($family_member['name']));
-        $family_relation = remove_junk($db->escape($family_member['relation']));
-        $family_age = (int) $family_member['age'];
+    // Insert new family members
+    foreach ($_POST['family_members'] as $member) {
+      $member_name = remove_junk($db->escape($member['name']));
+      $member_relation = remove_junk($db->escape($member['relation']));
+      $member_age = (int) $member['age'];
 
-        if ($family_name || $family_relation || $family_age) {
-          $family_query = "INSERT INTO family_members (application_id, name, relation, age) VALUES ('{$form['id']}', '{$family_name}', '{$family_relation}', '{$family_age}')";
-          $db->query($family_query);
-        }
-      }
+      $insert_family_query = "INSERT INTO family_members (application_id, name, relation, age) VALUES ('{$form['id']}', '{$member_name}', '{$member_relation}', '{$member_age}')";
+      $db->query($insert_family_query);
     }
+  }
 
-    // Check if the update was successful
-    if ($result && $emergency_result) {
-      $session->msg('s', "Application form updated ");
-      redirect('edit_product.php?id=' . $form['id'], false);
-    } else {
-      $session->msg('d', 'Sorry, failed to update!');
-      redirect('edit_product.php?id=' . $form['id'], false);
-    }
+  if ($result && $emergency_result) {
+    $session->msg('s', "Application form updated ");
+    redirect('product.php', false);
   } else {
-    $session->msg("d", $errors);
+    $session->msg('d', ' Sorry failed to update!');
     redirect('edit_product.php?id=' . $form['id'], false);
   }
 }
@@ -231,12 +197,29 @@ if (isset($_POST['update_form'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">Place of Birth</span>
                     <input type="text" class="form-control" name="place-of-birth"
                       value="<?php echo remove_junk($form['place_of_birth']); ?>" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i> Status</span>
+                    <select class="form-control" name="status" required>
+                      <option value="">Select Status</option>
+                      <option value="new" <?php if ($form['status'] === 'new')
+                        echo 'selected="selected"'; ?>>New</option>
+                      <option value="renewal" <?php if ($form['status'] === 'renewal')
+                        echo 'selected="selected"'; ?>>
+                        Renewal</option>
+                      <option value="terminated" <?php if ($form['status'] === 'terminated')
+                        echo 'selected="selected"'; ?>>Terminated</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -386,7 +369,7 @@ if (isset($_POST['update_form'])) {
             </div>
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class=" input-group">
                     <span class="input-group-addon">Pantawid Beneficiary</span>
@@ -402,7 +385,7 @@ if (isset($_POST['update_form'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">Pensioner</span>
@@ -416,7 +399,7 @@ if (isset($_POST['update_form'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">LGBTQ</span>
@@ -425,6 +408,22 @@ if (isset($_POST['update_form'])) {
                         echo 'selected="selected"'; ?> value="Y">Yes</option>
                       <option <?php if ($form['lgbtq'] === 'N')
                         echo 'selected="selected"'; ?> value="N">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Indigenous Person</span>
+                    <select class="form-control" name="Indigenous_Person" required>
+                      <option value="">Select</option>
+                      <option value="Y" <?php if ($form['Indigenous_Person'] === 'Y')
+                        echo 'selected="selected"'; ?>>Yes
+                      </option>
+                      <option value="N" <?php if ($form['Indigenous_Person'] === 'N')
+                        echo 'selected="selected"'; ?>>No
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -566,6 +565,7 @@ if (isset($_POST['update_form'])) {
               </div>
             </div>
 
+
             <!-- -------------------Emergency Contact Section-------------------------------- -->
             <div class="row">
               <div class="col-md-12">
@@ -614,6 +614,23 @@ if (isset($_POST['update_form'])) {
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <strong>
+              <i>
+                <p class="mb-0">REMARKS</p>
+              </i>
+            </strong>
+            <!-- Remarks Section -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">Remarks</span>
+                    <textarea class="form-control" name="remarks"
+                      required><?php echo remove_junk($form['remarks']); ?></textarea>
                   </div>
                 </div>
               </div>

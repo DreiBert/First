@@ -15,7 +15,7 @@ $all_photo = find_all('media');
 // Check if the form is submitted
 if (isset($_POST['add_product'])) {
   // Required fields for validation
-  $req_fields = array('last-name', 'first-name', 'middle-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'pensioner');
+  $req_fields = array('last-name', 'first-name', 'middle-name', 'sex', 'date-of-birth', 'place-of-birth', 'address', 'barangay_id', 'educational-attainment', 'civil-status', 'religion', 'contact-number', 'email-address', 'pantawid-beneficiary', 'lgbtq', 'Indigenous_Person', 'status', 'pensioner');
 
   // Validate the required fields
   validate_fields($req_fields);
@@ -44,8 +44,10 @@ if (isset($_POST['add_product'])) {
     $middle_name = remove_junk($db->escape($_POST['middle-name']));
     $extension_name = remove_junk($db->escape($_POST['extension-name']));
     $classification = remove_junk($db->escape($_POST['classification']));
+    $remarks = remove_junk($db->escape($_POST['remarks']));
     $problems = remove_junk($db->escape($_POST['problems']));
     $date_of_birth = remove_junk($db->escape($_POST['date-of-birth']));
+    $status = remove_junk($db->escape($_POST['status']));
     $place_of_birth = remove_junk($db->escape($_POST['place-of-birth']));
     $address = remove_junk($db->escape($_POST['address']));
     $barangay_id = remove_junk($db->escape($_POST['barangay_id']));
@@ -60,6 +62,7 @@ if (isset($_POST['add_product'])) {
     $email_address = remove_junk($db->escape($_POST['email-address']));
     $pantawid_beneficiary = remove_junk($db->escape($_POST['pantawid-beneficiary']));
     $lgbtq = remove_junk($db->escape($_POST['lgbtq']));
+    $Indigenous_Person = remove_junk($db->escape($_POST['Indigenous_Person']));
     $pensioner = remove_junk($db->escape($_POST['pensioner']));
     $sex = remove_junk($db->escape($_POST['sex']));
 
@@ -79,12 +82,14 @@ if (isset($_POST['add_product'])) {
     // Sanitize and escape form inputs
     $classification = remove_junk($db->escape($_POST['classification']));
     $problems = remove_junk($db->escape($_POST['problems']));
+    $remarks = remove_junk($db->escape($_POST['remarks']));
+
 
     // Construct the SQL query to insert data into the database
     $query = "INSERT INTO application_forms (";
-    $query .= "case_number, last_name, first_name, middle_name, extension_name, age, sex, date_of_birth, place_of_birth, address, barangay_id, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, pensioner, classification, problems, date";
+    $query .= "case_number, last_name, first_name, middle_name, extension_name, age, sex, date_of_birth, place_of_birth, address, barangay_id, educational_attainment, civil_status, occupation, religion, company_agency, monthly_income, employment_status, contact_number, email_address, pantawid_beneficiary, lgbtq, Indigenous_Person, pensioner, classification, problems, remarks, status,  date";
     $query .= ") VALUES (";
-    $query .= "'{$case_number}', '{$last_name}', '{$first_name}', '{$middle_name}', '{$extension_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$pensioner}', '{$classification}', '{$problems}', '{$date}'";
+    $query .= "'{$case_number}', '{$last_name}', '{$first_name}', '{$middle_name}', '{$extension_name}', '{$age}', '{$sex}', '{$date_of_birth}', '{$place_of_birth}', '{$address}', '{$barangay_id}', '{$educational_attainment}', '{$civil_status}', '{$occupation}', '{$religion}', '{$company_agency}', '{$monthly_income}', '{$employment_status}', '{$contact_number}', '{$email_address}', '{$pantawid_beneficiary}', '{$lgbtq}', '{$Indigenous_Person}', '{$pensioner}', '{$classification}', '{$problems}', '{$remarks}', '{$status}', '{$date}'";
     $query .= ")";
     $query .= " ON DUPLICATE KEY UPDATE last_name='{$last_name}'";
 
@@ -235,7 +240,7 @@ if (isset($_POST['add_product'])) {
 
             <!-- Date of Birth & Place of Birth -->
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"> Sex</span>
@@ -257,11 +262,24 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i> Place of Birth</span>
                     <input type="text" class="form-control" name="place-of-birth" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i> Status</span>
+                    <select class="form-control" name="status" required>
+                      <option value="">Select Status</option>
+                      <option value="new">New</option>
+                      <option value="renewal">Renewal</option>
+                      <option value="terminated">Terminated</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -419,7 +437,7 @@ if (isset($_POST['add_product'])) {
             <div class="row">
 
 
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"> Pantawid Beneficiary</span>
@@ -431,7 +449,7 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">Pensioner</span>
@@ -443,11 +461,24 @@ if (isset($_POST['add_product'])) {
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"> LGBTQ+</span>
                     <select class="form-control" name="lgbtq" required>
+                      <option value="">Select</option>
+                      <option value="Y">Yes</option>
+                      <option value="N">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"> Indigenous Person</span>
+                    <select class="form-control" name="Indigenous_Person" required>
                       <option value="">Select</option>
                       <option value="Y">Yes</option>
                       <option value="N">No</option>
@@ -557,7 +588,7 @@ if (isset($_POST['add_product'])) {
                 <div class="form-group">
                   <label for="classification"> III. Classification/ circumstances of being a solo parent Dahilan bakit
                     naging solo parent</label>
-                  <select class="form-control" id="classification" name="classification">
+                  <select class="form-control" id="classification" name="classification" required>
                     <option value="">Select</option>
                     <option value="a1. Consequence of rape">a1. Consequence of rape</option>
                     <option value="a2. Widow/ widower">a2. Widow/ widower</option>
@@ -645,7 +676,15 @@ if (isset($_POST['add_product'])) {
                 </div>
               </div>
             </div>
-
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="remarks">Remarks</label>
+                  <textarea class="form-control" id="remarks" name="remarks"
+                    placeholder="Enter any remarks here"></textarea>
+                </div>
+              </div>
+            </div>
 
             <!-- Submit button -->
             <div class="row">
@@ -656,6 +695,7 @@ if (isset($_POST['add_product'])) {
 
 
           </form>
+
         </div>
       </div>
     </div>
