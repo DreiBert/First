@@ -125,7 +125,7 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
               </th>
               <th class="text-center" style="width: 12vh;">
                 <a href="?sort=case_number&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
-                  style="text-decoration: none; color: inherit;">ID No.
+                  style="text-decoration: none; color: inherit;">Case No.
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'case_number' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
@@ -180,7 +180,24 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
           <tbody>
             <?php
             $row_number = $start_row_number;
-            foreach ($application_forms as $form): ?>
+            foreach ($application_forms as $form):
+              // Determine the button class based on the status
+              $status_class = '';
+              switch ($form['status']) {
+                case 'active':
+                  $status_class = 'btn btn-success btn-xs';
+                  break;
+                case 'new':
+                  $status_class = 'btn btn-success btn-xs';
+                  break;
+                case 'renewal':
+                  $status_class = 'btn btn-warning btn-xs';
+                  break;
+                case 'terminated':
+                  $status_class = 'btn btn-danger btn-xs';
+                  break;
+              }
+              ?>
               <tr>
                 <td class="text-center"><?php echo $row_number++; ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['case_number']); ?></td>
@@ -191,7 +208,9 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
                 <td class="text-center"> <?php echo remove_junk($form['sex']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['contact_number']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($form['created_at']); ?></td>
-                <td class="text-center"> <?php echo remove_junk($form['status']); ?></td>
+                <td class="text-center">
+                  <span class="<?php echo $status_class; ?>"><?php echo remove_junk($form['status']); ?></span>
+                </td>
                 <td class="text-center">
                   <div class="btn-group">
                     <a href="edit_product.php?id=<?php echo (int) $form['id']; ?>" class="btn btn-info btn-xs"

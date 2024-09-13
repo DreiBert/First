@@ -631,8 +631,8 @@ if (isset($_POST['update_form'])) {
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon">Remarks</span>
-                    <textarea class="form-control" name="remarks"
-                      required><?php echo remove_junk($form['remarks']); ?></textarea>
+                    <textarea class="form-control"
+                      name="remarks"><?php echo remove_junk($form['remarks']); ?></textarea>
                   </div>
                 </div>
               </div>
