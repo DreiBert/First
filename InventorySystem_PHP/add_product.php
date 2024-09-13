@@ -4,6 +4,8 @@ $page_title = 'Add Product';
 
 // Include necessary files
 require_once('includes/load.php');
+require_once('update_statuses.php'); // Include the file with the update_statuses function
+update_statuses();
 $barangays = find_all_barangays();
 // Check what level user has permission to view this page
 page_require_level(3);

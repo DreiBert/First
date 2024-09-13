@@ -1,6 +1,8 @@
 <?php
 $page_title = 'Edit Application Form';
 require_once('includes/load.php');
+require_once('update_statuses.php'); // Include the file with the update_statuses function
+update_statuses();
 // Check what level user has permission to view this page
 page_require_level(2);
 

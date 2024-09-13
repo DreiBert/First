@@ -1,6 +1,8 @@
 <?php
 $page_title = 'All Application Forms';
 require_once('includes/load.php');
+require_once('update_statuses.php'); // Include the file with the update_statuses function
+update_statuses();
 // Check what level user has permission to view this page
 page_require_level(3);
 
@@ -20,6 +22,9 @@ $rows_per_page = isset($_GET['rows']) ? (int) $_GET['rows'] : 20;
 // Get the current page from URL or set default to 1
 $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
+// Get the selected status from URL
+$selected_status = isset($_GET['status']) ? $_GET['status'] : '';
+
 // Fetch the total number of records
 $total_records = count_by_id('application_forms')['total'];
 
@@ -34,8 +39,8 @@ error_log("Current Page: $current_page");
 error_log("Rows Per Page: $rows_per_page");
 error_log("Offset: $offset");
 
-// Modify the query to include sorting, search, and limit
-$application_forms = join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page, $offset);
+// Modify the query to include sorting, search, status filter, and limit
+$application_forms = join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page, $offset, $selected_status);
 
 // Calculate the starting row number for the current page
 $start_row_number = ($current_page - 1) * $rows_per_page + 1;
@@ -70,6 +75,21 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
                   echo 'selected'; ?>>100</option>
               </select>
             </div>
+
+            <div class="form-group">
+              &nbsp;&nbsp;&nbsp;&nbsp;<label for="status">Status:</label>
+              <select name="status" class="form-control" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="renewal" <?php if ($selected_status == 'renewal')
+                  echo 'selected'; ?>>Renewal</option>
+                <option value="terminated" <?php if ($selected_status == 'terminated')
+                  echo 'selected'; ?>>Terminated
+                </option>
+                <option value="New" <?php if ($selected_status == 'New')
+                  echo 'selected'; ?>>New
+                </option>
+              </select>
+            </div>
           </form>
         </div>
         <div class="pull-right">
@@ -97,42 +117,42 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
           <thead>
             <tr>
               <th class="text-center" style="width: 10vh;">
-                <a href="?sort=id&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                <a href="?sort=id&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
                   style="text-decoration: none; color: inherit;">No.
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'id' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
               </th>
               <th class="text-center" style="width: 12vh;">
-                <a href="?sort=case_number&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                <a href="?sort=case_number&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
                   style="text-decoration: none; color: inherit;">ID No.
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'case_number' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
               </th>
               <th class="text-center" style="width: 30vh;">
-                <a href="?sort=full_name&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                <a href="?sort=full_name&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
                   style="text-decoration: none; color: inherit;">Fullname
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'full_name' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
               </th>
               <th class="text-center" style="width: 30vh;">
-                <a href="?sort=address&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                <a href="?sort=address&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
                   style="text-decoration: none; color: inherit;">Address
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'address' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
               </th>
               <th class="text-center" style="width: 15vh;">
-                <a href="?sort=barangay&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                <a href="?sort=barangay&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
                   style="text-decoration: none; color: inherit;">Barangay
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'barangay' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
               </th>
               <th class="text-center" style="width: 15vh;">
-                <a href="?sort=age&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                <a href="?sort=age&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
                   style="text-decoration: none; color: inherit;">Age
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'age' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
@@ -141,14 +161,14 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
               <th class="text-center" style="width: 15vh;">Gender</th>
               <th class="text-center" style="width: 15vh;">Contact</th>
               <th class="text-center" style="width: 20vh;">
-                <a href="?sort=created_at&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                <a href="?sort=created_at&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
                   style="text-decoration: none; color: inherit;">Timestamp
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'created_at' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
                 </a>
               </th>
               <th class="text-center" style="width: 15vh;">
-                <a href="?sort=status&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"
+                <a href="?sort=status&order=<?php echo $next_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"
                   style="text-decoration: none; color: inherit;">Status
                   <i
                     class="fas fa-sort<?php echo $sort_column == 'status' ? ($sort_order == 'asc' ? '-up' : '-down') : ''; ?>"></i>
@@ -192,20 +212,20 @@ $start_row_number = ($current_page - 1) * $rows_per_page + 1;
           <ul class="pagination">
             <?php if ($current_page > 1): ?>
               <li><a
-                  href="?page=<?php echo $current_page - 1; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>">&laquo;
+                  href="?page=<?php echo $current_page - 1; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>">&laquo;
                   Previous</a></li>
             <?php endif; ?>
 
             <?php for ($i = 1; $i <= $total_pages; $i++): ?>
               <li class="<?php echo $i == $current_page ? 'active' : ''; ?>">
                 <a
-                  href="?page=<?php echo $i; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>"><?php echo $i; ?></a>
+                  href="?page=<?php echo $i; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>"><?php echo $i; ?></a>
               </li>
             <?php endfor; ?>
 
             <?php if ($current_page < $total_pages): ?>
               <li><a
-                  href="?page=<?php echo $current_page + 1; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>">Next
+                  href="?page=<?php echo $current_page + 1; ?>&sort=<?php echo $sort_column; ?>&order=<?php echo $sort_order; ?>&search=<?php echo htmlspecialchars($search_term); ?>&rows=<?php echo $rows_per_page; ?>&status=<?php echo $selected_status; ?>">Next
                   &raquo;</a></li>
             <?php endif; ?>
           </ul>

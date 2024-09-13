@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2024 at 10:58 AM
+-- Generation Time: Sep 13, 2024 at 04:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,48 +55,58 @@ CREATE TABLE `application_forms` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `first_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) DEFAULT NULL,
-  `extension_name` varchar(255) DEFAULT NULL
+  `extension_name` varchar(255) DEFAULT NULL,
+  `Indigenous_Person` varchar(1) NOT NULL,
+  `remarks` text DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `application_forms`
 --
 
-INSERT INTO `application_forms` (`id`, `case_number`, `last_name`, `age`, `sex`, `date_of_birth`, `place_of_birth`, `address`, `pensioner`, `barangay_id`, `educational_attainment`, `civil_status`, `occupation`, `religion`, `company_agency`, `monthly_income`, `employment_status`, `contact_number`, `email_address`, `pantawid_beneficiary`, `lgbtq`, `date`, `classification`, `problems`, `created_at`, `first_name`, `middle_name`, `extension_name`) VALUES
-(42, '123456', 'Esguerra, Pogie', 25, 'Female', '1999-01-20', 'quezons', 'eubert@gmail.com', 'Y', 2, 'Collegesdasdf', 'Single', 'ITs', 'Christian', 'company name', 10000.00, 'Self-employed', '09568884009', 'eubert@gmail.com', 'N', 'N', '2024-09-09 03:58:02', 'asdfas', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(44, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 5, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:41:14', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(45, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:41:45', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(46, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 11, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:43:17', 'asdfasf', 'asdfasf', '2024-09-09 05:41:16', '', NULL, NULL),
-(47, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:48:54', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(48, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:51:44', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(49, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:54:14', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(50, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-02', 'quezon', 'eubert@gmail.com', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:54:47', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(51, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-02-02', 'quezon', 'eubert@gmail.com', 'Y', 76, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:57:37', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(52, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:59:12', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(53, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:59:38', '', '', '2024-09-09 05:41:16', '', NULL, NULL),
-(54, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 06:03:47', 'Hello? ', 'Wassup?  asdf', '2024-09-09 05:41:16', '', NULL, NULL),
-(56, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:42:13', '', '', '2024-09-09 05:42:13', '', NULL, NULL),
-(57, '1234', 'Esgera, Bert 01', 44, 'Male', '1980-01-01', 'quezon', 'Cavite', 'Y', 8, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:49:22', '', '', '2024-09-09 05:49:22', '', NULL, NULL),
-(58, '1234', 'Hello, Wassup new', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', 'Y', 76, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 19:26:57', 'asdfasdf', 'asdfasdfa', '2024-09-09 17:26:57', '', NULL, NULL),
-(59, '1234', 'Hi, Hello Again', 21, 'Male', '2003-01-01', 'Quezon', 'Cavite', 'Y', 3, 'Collegeasdf', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Self-employed', '0913241234', 'Bert@gmail.com', 'N', 'Y', '2024-09-09 19:30:11', 'hELLO wasasdf fasdfas', 'asfdasdf', '2024-09-09 17:30:11', '', NULL, NULL),
-(60, '1234', 'asdf, afdsasdf asdfasd', 22, 'Male', '2002-02-20', 'Quezon', 'Cavite', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 19:31:06', '', '', '2024-09-09 17:31:06', '', NULL, NULL),
-(61, '4321', 'Sequerra, Drei bERT', 27, 'Male', '1997-01-01', 'Quezon', 'Cavite', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 20:54:57', 'AFDASDF ASDF ASDF ASDF AD FAS F', 'A SDF ASDF ASDF A FASDF F', '2024-09-09 18:54:57', '', NULL, NULL),
-(62, '124132', 'wasdfas, dasdfasd asdfasd', 23, 'Male', '2001-01-01', 'asdfasd', 'asdfasdfa', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 21:22:28', '', '', '2024-09-09 19:22:28', '', NULL, NULL),
-(63, '', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:01:46', '', 'language', '2024-09-12 07:01:46', 'Bert', 'Andrei', ''),
-(68, '2024-09-00001', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 8, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:10:48', '', 'language', '2024-09-12 07:10:48', '', NULL, NULL),
-(69, '2024-09-00002', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'Y', '2024-09-12 09:34:22', '', 'language', '2024-09-12 07:34:22', 'Bert', '01', ''),
-(70, '2024-09-00003', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:34:54', '', 'language', '2024-09-12 07:34:54', 'Bert', '01', ''),
-(71, '2024-09-00004', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:36:19', '', 'language', '2024-09-12 07:36:19', 'Bert', '01', ''),
-(72, '2024-09-00005', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:36:42', '', 'language', '2024-09-12 07:36:42', 'Bert', '01', ''),
-(73, '', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:37:43', '', 'language', '2024-09-12 07:37:43', 'Bert', '01', '234'),
-(74, '2024-09-00007', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:40:11', '', 'language', '2024-09-12 07:40:11', 'Bert', '01', '23'),
-(75, '2024-09-00008', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:40:25', '', 'language', '2024-09-12 07:40:25', 'Bert', '01', 'asdf'),
-(76, '2024-09-00009', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:40:29', '', 'language', '2024-09-12 07:40:29', 'Bert', '01asdfas', 'asdf'),
-(77, '2024-09-00010', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:40:53', '', 'language', '2024-09-12 07:40:53', 'Bert', '01', 'asdf'),
-(78, '2024-09-00011', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:41:35', '', 'language', '2024-09-12 07:41:35', 'Bert', '01', 'wt'),
-(79, '2024-09-00012', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:43:10', 'asdfasf', 'language', '2024-09-12 07:43:10', 'Bert', '01', 'wtf'),
-(80, '2024-09-00013', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 10:13:48', '', 'language', '2024-09-12 08:13:48', 'Bert', '01', 'asdf'),
-(81, '2024-09-00014', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'N', 3, 'elementary level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 10:43:37', 'd. Legal guardian, Adpotive or Foster Parent', 'language', '2024-09-12 08:43:37', 'Bert', '01', '');
+INSERT INTO `application_forms` (`id`, `case_number`, `last_name`, `age`, `sex`, `date_of_birth`, `place_of_birth`, `address`, `pensioner`, `barangay_id`, `educational_attainment`, `civil_status`, `occupation`, `religion`, `company_agency`, `monthly_income`, `employment_status`, `contact_number`, `email_address`, `pantawid_beneficiary`, `lgbtq`, `date`, `classification`, `problems`, `created_at`, `first_name`, `middle_name`, `extension_name`, `Indigenous_Person`, `remarks`, `status`) VALUES
+(42, '123456', 'Esguerra, Pogie', 25, 'Female', '1999-01-20', 'quezons', 'eubert@gmail.com', 'Y', 2, 'Collegesdasdf', 'Single', 'ITs', 'Christian', 'company name', 10000.00, 'Self-employed', '09568884009', 'eubert@gmail.com', 'N', 'N', '2024-09-09 03:58:02', 'asdfas', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(44, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 5, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:41:14', '', '', '2024-09-09 05:41:16', 'Bert', 'asdf', 'asdf', 'Y', 'asdf', 'new'),
+(45, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:41:45', '', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(46, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 11, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:43:17', 'asdfasf', 'asdfasf', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(47, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:48:54', '', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(48, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:51:44', '', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(49, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:54:14', '', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(50, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-02', 'quezon', 'eubert@gmail.com', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:54:47', '', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(51, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-02-02', 'quezon', 'eubert@gmail.com', 'Y', 76, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:57:37', '', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(52, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:59:12', '', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(53, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 9, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 05:59:38', '', '', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(54, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 06:03:47', 'Hello? ', 'Wassup?  asdf', '2024-09-09 05:41:16', '', NULL, NULL, '', NULL, NULL),
+(56, '1234', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:42:13', '', '', '2024-09-09 05:42:13', '', NULL, NULL, '', NULL, NULL),
+(57, '1234', 'Esgera, Bert 01', 44, 'Male', '1980-01-01', 'quezon', 'Cavite', 'Y', 8, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-09 07:49:22', '', '', '2024-09-09 05:49:22', '', NULL, NULL, '', NULL, NULL),
+(58, '1234', 'Hello, Wassup new', 23, 'Male', '2001-01-01', 'Quezon', 'Cavite', 'Y', 76, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 19:26:57', 'asdfasdf', 'asdfasdfa', '2024-09-09 17:26:57', '', NULL, NULL, '', NULL, NULL),
+(59, '1234', 'Hi, Hello Again', 21, 'Male', '2003-01-01', 'Quezon', 'Cavite', 'Y', 3, 'Collegeasdf', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Self-employed', '0913241234', 'Bert@gmail.com', 'N', 'Y', '2024-09-09 19:30:11', 'hELLO wasasdf fasdfas', 'asfdasdf', '2024-09-09 17:30:11', '', NULL, NULL, '', NULL, NULL),
+(60, '1234', 'asdf, afdsasdf asdfasd', 22, 'Male', '2002-02-20', 'Quezon', 'Cavite', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 19:31:06', '', '', '2024-09-09 17:31:06', '', NULL, NULL, '', NULL, NULL),
+(61, '4321', 'Sequerra, Drei bERT', 27, 'Male', '1997-01-01', 'Quezon', 'Cavite', 'N', 2, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 20:54:57', 'AFDASDF ASDF ASDF ASDF AD FAS F', 'A SDF ASDF ASDF A FASDF F', '2024-09-09 18:54:57', '', NULL, NULL, '', NULL, NULL),
+(62, '124132', 'wasdfas, dasdfasd asdfasd', 23, 'Male', '2001-01-01', 'asdfasd', 'asdfasdfa', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'CSWD', 12341324.00, 'Employed', '0913241234', 'Bert@gmail.com', 'Y', 'Y', '2024-09-09 21:22:28', '', '', '2024-09-09 19:22:28', '', NULL, NULL, '', NULL, NULL),
+(63, '', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:01:46', '', 'language', '2024-09-12 07:01:46', 'Bert', 'Andrei', '', '', NULL, NULL),
+(68, '2024-09-00001', 'Esgera, Bert 01', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 8, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:10:48', '', 'language', '2024-09-12 07:10:48', '', NULL, NULL, '', NULL, NULL),
+(69, '2024-09-00002', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'Y', '2024-09-12 09:34:22', '', 'language', '2024-09-12 07:34:22', 'Bert', '01', '', '', NULL, NULL),
+(70, '2024-09-00003', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:34:54', '', 'language', '2024-09-12 07:34:54', 'Bert', '01', '', '', NULL, NULL),
+(71, '2024-09-00004', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:36:19', '', 'language', '2024-09-12 07:36:19', 'Bert', '01', '', '', NULL, NULL),
+(72, '2024-09-00005', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:36:42', '', 'language', '2024-09-12 07:36:42', 'Bert', '01', '', '', NULL, NULL),
+(73, '', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:37:43', '', 'language', '2024-09-12 07:37:43', 'Bert', '01', '234', '', NULL, NULL),
+(74, '2024-09-00007', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:40:11', '', 'language', '2024-09-12 07:40:11', 'Bert', '01', '23', '', NULL, NULL),
+(75, '2024-09-00008', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:40:25', '', 'language', '2024-09-12 07:40:25', 'Bert', '01', 'asdf', '', NULL, NULL),
+(76, '2024-09-00009', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 2, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:40:29', '', 'language', '2024-09-12 07:40:29', 'Bert', '01asdfas', 'asdf', '', NULL, NULL),
+(77, '2024-09-00010', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'College', 'Single', 'IT', 'Christian', 'company name', 10000.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-12 09:40:53', '', 'language', '2024-09-12 07:40:53', 'Bert', '01', 'asdf', '', NULL, NULL),
+(82, '2024-09-00011', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 6, 'no education', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 02:42:39', '', 'language', '2024-09-13 00:42:39', 'Bert', '01', 'jr', 'Y', NULL, NULL),
+(83, '2024-09-00012', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'N', 4, 'elementary level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 02:51:00', 'a2. Widow/ widower', 'language', '2024-09-13 00:51:00', 'Bert', '01', 'fr', 'Y', NULL, NULL),
+(84, '2024-09-00013', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'N', 3, 'elementary level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 02:51:56', 'a3. Spouse of PDL', 'language', '2024-09-13 00:51:56', 'Bert', '01', 'sdf', 'Y', 'dfsf', 'terminated'),
+(85, '2024-09-00014', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'N', 4, 'elementary level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 02:56:22', '', 'remarks', '2024-09-13 00:56:22', 'Bert', '01', 'jr', 'N', '', 'new'),
+(86, '2024-09-00015', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'N', 4, 'elementary level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 02:57:01', 'a2. Widow/ widower', 'asdfasdfasdffas', '2024-09-13 00:57:01', 'Bert', '01', 'fr', 'Y', 'language', NULL),
+(87, '2024-09-00016', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'elementary level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 03:00:37', 'a2. Widow/ widower', 'language', '2024-09-13 01:00:37', 'Bert', '01', 'fr', 'Y', '', 'new'),
+(88, '', 'Esgera', 23, 'Male', '2001-10-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'elementary level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 03:01:08', 'a2. Widow/ widower', 'problems', '2024-09-13 01:01:08', 'Bert', '01', 'fr', 'Y', 'asda', 'renewal'),
+(89, '', 'Esgera', 23, 'Male', '2001-10-01', 'quezon', 'eubert@gmail.com', 'Y', 3, 'elementary level', 'Single', 'IT', 'Christian', 'company nameas', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 03:13:17', 'a3. Spouse of PDL', 'problmes', '2024-09-13 01:13:17', 'Berteng', '01', 'jr', 'Y', 'fasdfa', 'renewal'),
+(90, '2024-09-00017', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'high school level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 03:47:57', 'a1. Consequence of rape', 'language', '2024-09-13 01:47:57', 'Bert', '01', 'jr', 'Y', 'asdfasdf', 'renewal'),
+(91, '2024-09-00018', 'Esgera', 23, 'Male', '2001-01-01', 'quezon', 'eubert@gmail.com', 'Y', 4, 'high school level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 03:48:17', 'a1. Consequence of rape', 'language', '2024-09-13 01:48:17', 'Bert', '01', 'jr', 'Y', 'remarks', 'renewal'),
+(92, '2024-09-00019', 'Esgera', 22, 'Male', '2001-10-07', 'quezon', 'eubert@gmail.com', 'Y', 3, 'elementary level', 'Single', 'IT', 'Christian', 'company name', 0.00, 'Employed', '09568884009', 'eubert@gmail.com', 'Y', 'N', '2024-09-13 03:55:15', 'a2. Widow/ widower', 'language', '2024-09-13 01:55:15', 'Bert', '01', '', 'Y', '', 'renewal');
 
 -- --------------------------------------------------------
 
@@ -238,7 +248,9 @@ INSERT INTO `emergency_contacts` (`id`, `application_id`, `name`, `relation`, `a
 (6, 42, 'asdfdddD', '', '', ''),
 (7, 60, '', '', '', ''),
 (8, 54, '', '', '', ''),
-(9, 61, 'HILBERT', 'FATER', 'Cavite', '01341234');
+(9, 61, 'HILBERT', 'FATER', 'Cavite', '01341234'),
+(10, 90, 'asdfdas', 'asdf', 'eubert@gmail.com', '324'),
+(11, 91, 'asdfdas', 'asdf', 'eubert@gmail.com', '324');
 
 -- --------------------------------------------------------
 
@@ -290,14 +302,23 @@ INSERT INTO `family_members` (`id`, `application_id`, `name`, `relation`, `age`,
 (51, 75, '', '', 0, '0000-00-00', '', '', 'IT', 0.00),
 (52, 76, '', '', 0, '0000-00-00', '', '', 'IT', 0.00),
 (53, 77, '', '', 0, '0000-00-00', '', '', 'IT', 0.00),
-(54, 78, '', '', 0, '0000-00-00', '', '', 'IT', 0.00),
-(55, 79, 'asdfasd1', 'asdfasf', 23, '2001-01-01', '', '', 'IT', 0.00),
-(56, 79, 'fasfd2', 'asdfasdf', 22, '2002-02-02', '', '', '', 0.00),
 (57, 63, 'asdfa12', 'asdf', 23, '0000-00-00', '', '', '', 0.00),
 (58, 63, 'asdf2', 'adsfasf', 22, '0000-00-00', '', '', '', 0.00),
-(59, 80, 'adfasd', 'asdf', 0, '0000-00-00', '', '', 'IT', 0.00),
-(60, 80, 'asdfasf', '', 0, '0000-00-00', '', '', '', 0.00),
-(61, 81, '', '', 0, '0000-00-00', '', '', 'IT', 0.00);
+(62, 82, '', '', 0, '0000-00-00', '', '', 'IT', 0.00),
+(63, 83, 'asdfas1', '', 0, '0000-00-00', 'Married', '', 'IT', 0.00),
+(64, 83, 'asdfasfd2', '', 0, '0000-00-00', 'Single', '', '', 0.00),
+(68, 86, 'asdfas1', '', 0, '0000-00-00', 'Married', '', 'IT', 0.00),
+(78, 87, 'asdfas1', '', 0, '0000-00-00', '', '', '', 0.00),
+(79, 85, '', '', 0, '0000-00-00', '', '', '', 0.00),
+(84, 90, '', 'asdfa', 0, '0000-00-00', '', '', 'IT', 0.00),
+(85, 91, 'asdfa1', 'asdfa', 0, '0000-00-00', '', '', 'IT', 0.00),
+(86, 91, 'asdf2', '', 0, '0000-00-00', '', '', '', 0.00),
+(87, 92, 'asdfas1', '', 0, '0000-00-00', '', '', 'IT', 0.00),
+(88, 89, 'bro1', '', 0, '0000-00-00', '', '', '', 0.00),
+(89, 89, 'bro2', '', 0, '0000-00-00', '', '', '', 0.00),
+(90, 88, 'asdfas1', '', 0, '0000-00-00', '', '', '', 0.00),
+(91, 84, 'asdfas13', '', 0, '0000-00-00', '', '', '', 0.00),
+(92, 84, 'asdf12', 'asdf', 0, '0000-00-00', '', '', '', 0.00);
 
 -- --------------------------------------------------------
 
@@ -325,28 +346,29 @@ CREATE TABLE `products` (
   `sale_price` decimal(25,2) NOT NULL,
   `categorie_id` int(11) UNSIGNED NOT NULL,
   `media_id` int(11) DEFAULT 0,
-  `date` datetime NOT NULL
+  `date` datetime NOT NULL,
+  `Indigenous_Person` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `quantity`, `buy_price`, `sale_price`, `categorie_id`, `media_id`, `date`) VALUES
-(1, 'Demo Product', '48', 100.00, 500.00, 1, 0, '2021-04-04 16:45:51'),
-(2, 'Box Varieties', '12000', 55.00, 130.00, 4, 0, '2021-04-04 18:44:52'),
-(3, 'Wheat', '69', 2.00, 5.00, 2, 0, '2021-04-04 18:48:53'),
-(4, 'Timber', '1200', 780.00, 1069.00, 2, 0, '2021-04-04 19:03:23'),
-(5, 'W1848 Oscillating Floor Drill Press', '26', 299.00, 494.00, 5, 0, '2021-04-04 19:11:30'),
-(6, 'Portable Band Saw XBP02Z', '42', 280.00, 415.00, 5, 0, '2021-04-04 19:13:35'),
-(7, 'Life Breakfast Cereal-3 Pk', '107', 3.00, 7.00, 3, 0, '2021-04-04 19:15:38'),
-(8, 'Chicken of the Sea Sardines W', '110', 13.00, 20.00, 3, 0, '2021-04-04 19:17:11'),
-(9, 'Disney Woody - Action Figure', '67', 29.00, 55.00, 3, 0, '2021-04-04 19:19:20'),
-(10, 'Hasbro Marvel Legends Series Toys', '106', 219.00, 322.00, 3, 0, '2021-04-04 19:20:28'),
-(11, 'Packing Chips', '78', 21.00, 31.00, 4, 0, '2021-04-04 19:25:22'),
-(12, 'Classic Desktop Tape Dispenser 38', '160', 5.00, 10.00, 8, 0, '2021-04-04 19:48:01'),
-(13, 'Small Bubble Cushioning Wrap', '199', 8.00, 19.00, 4, 0, '2021-04-04 19:49:00'),
-(14, 'sadfas', '-11234', 1234.00, 134.00, 1, 0, '2024-08-15 08:36:17');
+INSERT INTO `products` (`id`, `name`, `quantity`, `buy_price`, `sale_price`, `categorie_id`, `media_id`, `date`, `Indigenous_Person`) VALUES
+(1, 'Demo Product', '48', 100.00, 500.00, 1, 0, '2021-04-04 16:45:51', ''),
+(2, 'Box Varieties', '12000', 55.00, 130.00, 4, 0, '2021-04-04 18:44:52', ''),
+(3, 'Wheat', '69', 2.00, 5.00, 2, 0, '2021-04-04 18:48:53', ''),
+(4, 'Timber', '1200', 780.00, 1069.00, 2, 0, '2021-04-04 19:03:23', ''),
+(5, 'W1848 Oscillating Floor Drill Press', '26', 299.00, 494.00, 5, 0, '2021-04-04 19:11:30', ''),
+(6, 'Portable Band Saw XBP02Z', '42', 280.00, 415.00, 5, 0, '2021-04-04 19:13:35', ''),
+(7, 'Life Breakfast Cereal-3 Pk', '107', 3.00, 7.00, 3, 0, '2021-04-04 19:15:38', ''),
+(8, 'Chicken of the Sea Sardines W', '110', 13.00, 20.00, 3, 0, '2021-04-04 19:17:11', ''),
+(9, 'Disney Woody - Action Figure', '67', 29.00, 55.00, 3, 0, '2021-04-04 19:19:20', ''),
+(10, 'Hasbro Marvel Legends Series Toys', '106', 219.00, 322.00, 3, 0, '2021-04-04 19:20:28', ''),
+(11, 'Packing Chips', '78', 21.00, 31.00, 4, 0, '2021-04-04 19:25:22', ''),
+(12, 'Classic Desktop Tape Dispenser 38', '160', 5.00, 10.00, 8, 0, '2021-04-04 19:48:01', ''),
+(13, 'Small Bubble Cushioning Wrap', '199', 8.00, 19.00, 4, 0, '2021-04-04 19:49:00', ''),
+(14, 'sadfas', '-11234', 1234.00, 134.00, 1, 0, '2024-08-15 08:36:17', '');
 
 -- --------------------------------------------------------
 
@@ -398,7 +420,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `image`, `status`, `last_login`) VALUES
-(1, 'Harry Denn', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.png', 1, '2024-09-09 18:35:06'),
+(1, 'Harry Denn', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.png', 1, '2024-09-13 03:48:43'),
 (2, 'John Walker', 'special', 'ba36b97a41e7faf742ab09bf88405ac04f99599a', 2, 'no_image.png', 1, '2021-04-04 19:53:26'),
 (3, 'Christopher', 'user', 'd033e22ae348aeb5660fc2140aec35850c4da997', 3, 'no_image.png', 1, '2024-08-30 03:17:35'),
 (4, 'Natie Williams', 'natie', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 3, 'no_image.png', 1, NULL),
@@ -510,7 +532,7 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT for table `application_forms`
 --
 ALTER TABLE `application_forms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `barangays`
@@ -528,13 +550,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `emergency_contacts`
 --
 ALTER TABLE `emergency_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `family_members`
 --
 ALTER TABLE `family_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `media`

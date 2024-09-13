@@ -267,7 +267,7 @@ function find_all_barangays()
 }
 
 
-function join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page, $offset)
+function join_application_forms_table($sort_column, $sort_order, $search_term, $rows_per_page, $offset, $selected_status)
 {
   global $db;
 
@@ -285,13 +285,20 @@ function join_application_forms_table($sort_column, $sort_order, $search_term, $
     $search_sql = "AND (af.case_number LIKE '%$search_term%' OR af.last_name LIKE '%$search_term%' OR af.first_name LIKE '%$search_term%' OR af.middle_name LIKE '%$search_term%' OR af.extension_name LIKE '%$search_term%' OR af.address LIKE '%$search_term%' OR b.name LIKE '%$search_term%' OR af.age LIKE '%$search_term%' OR af.sex LIKE '%$search_term%' OR af.contact_number LIKE '%$search_term%' OR af.created_at LIKE '%$search_term%' OR af.status LIKE '%$search_term%')";
   }
 
+  // Add status filter to the query
+  $status_sql = '';
+  if (!empty($selected_status)) {
+    $selected_status = $db->escape($selected_status);
+    $status_sql = "AND af.status = '$selected_status'";
+  }
+
   // Add pagination to the query
   $sql = "SELECT af.id, af.case_number, 
                  CONCAT(af.last_name, ', ', af.first_name, ' ', af.middle_name, ' ', af.extension_name) AS full_name, 
                  af.address, b.name AS barangay, af.age, af.sex AS sex, af.contact_number, af.created_at, af.status 
           FROM application_forms af
           LEFT JOIN barangays b ON af.barangay_id = b.id
-          WHERE 1=1 $search_sql
+          WHERE 1=1 $search_sql $status_sql
           ORDER BY {$sort_column} {$sort_order}
           LIMIT {$db->escape($rows_per_page)} OFFSET {$db->escape($offset)}";
   return find_by_sql($sql);
